@@ -3,616 +3,493 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZOO Technologies — AI-Native Digital Experiences</title>
+<title>ZOO — Autonomous Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap&display=swap" rel="preload" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 <style>
-:root{--black:#060608;--dark:#0c0c0e;--surface:#141418;--border:rgba(255,255,255,0.04);--border-light:rgba(255,255,255,0.09);--text:#f2f2f5;--text-dim:#888890;--text-muted:#4a4a52;--accent:#ff6b35;--accent-dim:rgba(255,107,53,0.06);--accent-glow:rgba(255,107,53,0.1);--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Inter',-apple-system,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1)}
+:root{
+  --bg:#030305;--bg1:#08080c;--bg2:#0e0e14;--bg3:#16161e;
+  --surface:rgba(255,255,255,0.02);--surface2:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.06);--border-h:rgba(255,255,255,0.12);
+  --text:#e8e8f0;--text2:#9090a8;--text3:#5a5a70;
+  --cyan:#00e5ff;--cyan-g:rgba(0,229,255,0.12);
+  --violet:#a855f7;--violet-g:rgba(168,85,247,0.12);
+  --pink:#f472b6;--pink-g:rgba(244,114,182,0.12);
+  --lime:#a3e635;--lime-g:rgba(163,230,53,0.12);
+  --grad:linear-gradient(135deg,var(--cyan),var(--violet));
+  --grad2:linear-gradient(135deg,var(--violet),var(--pink));
+  --grad3:linear-gradient(135deg,var(--lime),var(--cyan));
+  --display:'Syne',sans-serif;--sans:'Space Grotesk',sans-serif;--mono:'Space Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{background:var(--black);-webkit-font-smoothing:antialiased}
-body{font-family:var(--font-sans);background:var(--black);color:var(--text);line-height:1.6;overflow-x:hidden}
-::selection{background:var(--accent);color:#000}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--cyan);color:var(--bg)}
 ::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:var(--black)}
-::-webkit-scrollbar-thumb{background:#222}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg3)}
 
-/* THREE.JS CANVAS — full screen background */
-#three-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+/* ═══ CURSOR GLOW ═══ */
+.cursor-glow{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,0.06) 0%,rgba(168,85,247,0.03) 35%,transparent 70%);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);will-change:left,top;mix-blend-mode:screen}
 
-/* NOISE */
-.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px}
+/* ═══ NOISE ═══ */
+.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.015;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:512px}
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;transition:all .5s var(--ease)}
-.nav.scrolled{padding:12px 48px;background:rgba(6,6,8,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:var(--font-serif);font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;font-style:italic}
-.nav-logo em{color:var(--accent);font-style:italic}
-.nav-inner{display:flex;align-items:center;gap:32px}
-.nav-links{display:flex;gap:24px;list-style:none}
-.nav-links a{color:var(--text-dim);text-decoration:none;font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.13em}
-.nav-links a:hover{color:var(--text)}
-.nav-cta{padding:8px 18px;border:1px solid var(--border-light);border-radius:100px;color:var(--text);background:0 0;font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.11em;text-decoration:none;transition:all .35s;cursor:pointer;font-family:var(--font-sans)}
-.nav-cta:hover{border-color:var(--accent);color:var(--accent)}
+/* ═══ PARTICLES (CSS only) ═══ */
+.particles{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:floatParticle linear infinite;opacity:0}
+.particle:nth-child(1){width:2px;height:2px;background:var(--cyan);left:10%;animation-duration:12s;animation-delay:0s}
+.particle:nth-child(2){width:3px;height:3px;background:var(--violet);left:20%;animation-duration:15s;animation-delay:2s}
+.particle:nth-child(3){width:2px;height:2px;background:var(--pink);left:35%;animation-duration:18s;animation-delay:1s}
+.particle:nth-child(4){width:2px;height:2px;background:var(--lime);left:50%;animation-duration:14s;animation-delay:3s}
+.particle:nth-child(5){width:3px;height:3px;background:var(--cyan);left:65%;animation-duration:16s;animation-delay:0.5s}
+.particle:nth-child(6){width:2px;height:2px;background:var(--violet);left:75%;animation-duration:13s;animation-delay:4s}
+.particle:nth-child(7){width:2px;height:2px;background:var(--pink);left:85%;animation-duration:17s;animation-delay:1.5s}
+.particle:nth-child(8){width:3px;height:3px;background:var(--lime);left:92%;animation-duration:11s;animation-delay:2.5s}
+.particle:nth-child(9){width:2px;height:2px;background:var(--cyan);left:45%;animation-duration:19s;animation-delay:5s}
+.particle:nth-child(10){width:2px;height:2px;background:var(--violet);left:55%;animation-duration:20s;animation-delay:3.5s}
+@keyframes floatParticle{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.6}90%{opacity:.6}100%{transform:translateY(-10vh) scale(1);opacity:0}}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:54% 46%;overflow:hidden}
-.hero-content{display:flex;flex-direction:column;justify-content:center;padding:100px 48px 80px 56px;z-index:2}
-.hero-visual{position:relative;overflow:hidden;background:var(--surface)}
-.hero-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.25;filter:grayscale(55%) contrast(1.1) brightness(.55)}
-.hero-visual-overlay{position:absolute;inset:0;background:linear-gradient(90deg,var(--black) 0%,transparent 35%),linear-gradient(0deg,var(--black) 0%,transparent 50%)}
-.hero-3d{position:absolute;inset:0;z-index:1;pointer-events:none}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:var(--accent)}
-.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--accent);opacity:.5}
-.hero-title{font-family:var(--font-serif);font-size:clamp(2.4rem,5.5vw,4.5rem);font-weight:900;line-height:1.02;letter-spacing:-.03em;margin-bottom:20px}
-.hero-title em{font-style:italic;font-weight:400}
-.hero-title .accent{font-style:italic;color:var(--accent)}
-.hero-desc{font-size:.92rem;color:var(--text-dim);max-width:380px;line-height:1.8;margin-bottom:32px;font-weight:300}
-.hero-btns{display:flex;gap:12px;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.11em;text-decoration:none;border-radius:100px;transition:all .35s var(--ease);border:none;cursor:pointer;font-family:var(--font-sans)}
-.btn-solid{background:var(--text);color:var(--black)}
-.btn-solid:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,255,255,.05)}
-.btn-outline{border:1px solid var(--border-light);color:var(--text);background:0 0}
-.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+/* ═══ NAV ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 56px;display:flex;justify-content:space-between;align-items:center;transition:all 0.5s var(--ease)}
+.nav.scrolled{padding:12px 56px;background:rgba(3,3,5,0.9);backdrop-filter:blur(30px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo em{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.nav-right{display:flex;align-items:center;gap:32px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-family:var(--mono);font-size:0.65rem;font-weight:400;text-transform:uppercase;letter-spacing:0.18em;transition:color 0.3s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{padding:10px 24px;background:var(--grad);color:var(--bg);font-family:var(--mono);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;text-decoration:none;border-radius:6px;transition:all 0.4s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,0.2)}
 
-/* MARQUEE */
-.marquee{padding:32px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
-.marquee-track{display:flex;gap:56px;animation:marquee-scroll 40s linear infinite;width:max-content}
-.marquee-item{font-family:var(--font-serif);font-size:1rem;font-style:italic;color:var(--text-muted);white-space:nowrap}
-@keyframes marquee-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* ═══ HERO — Split asymmetric ═══ */
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:55% 45%;overflow:hidden;padding-top:0}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:0 56px 0 64px;z-index:2}
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;z-index:2;overflow:hidden}
+.hero-right-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(0,229,255,0.04) 0%,rgba(168,85,247,0.02) 40%,transparent 70%)}
 
-/* 3D SECTION */
-.section-3d{position:relative;padding:80px 48px;overflow:hidden;background:var(--dark)}
-.section-3d-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:2}
-.section-3d-canvas{position:relative;height:360px}
-.section-3d-canvas canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
-.section-3d-content .hero-eyebrow{font-size:.62rem}
-.section-3d-content .hero-title{font-size:clamp(1.5rem,3vw,2.4rem);margin-bottom:14px}
-.section-3d-content .hero-desc{font-size:.85rem}
+/* Hero visual — geometric */
+.hero-visual{position:relative;width:420px;height:420px}
+.geo-ring{position:absolute;border-radius:50%;border:1px solid;animation:spin linear infinite}
+.geo-ring:nth-child(1){inset:0;border-color:rgba(0,229,255,0.15);animation-duration:20s}
+.geo-ring:nth-child(2){inset:40px;border-color:rgba(168,85,247,0.12);animation-duration:25s;animation-direction:reverse}
+.geo-ring:nth-child(3){inset:80px;border-color:rgba(244,114,182,0.1);animation-duration:30s}
+.geo-ring:nth-child(4){inset:120px;border-color:rgba(163,230,53,0.08);animation-duration:35s;animation-direction:reverse}
+.geo-dot{position:absolute;width:8px;height:8px;border-radius:50%;top:50%;left:50%;margin:-4px}
+.geo-dot:nth-child(5){background:var(--cyan);transform:rotate(0deg) translateX(210px);box-shadow:0 0 20px var(--cyan);animation:pulse 2s ease-in-out infinite}
+.geo-dot:nth-child(6){background:var(--violet);transform:rotate(120deg) translateX(170px);box-shadow:0 0 20px var(--violet);animation:pulse 2s ease-in-out infinite 0.5s}
+.geo-dot:nth-child(7){background:var(--pink);transform:rotate(240deg) translateX(130px);box-shadow:0 0 20px var(--pink);animation:pulse 2s ease-in-out infinite 1s}
+.geo-center{position:absolute;inset:140px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,0.08) 0%,transparent 70%);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:2.5rem;font-weight:800;background-clip:padding-box}
+.geo-center span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1) translateX(210px)}50%{opacity:.5;transform:scale(0.7) translateX(210px)}}
 
-/* SPLIT */
-.split{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-.split-left{padding:80px 48px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border)}
-.split-right{position:relative;overflow:hidden;background:var(--surface)}
-.split-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;filter:grayscale(65%) contrast(1.1)}
-.split-features{list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:8px}
-.split-feat{display:flex;gap:16px;align-items:flex-start}
-.split-feat-num{font-family:var(--font-serif);font-size:.68rem;font-style:italic;color:var(--text-muted);min-width:18px;margin-top:1px}
-.split-feat h4{font-size:.82rem;font-weight:600;margin-bottom:3px}
-.split-feat p{font-size:.75rem;color:var(--text-muted);line-height:1.6;font-weight:300}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan)}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--grad)}
+.hero-title{font-family:var(--display);font-size:clamp(3.2rem,7vw,6rem);font-weight:800;line-height:0.95;letter-spacing:-0.05em;margin-bottom:24px}
+.hero-title .line{display:block}
+.hero-title .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1rem;color:var(--text2);max-width:420px;line-height:1.85;margin-bottom:40px;font-weight:300}
+.hero-cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;font-family:var(--mono);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;text-decoration:none;border-radius:6px;transition:all 0.4s var(--ease);border:none;cursor:pointer}
+.btn-primary{background:var(--grad);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,229,255,0.2)}
+.btn-ghost{border:1px solid var(--border);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
 
-/* FULL BLEED */
-.full-bleed{position:relative;height:55vh;overflow:hidden;background:var(--surface)}
-.full-bleed img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.15;filter:grayscale(75%) contrast(1.1)}
-.full-bleed-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(6,6,8,.22)}
-.full-bleed-title{font-family:var(--font-serif);font-size:clamp(1.6rem,4vw,3.2rem);font-weight:900;line-height:1.05;text-align:center;max-width:600px}
-.full-bleed-title em{font-style:italic;font-weight:400}
+/* ═══ TICKER ═══ */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:18px 0}
+.ticker-track{display:flex;gap:48px;animation:ticker 30s linear infinite;width:max-content}
+.ticker-item{font-family:var(--mono);font-size:0.7rem;font-weight:400;text-transform:uppercase;letter-spacing:0.2em;color:var(--text3);white-space:nowrap;display:flex;align-items:center;gap:12px}
+.ticker-item::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:0.4}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* STATS */
-.stats{padding:56px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.stats-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px}
-.stat{flex:1;min-width:100px}
-.stat-val{font-family:var(--font-serif);font-size:2.4rem;font-weight:900;font-style:italic;color:var(--text);line-height:1;margin-bottom:3px}
-.stat-val span{font-size:1.2rem;color:var(--accent);font-style:normal}
-.stat-label{font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.14em;font-weight:500}
+/* ═══ SECTION ═══ */
+.section{padding:8rem 64px;position:relative}
+.section-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan);margin-bottom:20px}
+.section-tag::before{content:'';width:16px;height:1px;background:var(--cyan);opacity:0.5}
+.section-title{font-family:var(--display);font-size:clamp(2.5rem,5vw,4.2rem);font-weight:800;line-height:1;letter-spacing:-0.04em;margin-bottom:18px}
+.section-title .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-desc{font-size:1rem;color:var(--text2);max-width:480px;line-height:1.85;font-weight:300;margin-bottom:48px}
 
-/* WORK */
-.work{padding:80px 48px}
-.work-header{text-align:center;margin-bottom:48px}
-.work-label{font-size:.62rem;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);margin-bottom:18px}
-.work-title{font-family:var(--font-serif);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:900}
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
-.work-card{background:var(--black);padding:36px 28px;transition:background .4s;cursor:pointer}
-.work-card:hover{background:var(--accent-dim)}
-.work-card:nth-child(1){grid-column:span 2;padding:44px 36px}
-.work-card:nth-child(4){grid-column:span 2;padding:44px 36px}
-.work-card-num{font-family:var(--font-serif);font-size:.65rem;font-style:italic;color:var(--text-muted);margin-bottom:14px;opacity:.4}
-.work-card h3{font-family:var(--font-serif);font-size:1.15rem;font-weight:700;margin-bottom:8px}
-.work-card:nth-child(1) h3,.work-card:nth-child(4) h3{font-size:1.4rem}
-.work-card p{font-size:.75rem;color:var(--text-muted);line-height:1.6;font-weight:300}
+/* ═══ SERVICES — Stacked cards ═══ */
+.services-section{border-top:1px solid var(--border)}
+.services-list{max-width:1100px;margin:0 auto}
+.service-row{display:grid;grid-template-columns:80px 1fr auto;gap:40px;align-items:center;padding:48px 0;border-bottom:1px solid var(--border);transition:all 0.4s var(--ease);cursor:default}
+.service-row:last-child{border-bottom:none}
+.service-row:hover{background:var(--surface);padding-left:24px;padding-right:24px;margin:0 -24px;border-radius:12px;border-bottom-color:transparent}
+.service-num{font-family:var(--mono);font-size:0.65rem;color:var(--text3);letter-spacing:0.1em}
+.service-content h3{font-family:var(--display);font-size:1.6rem;font-weight:700;margin-bottom:8px;letter-spacing:-0.02em}
+.service-content p{font-size:0.85rem;color:var(--text2);line-height:1.7;max-width:480px;font-weight:300}
+.service-arrow{font-size:1.2rem;color:var(--text3);transition:all 0.4s var(--ease)}
+.service-row:hover .service-arrow{color:var(--cyan);transform:translateX(6px)}
+.service-icon{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid var(--border);transition:all 0.4s}
+.service-row:hover .service-icon{border-color:var(--cyan);background:var(--cyan-g)}
 
-/* PROCESS */
-.process{padding:80px 48px;border-top:1px solid var(--border)}
-.process-header{text-align:center;margin-bottom:48px}
-.process-header .work-title{font-size:clamp(1.6rem,3.5vw,2.6rem)}
-.timeline{max-width:600px;margin:0 auto;position:relative}
-.timeline::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:1px;background:var(--border)}
-.t-step{position:relative;padding:0 0 32px 40px}
-.t-step:last-child{padding-bottom:0}
-.t-dot{position:absolute;left:8px;top:5px;width:10px;height:10px;border-radius:50%;border:1px solid var(--border-light);background:var(--black);z-index:1;transition:all .35s}
-.t-step:hover .t-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent-glow)}
-.t-num{font-family:var(--font-serif);font-size:1.3rem;font-weight:900;font-style:italic;color:var(--border-light);line-height:1;margin-bottom:2px;transition:color .4s}
-.t-step:hover .t-num{color:var(--accent)}
-.t-step h3{font-family:var(--font-serif);font-size:1rem;font-weight:700;margin-bottom:6px}
-.t-step p{color:var(--text-dim);font-size:.78rem;line-height:1.75;font-weight:300;max-width:320px}
+/* ═══ WORK — Masonry-ish grid ═══ */
+.work-section{border-top:1px solid var(--border)}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1280px;margin:0 auto}
+.work-card{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3;background:var(--bg2);border:1px solid var(--border);transition:all 0.5s var(--ease);cursor:default}
+.work-card:hover{transform:translateY(-6px);border-color:var(--border-h);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.work-card.large{grid-column:span 2;aspect-ratio:16/9}
+.work-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(50%) contrast(1.1) brightness(0.7);transition:all 0.5s}
+.work-card:hover img{filter:grayscale(20%) contrast(1.1) brightness(0.85);transform:scale(1.03)}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(3,3,5,0.9) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.work-overlay h3{font-family:var(--display);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.work-overlay p{font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.14em}
+.work-tag{position:absolute;top:16px;right:16px;padding:4px 12px;background:rgba(3,3,5,0.7);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:4px;font-family:var(--mono);font-size:0.55rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.12em}
 
-/* TESTIMONIAL */
-.testimonial{padding:80px 48px;text-align:center;border-top:1px solid var(--border);position:relative;overflow:hidden}
-.testimonial::before{content:'\201C';position:absolute;top:0;left:50%;transform:translateX(-50%);font-family:var(--font-serif);font-size:10rem;font-weight:900;color:var(--border);line-height:1;pointer-events:none;opacity:.2}
-.t-quote{font-family:var(--font-serif);font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;line-height:1.55;max-width:520px;margin:0 auto 24px;color:var(--text);position:relative;z-index:1}
-.t-author{display:flex;align-items:center;justify-content:center;gap:10px}
-.t-aw{width:32px;height:32px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:.72rem;font-style:italic;color:var(--accent)}
-.t-n{text-align:left}
-.t-n strong{display:block;font-size:.72rem;font-weight:600}
-.t-n span{font-size:.62rem;color:var(--text-muted)}
+/* ═══ STATS — Big numbers ═══ */
+.stats-section{border-top:1px solid var(--border);padding:6rem 64px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;max-width:1280px;margin:0 auto}
+.stat{text-align:center}
+.stat-value{font-family:var(--display);font-size:3.5rem;font-weight:800;line-height:1;margin-bottom:8px}
+.stat-value .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.18em}
 
-/* CTA */
-.cta{padding:80px 48px;text-align:center;border-top:1px solid var(--border);position:relative;overflow:hidden}
-.cta::before{content:'';position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);width:350px;height:180px;background:radial-gradient(ellipse,var(--accent-dim) 0%,transparent 70%);filter:blur(50px);pointer-events:none}
-.cta-label{font-size:.62rem;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);margin-bottom:20px}
-.cta-title{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;line-height:1.02;letter-spacing:-.02em;margin-bottom:28px}
-.cta-title em{font-style:italic;font-weight:400}
+/* ═══ PHILOSOPHY — Big text ═══ */
+.philosophy-section{border-top:1px solid var(--border);padding:10rem 64px;text-align:center;position:relative;overflow:hidden}
+.philosophy-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,229,255,0.03) 0%,transparent 70%);pointer-events:none}
+.philosophy-text{font-family:var(--display);font-size:clamp(2rem,4.5vw,3.8rem);font-weight:800;line-height:1.1;letter-spacing:-0.04em;max-width:900px;margin:0 auto}
+.philosophy-text .grad{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.philosophy-sub{font-family:var(--mono);font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.2em;margin-top:40px}
 
-/* FOOTER */
-.footer{padding:36px 48px 20px;border-top:1px solid var(--border)}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px}
-.footer-brand{font-family:var(--font-serif);font-size:1.05rem;font-weight:700;font-style:italic;margin-bottom:10px}
-.footer-brand em{color:var(--accent);font-style:italic}
-.footer-desc{color:var(--text-muted);font-size:.72rem;line-height:1.7;font-weight:300}
-.footer h5{font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.13em;color:var(--text);margin-bottom:12px}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:6px}
-.footer-links a{color:var(--text-muted);text-decoration:none;font-size:.7rem}
+/* ═══ TEAM ═══ */
+.team-section{border-top:1px solid var(--border)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.team-card{padding:36px;background:var(--surface);border:1px solid var(--border);border-radius:12px;transition:all 0.4s var(--ease)}
+.team-card:hover{border-color:var(--border-h);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.team-avatar{width:52px;height:52px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1rem;font-weight:700;color:var(--cyan);margin-bottom:20px}
+.team-card h3{font-family:var(--display);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.team-card .role{font-family:var(--mono);font-size:0.6rem;color:var(--violet);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:14px}
+.team-card p{font-size:0.82rem;color:var(--text2);line-height:1.7;font-weight:300}
+
+/* ═══ CTA ═══ */
+.cta-section{border-top:1px solid var(--border);padding:8rem 64px;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(0,229,255,0.05) 0%,rgba(168,85,247,0.03) 40%,transparent 70%);filter:blur(60px);pointer-events:none}
+.cta-label{font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan);margin-bottom:24px}
+.cta-title{font-family:var(--display);font-size:clamp(3rem,6.5vw,5.5rem);font-weight:800;line-height:0.98;letter-spacing:-0.05em;margin-bottom:40px}
+.cta-title .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ═══ FOOTER ═══ */
+.footer{padding:56px 64px 28px;border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand{font-family:var(--display);font-size:1.2rem;font-weight:800;margin-bottom:14px}
+.footer-brand em{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.footer-desc{color:var(--text3);font-size:0.82rem;line-height:1.8;font-weight:300;max-width:280px}
+.footer h5{font-family:var(--mono);font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--text);margin-bottom:16px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{color:var(--text3);text-decoration:none;font-size:0.8rem;transition:color 0.3s}
 .footer-links a:hover{color:var(--text)}
-.footer-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--border);font-size:.62rem;color:var(--text-muted)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border);font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.12em}
+.footer-bottom a{color:var(--text2);text-decoration:none;transition:color 0.3s}
+.footer-bottom a:hover{color:var(--cyan)}
 
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.reveal.vis{opacity:1;transform:translateY(0)}
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-scale{opacity:0;transform:scale(0.92);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+.stagger>*:nth-child(1){transition-delay:0.04s}
+.stagger>*:nth-child(2){transition-delay:0.08s}
+.stagger>*:nth-child(3){transition-delay:0.12s}
+.stagger>*:nth-child(4){transition-delay:0.16s}
+.stagger>*:nth-child(5){transition-delay:0.2s}
+.stagger>*:nth-child(6){transition-delay:0.24s}
 
+/* ═══ RESPONSIVE ═══ */
 @media(max-width:1024px){
-  .nav{padding:16px 32px}.nav.scrolled{padding:10px 32px}
-  .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-content{padding:90px 32px 40px}
-  .hero-visual{height:260px}
-  .section-3d{padding:48px 32px}
-  .section-3d-inner{grid-template-columns:1fr;gap:24px}
-  .section-3d-canvas{height:220px}
-  .split{grid-template-columns:1fr;min-height:auto}
-  .split-left{padding:48px 32px}
-  .split-right{height:240px}
-  .work-grid{grid-template-columns:repeat(2,1fr)}
-  .work-card:nth-child(1){grid-column:span 2}
-  .work-card:nth-child(4){grid-column:span 1}
-  .stats,.process,.testimonial,.cta,.footer{padding-left:32px;padding-right:32px}
-  .footer-grid{grid-template-columns:1fr 1fr}
+  .nav{padding:18px 36px}.nav.scrolled{padding:10px 36px}
+  .hero{grid-template-columns:1fr;min-height:auto;padding-top:100px}
+  .hero-left{padding:0 36px 32px}.hero-right{height:400px}
+  .hero-visual{width:300px;height:300px}
+  .geo-ring:nth-child(2){inset:25px}.geo-ring:nth-child(3){inset:50px}.geo-ring:nth-child(4){inset:75px}
+  .geo-center{inset:90px;font-size:1.8rem}
+  .section{padding:5rem 36px}.stats-section{padding:4rem 36px}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:36px}
+  .work-grid{grid-template-columns:1fr 1fr}.work-card.large{grid-column:span 2}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .philosophy-section{padding:6rem 36px}
+  .cta-section{padding:5rem 36px}
+  .footer{padding:40px 36px 20px}.footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  .nav{padding:12px 16px}.nav-links{display:none}
-  .hero-content{padding:72px 16px 28px}
-  .hero-visual{height:160px}
-  .section-3d{padding:36px 16px}
-  .section-3d-canvas{height:180px}
-  .split-left{padding:36px 16px}
-  .split-right{height:180px}
-  .work{padding:36px 16px}
-  .work-grid{grid-template-columns:1fr}
-  .work-card:nth-child(1){grid-column:span 1}
-  .work-card{padding:24px 16px}
-  .stats{padding:36px 16px}.stat-val{font-size:1.7rem}
-  .process{padding:36px 16px}.t-step{padding-left:30px}
-  .timeline::before{left:10px}.t-dot{left:4px}
-  .t-num{font-size:1.1rem}.t-step h3{font-size:.9rem}
-  .testimonial,.cta{padding:36px 16px}
-  .footer{padding:24px 16px 12px}.footer-grid{grid-template-columns:1fr;gap:16px}
-  .footer-bot{flex-direction:column;gap:4px;text-align:center}
+  .nav{padding:14px 20px}.nav-links{display:none}
+  .nav-cta{padding:8px 16px;font-size:0.55rem}
+  .hero-left{padding:0 20px 24px}.hero-right{height:320px}
+  .hero-visual{width:240px;height:240px}
+  .geo-ring:nth-child(2){inset:20px}.geo-ring:nth-child(3){inset:40px}.geo-ring:nth-child(4){inset:60px}
+  .geo-center{inset:70px;font-size:1.4rem}
+  .section{padding:4rem 20px}.stats-section{padding:3rem 20px}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .stat-value{font-size:2.4rem}
+  .work-grid{grid-template-columns:1fr}.work-card.large{grid-column:span 1;aspect-ratio:4/3}
+  .service-row{grid-template-columns:50px 1fr;gap:20px;padding:32px 0}
+  .service-arrow{display:none}
+  .team-grid{grid-template-columns:1fr}
+  .philosophy-section{padding:4rem 20px}
+  .philosophy-text{font-size:clamp(1.4rem,3vw,2.2rem)}
+  .cta-section{padding:4rem 20px}
+  .footer{padding:32px 20px 16px}.footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;gap:6px;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
 }
 </style>
 </head>
 <body>
-<canvas id="three-canvas"></canvas>
+
+<div class="cursor-glow" id="cursorGlow"></div>
 <div class="noise"></div>
+<div class="particles">
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div>
+</div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-logo">ZOO<em>.</em></a>
-  <div class="nav-inner">
+  <a href="#" class="nav-logo">ZOO<em>///</em></a>
+  <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="#work">Work</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Start a Project</a>
+    <a href="#contact" class="nav-cta">Hire Us</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-content">
-    <div class="hero-eyebrow">Technology &amp; Design Studio</div>
-    <h1 class="hero-title">We create digital<br>experiences that<br><span class="accent">transcend</span> the ordinary.</h1>
-    <p class="hero-desc">ZOO is a technology studio crafting immersive web experiences, AI-driven platforms, and digital products for visionary brands.</p>
-    <div class="hero-btns">
-      <a href="#work" class="btn btn-solid">View Our Work</a>
-      <a href="#process" class="btn btn-outline">Our Process</a>
+  <div class="hero-left">
+    <div class="hero-tag">Autonomous Intelligence</div>
+    <h1 class="hero-title">
+      <span class="line">We engineer</span>
+      <span class="line"><span class="grad-text">minds</span> that run</span>
+      <span class="line">the world.</span>
+    </h1>
+    <p class="hero-desc">ZOO builds AI agents, trading systems, and autonomous software. Not websites. Not apps. Intelligence infrastructure that operates at machine speed — 24/7, no breaks, no limits.</p>
+    <div class="hero-cta-row">
+      <a href="#services" class="btn btn-primary">Explore Services</a>
+      <a href="#work" class="btn btn-ghost">View Work →</a>
     </div>
   </div>
-  <div class="hero-visual">
-    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80&auto=format&fit=crop" alt="" loading="eager">
-    <div class="hero-3d" id="hero3d"></div>
-    <div class="hero-visual-overlay"></div>
+  <div class="hero-right">
+    <div class="hero-right-bg"></div>
+    <div class="hero-visual">
+      <div class="geo-ring"></div>
+      <div class="geo-ring"></div>
+      <div class="geo-ring"></div>
+      <div class="geo-ring"></div>
+      <div class="geo-dot"></div>
+      <div class="geo-dot"></div>
+      <div class="geo-dot"></div>
+      <div class="geo-center"><span>Z</span></div>
+    </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee">
-  <div class="marquee-track">
-    <div class="marquee-item">Immersive Web Design · </div>
-    <div class="marquee-item">AI Integration · </div>
-    <div class="marquee-item">Full-Stack Development · </div>
-    <div class="marquee-item">Brand Strategy · </div>
-    <div class="marquee-item">Motion Design · </div>
-    <div class="marquee-item">Product Engineering · </div>
-    <div class="marquee-item">Cloud Architecture · </div>
-    <div class="marquee-item">Data Intelligence · </div>
-    <div class="marquee-item">Immersive Web Design · </div>
-    <div class="marquee-item">AI Integration · </div>
-    <div class="marquee-item">Full-Stack Development · </div>
-    <div class="marquee-item">Brand Strategy · </div>
-    <div class="marquee-item">Motion Design · </div>
-    <div class="marquee-item">Product Engineering · </div>
-    <div class="marquee-item">Cloud Architecture · </div>
-    <div class="marquee-item">Data Intelligence · </div>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">AI Agents</span><span class="ticker-item">Trading Systems</span><span class="ticker-item">Machine Learning</span><span class="ticker-item">Cloud Infrastructure</span><span class="ticker-item">API Architecture</span><span class="ticker-item">Full-Stack Engineering</span><span class="ticker-item">Data Pipelines</span><span class="ticker-item">Automation</span>
+    <span class="ticker-item">AI Agents</span><span class="ticker-item">Trading Systems</span><span class="ticker-item">Machine Learning</span><span class="ticker-item">Cloud Infrastructure</span><span class="ticker-item">API Architecture</span><span class="ticker-item">Full-Stack Engineering</span><span class="ticker-item">Data Pipelines</span><span class="ticker-item">Automation</span>
   </div>
 </div>
 
-<!-- 3D + ROBOT -->
-<section class="section-3d" id="services">
-  <div class="section-3d-inner">
-    <div class="section-3d-content">
-      <div class="hero-eyebrow">AI &amp; Automation</div>
-      <h2 class="hero-title">Intelligent systems<br>that <em>evolve</em>.</h2>
-      <p class="hero-desc">We build AI-native platforms and autonomous agents that learn, adapt, and transform how your business operates. From custom ML models to fully automated workflows.</p>
-      <ul class="split-features" style="margin-top:18px">
-        <li class="split-feat"><span class="split-feat-num">01</span><div><h4>Machine Learning</h4><p>Custom models trained on your data for prediction, classification, and generation.</p></div></li>
-        <li class="split-feat"><span class="split-feat-num">02</span><div><h4>Autonomous Agents</h4><p>AI agents that execute complex task sequences with minimal human intervention.</p></div></li>
-        <li class="split-feat"><span class="split-feat-num">03</span><div><h4>MLOps</h4><p>End-to-end pipelines: training, deployment, monitoring, and retraining.</p></div></li>
-      </ul>
+<!-- SERVICES — Stacked rows -->
+<section class="section services-section" id="services">
+  <div class="section-tag">01 — Services</div>
+  <h2 class="section-title">What we <span class="grad">build.</span></h2>
+  <p class="section-desc">Every system we create is designed to operate autonomously. No hand-holding. No babysitting. Just infrastructure that works.</p>
+  <div class="services-list stagger">
+    <div class="service-row reveal">
+      <div class="service-num">01</div>
+      <div class="service-content">
+        <h3>AI Agent Systems</h3>
+        <p>Multi-agent orchestration with LLM reasoning, tool execution, and autonomous decision-making. Agents that learn, adapt, and act.</p>
+      </div>
+      <div class="service-icon">🧠</div>
+      <div class="service-arrow">→</div>
     </div>
-    <div class="section-3d-canvas" id="canvas3d"></div>
+    <div class="service-row reveal">
+      <div class="service-num">02</div>
+      <div class="service-content">
+        <h3>Algorithmic Trading</h3>
+        <p>Signal generation, backtesting engines, and live execution pipelines. Market analysis powered by machine learning — not gut feeling.</p>
+      </div>
+      <div class="service-icon">📈</div>
+      <div class="service-arrow">→</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-num">03</div>
+      <div class="service-content">
+        <h3>Full-Stack Platforms</h3>
+        <p>React, Next.js, Python, edge deployment. Real-time data pipelines, WebSocket infrastructure, and sub-100ms API responses.</p>
+      </div>
+      <div class="service-icon">⚡</div>
+      <div class="service-arrow">→</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-num">04</div>
+      <div class="service-content">
+        <h3>Cloud & DevOps</h3>
+        <p>Kubernetes, Docker, CI/CD, auto-scaling, zero-downtime deployments. Infrastructure as code that never sleeps.</p>
+      </div>
+      <div class="service-icon">☁️</div>
+      <div class="service-arrow">→</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-num">05</div>
+      <div class="service-content">
+        <h3>API & Integration</h3>
+        <p>REST, GraphQL, webhooks, third-party integrations. The connective tissue that makes your product talk to the world.</p>
+      </div>
+      <div class="service-icon">🔗</div>
+      <div class="service-arrow">→</div>
+    </div>
   </div>
 </section>
 
-<!-- SPLIT -->
-<section class="split">
-  <div class="split-left">
-    <div class="hero-eyebrow">What We Do</div>
-    <h2 class="hero-title" style="font-size:clamp(1.3rem,2.6vw,2rem)">Not just websites.<br>We engineer <em>realities</em>.</h2>
-    <p class="hero-desc">Every project begins with a fundamental question: what would this feel like if it were a physical space? We design digital environments that respond, adapt, and immerse.</p>
-    <ul class="split-features">
-      <li class="split-feat"><span class="split-feat-num">01</span><div><h4>Cinematic Web Experiences</h4><p>Scroll-driven narratives with WebGL motion, parallax depth, and editorial typography that commands attention.</p></div></li>
-      <li class="split-feat"><span class="split-feat-num">02</span><div><h4>AI-Native Platforms</h4><p>Products that learn, adapt, and evolve — powered by machine learning pipelines and intelligent automation.</p></div></li>
-      <li class="split-feat"><span class="split-feat-num">03</span><div><h4>Scalable Architecture</h4><p>Enterprise-grade infrastructure built for performance, security, and growth from day one.</p></div></li>
-    </ul>
-  </div>
-  <div class="split-right">
-    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1000&q=80&auto=format&fit=crop" alt="">
-  </div>
-</section>
-
-<!-- FULL BLEED -->
-<section class="full-bleed">
-  <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80&auto=format&fit=crop" alt="">
-  <div class="full-bleed-overlay">
-    <h2 class="full-bleed-title">Design that <em>moves</em>.<br>Code that <em>thinks</em>.</h2>
+<!-- WORK — Masonry grid -->
+<section class="section work-section" id="work">
+  <div class="section-tag">02 — Work</div>
+  <h2 class="section-title">Systems in <span class="grad">production.</span></h2>
+  <p class="section-desc">Real products. Real users. Real revenue. Not case studies — live systems running right now.</p>
+  <div class="work-grid stagger">
+    <div class="work-card large reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/hero.png" alt="Trading Strategy AI">
+      <div class="work-overlay">
+        <span class="work-tag">Live</span>
+        <h3>Trading Strategy AI</h3>
+        <p>LLM-Powered Trading Platform</p>
+      </div>
+    </div>
+    <div class="work-card reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/ai-section.png" alt="OMNIA">
+      <div class="work-overlay">
+        <span class="work-tag">Research</span>
+        <h3>OMNIA</h3>
+        <p>Consciousness Engineering</p>
+      </div>
+    </div>
+    <div class="work-card reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/split.png" alt="ZOO Agent OS">
+      <div class="work-overlay">
+        <span class="work-tag">Core</span>
+        <h3>ZOO Agent OS</h3>
+        <p>Agent Operating System</p>
+      </div>
+    </div>
+    <div class="work-card reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/process.png" alt="TradeSim">
+      <div class="work-overlay">
+        <span class="work-tag">Live</span>
+        <h3>TradeSim</h3>
+        <p>Trading Simulation Platform</p>
+      </div>
+    </div>
+    <div class="work-card large reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/bleed.png" alt="Nexus">
+      <div class="work-overlay">
+        <span class="work-tag">Gaming</span>
+        <h3>Nexus Gaming</h3>
+        <p>3D WebGL Experiences</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- STATS -->
-<section class="stats" id="work">
-  <div class="stats-row">
-    <div class="stat"><div class="stat-val">150<span>+</span></div><div class="stat-label">Projects Shipped</div></div>
-    <div class="stat"><div class="stat-val">340<span>%</span></div><div class="stat-label">Avg. Conversion Lift</div></div>
-    <div class="stat"><div class="stat-val">0.8<span>s</span></div><div class="stat-label">Avg. Load Time</div></div>
-    <div class="stat"><div class="stat-val">98<span>%</span></div><div class="stat-label">Client Retention</div></div>
+<section class="stats-section">
+  <div class="stats-grid stagger">
+    <div class="stat reveal"><div class="stat-value"><span class="grad">29</span>+</div><div class="stat-label">Active AI Agents</div></div>
+    <div class="stat reveal"><div class="stat-value"><span class="grad">24</span>/7</div><div class="stat-label">System Uptime</div></div>
+    <div class="stat reveal"><div class="stat-value"><span class="grad">$7.2</span>K</div><div class="stat-label">Revenue Pipeline</div></div>
+    <div class="stat reveal"><div class="stat-value"><span class="grad">22</span></div><div class="stat-label">GitHub Repos</div></div>
   </div>
 </section>
 
-<!-- WORK -->
-<section class="work" id="capabilities">
-  <div class="work-header">
-    <div class="work-label">Capabilities</div>
-    <h2 class="work-title">What we bring to the table</h2>
+<!-- PHILOSOPHY -->
+<section class="philosophy-section">
+  <div class="philosophy-text reveal">
+    "The future belongs to those who build <span class="grad">autonomous systems</span> — not those who operate them."
   </div>
-  <div class="work-grid">
-    <div class="work-card reveal"><div class="work-card-num">01 / Design</div><h3>Visual Identity &amp; UI</h3><p>Cinematic interfaces with editorial typography, intentional motion, and obsessive attention to pixel-level detail. Every interaction feels deliberate.</p></div>
-    <div class="work-card reveal"><div class="work-card-num">02 / Engineer</div><h3>Full-Stack Development</h3><p>High-performance applications built with modern frameworks, edge deployment, and real-time data pipelines.</p></div>
-    <div class="work-card reveal"><div class="work-card-num">03 / Scale</div><h3>AI &amp; Automation</h3><p>Custom AI models, intelligent workflows, and autonomous agents that transform how your business operates.</p></div>
-    <div class="work-card reveal"><div class="work-card-num">04 / Deploy</div><h3>Cloud Infrastructure</h3><p>Global CDN, auto-scaling, zero-downtime deployments, and monitoring that keeps your product running at peak.</p></div>
-    <div class="work-card reveal"><div class="work-card-num">05 / Protect</div><h3>Security &amp; Compliance</h3><p>SOC2-ready architecture, end-to-end encryption, and compliance frameworks built into the foundation.</p></div>
-    <div class="work-card reveal"><div class="work-card-num">06 / Grow</div><h3>Growth &amp; Analytics</h3><p>Data-driven optimization with real-time analytics, A/B testing, and conversion rate optimization.</p></div>
-  </div>
+  <div class="philosophy-sub reveal">— ZOO Engineering Philosophy</div>
 </section>
 
-<!-- PROCESS -->
-<section class="process" id="process">
-  <div class="process-header">
-    <div class="work-label">Process</div>
-    <h2 class="work-title">How we work</h2>
-  </div>
-  <div class="timeline">
-    <div class="t-step reveal"><div class="t-dot"></div><div class="t-num">01</div><h3>Discovery &amp; Strategy</h3><p>We immerse in your world — brand, market, users, and competition. Every decision starts with deep understanding, not assumptions.</p></div>
-    <div class="t-step reveal"><div class="t-dot"></div><div class="t-num">02</div><h3>Design &amp; Prototype</h3><p>Cinematic concepts come to life with AI-generated assets, interactive prototypes, and editorial design systems.</p></div>
-    <div class="t-step reveal"><div class="t-dot"></div><div class="t-num">03</div><h3>Engineer &amp; Build</h3><p>Hand-crafted code with scroll-driven animations, WebGL effects, and performance optimization. Every millisecond matters.</p></div>
-    <div class="t-step reveal"><div class="t-dot"></div><div class="t-num">04</div><h3>Launch &amp; Scale</h3><p>Edge-deployed with global CDN, real-time monitoring, and continuous optimization. We evolve with you.</p></div>
-  </div>
-</section>
-
-<!-- TESTIMONIAL -->
-<section class="testimonial">
-  <div class="t-quote">"ZOO didn't just redesign our website — they completely reimagined our digital presence. The result was a 340% increase in qualified leads and a brand experience that actually matches our ambition."</div>
-  <div class="t-author">
-    <div class="t-aw">MR</div>
-    <div class="t-n"><strong>Maria Rodriguez</strong><span>CEO, TechFlow.io</span></div>
+<!-- ABOUT / TEAM -->
+<section class="section team-section" id="about">
+  <div class="section-tag">03 — Team</div>
+  <h2 class="section-title">Built by <span class="grad">engineers.</span></h2>
+  <p class="section-desc">No project managers. No account handlers. Just engineers who ship code and agents that never stop.</p>
+  <div class="team-grid stagger">
+    <div class="team-card reveal">
+      <div class="team-avatar">FA</div>
+      <h3>Francisco Alonso</h3>
+      <div class="role">Founder & CEO</div>
+      <p>First-principles engineer. Builds AI systems from mathematical foundations. Obsessed with autonomous intelligence.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">Z1</div>
+      <h3>ZOO Agent Swarm</h3>
+      <div class="role">29+ Autonomous Agents</div>
+      <p>Research, coding, testing, deploying — our agent swarm works in parallel around the clock. No coffee breaks.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">⚡</div>
+      <h3>You?</h3>
+      <div class="role">Open Positions</div>
+      <p>We're always looking for engineers who think in systems, not tickets. If you build for the future — talk to us.</p>
+    </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta" id="contact">
-  <div class="cta-label">Let's Build Together</div>
-  <h2 class="cta-title">Ready to create<br>something <em>extraordinary</em>?</h2>
-  <a href="mailto:hello@zootechnologies.com" class="btn btn-solid">Start a Project</a>
+<section class="cta-section" id="contact">
+  <div class="cta-label">Ready to Build?</div>
+  <h2 class="cta-title">Let's engineer<br><span class="grad">something autonomous.</span></h2>
+  <a href="mailto:hello@zootechnologies.com" class="btn btn-primary">Start a Project →</a>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-grid">
-    <div><div class="footer-brand">ZOO<em>.</em></div><p class="footer-desc">A technology studio crafting immersive digital experiences for visionary brands.</p></div>
-    <div><h5>Studio</h5><ul class="footer-links"><li><a href="#">About</a></li><li><a href="#">Work</a></li><li><a href="#">Careers</a></li><li><a href="#">Journal</a></li></ul></div>
-    <div><h5>Services</h5><ul class="footer-links"><li><a href="#">Web Design</a></li><li><a href="#">Development</a></li><li><a href="#">AI Integration</a></li><li><a href="#">Branding</a></li></ul></div>
-    <div><h5>Connect</h5><ul class="footer-links"><li><a href="mailto:hello@zootechnologies.com">Email</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">GitHub</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+    <div>
+      <div class="footer-brand">ZOO<em>///</em></div>
+      <p class="footer-desc">Autonomous intelligence infrastructure. AI agents, trading systems, and software that works 24/7.</p>
+    </div>
+    <div><h5>Services</h5><ul class="footer-links"><li><a href="#services">AI Agents</a></li><li><a href="#services">Trading Systems</a></li><li><a href="#services">Full-Stack</a></li><li><a href="#services">Cloud & DevOps</a></li></ul></div>
+    <div><h5>Work</h5><ul class="footer-links"><li><a href="#work">Trading Strategy AI</a></li><li><a href="#work">OMNIA</a></li><li><a href="#work">ZOO Agent OS</a></li><li><a href="#work">TradeSim</a></li></ul></div>
+    <div><h5>Connect</h5><ul class="footer-links"><li><a href="mailto:hello@zootechnologies.com">hello@zootechnologies.com</a></li><li><a href="https://github.com/crazycompanyinc" target="_blank">GitHub</a></li><li><a href="https://discord.gg/zoo" target="_blank">Discord</a></li></ul></div>
   </div>
-  <div class="footer-bot"><span>© 2026 ZOO Technologies. All rights reserved.</span><span>Designed with intention.</span></div>
+  <div class="footer-bottom">
+    <span>© 2026 ZOO — Autonomous Intelligence</span>
+    <span>Built by humans + agents. <a href="https://github.com/crazycompanyinc">Open Source</a>.</span>
+  </div>
 </footer>
 
 <script>
 (function(){
-  // ══════════════════════════════════════════
-  // PARTÍCULAS GLOBAL — Firmamento que rota con mouse
-  // ══════════════════════════════════════════
-  var canvas3d=document.getElementById('three-canvas');
-  var renderer=new THREE.WebGLRenderer({canvas:canvas3d,alpha:true,antialias:true});
-  renderer.setSize(window.innerWidth,window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  var scene=new THREE.Scene();
-  var camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,.1,100);
-  camera.position.z=20;
-  
-  // 800 partículas naranja/doradas — firmamento
-  var count=800;
-  var geo=new THREE.BufferGeometry();
-  var pos=new Float32Array(count*3);
-  var col=new Float32Array(count*3);
-  for(var i=0;i<count;i++){
-    pos[i*3]=(Math.random()-.5)*60;
-    pos[i*3+1]=(Math.random()-.5)*60;
-    pos[i*3+2]=(Math.random()-.5)*40;
-    col[i*3]=1;col[i*3+1]=0.4;col[i*3+2]=0.2;
-  }
-  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
-  var mat=new THREE.PointsMaterial({size:0.08,vertexColors:true,transparent:true,opacity:0.35,blending:THREE.AdditiveBlending});
-  var pts=new THREE.Points(geo,mat);
-  scene.add(pts);
-  
-  var mx=0,my=0,sy=0;
-  document.addEventListener('mousemove',function(e){
-    mx=(e.clientX/window.innerWidth-.5)*2;
-    my=(e.clientY/window.innerHeight-.5)*2;
-  });
-  window.addEventListener('scroll',function(){sy=window.pageYOffset;},{passive:true});
-  
-  function animParticles(){
-    requestAnimationFrame(animParticles);
-    pts.rotation.y+=0.0001;
-    pts.rotation.x+=0.00005;
-    pts.rotation.y+=mx*0.0002;
-    var sf=sy*0.001;
-    pts.position.y=-sf*0.3;
-    camera.position.y=-sf*0.2;
-    camera.lookAt(0,-sf*0.2,0);
-    renderer.render(scene,camera);
-  }
-  animParticles();
-  
-  // ══════════════════════════════════════════
-  // DRONE EN HEADER — GLB model (DamagedHelmet as UFO)
-  // ══════════════════════════════════════════
-  function initHero3D(){
-    var container=document.getElementById('hero3d');
-    if(!container)return;
-    var w=container.offsetWidth,h=container.offsetHeight;
-    if(w===0||h===0){setTimeout(initHero3D,300);return}
-    
-    var s=new THREE.Scene();
-    var c=new THREE.PerspectiveCamera(35,w/h,.1,100);
-    c.position.set(0,.5,3);
-    c.lookAt(0,.1,0);
-    var r=new THREE.WebGLRenderer({antialias:true,alpha:true});
-    r.setSize(w,h);
-    r.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    r.setClearColor(0x000000,0);
-    container.appendChild(r.domElement);
-    
-    s.add(new THREE.AmbientLight(0x404040,.8));
-    var kl=new THREE.DirectionalLight(0xffffff,.6);
-    kl.position.set(3,5,3);
-    s.add(kl);
-    var fl=new THREE.DirectionalLight(0xff6b35,.2);
-    fl.position.set(-2,2,-2);
-    s.add(fl);
-    var bl=new THREE.DirectionalLight(0x333333,.3);
-    bl.position.set(0,-3,0);
-    s.add(bl);
-    
-    // Platform
-    var plat=new THREE.Mesh(new THREE.CylinderGeometry(.6,.7,.02,32),new THREE.MeshStandardMaterial({color:0x111111,metalness:.6,roughness:.35}));
-    plat.position.y=-.2;
-    s.add(plat);
-    var ring=new THREE.Mesh(new THREE.TorusGeometry(.7,.005,8,64),new THREE.MeshStandardMaterial({color:0xff6b35,metalness:.6,roughness:.3,emissive:0xff6b35,emissiveIntensity:.1}));
-    ring.rotation.x=Math.PI/2;
-    ring.position.y=-.18;
-    s.add(ring);
-    
-    // Load GLB model (DamagedHelmet as UFO/satellite)
-    var model=null;
-    var loader=new THREE.GLTFLoader();
-    loader.load('https://crazycompanyinc.github.io/zootechnologies-web/models/helmet2.glb',
-      function(gltf){
-        model=gltf.scene;
-        model.scale.set(.5,.5,.5);
-        model.position.y=.1;
-        // Tint accent parts orange
-        model.traverse(function(child){
-          if(child.isMesh&&child.material){
-            if(child.material.name&&child.material.name.toLowerCase().includes('accent')){
-              child.material=new THREE.MeshStandardMaterial({color:0xff6b35,metalness:.7,roughness:.3,emissive:0xff6b35,emissiveIntensity:.1});
-            }
-          }
-        });
-        s.add(model);
-      },
-      undefined,
-      function(){}
-    );
-    
-    var mx2=0;
-    document.addEventListener('mousemove',function(e){
-      mx2=(e.clientX/window.innerWidth-.5)*2;
-    });
-    
-    (function anim(){
-      requestAnimationFrame(anim);
-      var t=Date.now()*.001;
-      if(model){
-        model.position.y=.1+Math.sin(t*.8)*.03;
-        model.rotation.y+=(mx2*.3-model.rotation.y)*0.02;
-      }
-      r.render(s,c);
-    })();
-    
-    window.addEventListener('resize',function(){
-      w=container.offsetWidth;h=container.offsetHeight;
-      if(w>0&&h>0){c.aspect=w/h;c.updateProjectionMatrix();r.setSize(w,h);}
-    });
-  }
-  
-  // ══════════════════════════════════════════
-  // ROBOT EN SECCIÓN AI — GLB model (CesiumMan)
-  // ══════════════════════════════════════════
-  function initAI3D(){
-    var container=document.getElementById('canvas3d');
-    if(!container)return;
-    var w=container.offsetWidth,h=container.offsetHeight;
-    if(w===0||h===0){setTimeout(initAI3D,300);return}
-    
-    var s=new THREE.Scene();
-    var c=new THREE.PerspectiveCamera(42,w/h,.1,100);
-    c.position.set(0,1.8,5);
-    c.lookAt(0,.6,0);
-    var r=new THREE.WebGLRenderer({antialias:true,alpha:true});
-    r.setSize(w,h);
-    r.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    r.setClearColor(0x000000,0);
-    container.appendChild(r.domElement);
-    
-    s.add(new THREE.AmbientLight(0x404040,.7));
-    var kl=new THREE.DirectionalLight(0xffffff,.5);
-    kl.position.set(3,5,3);
-    s.add(kl);
-    var fl=new THREE.DirectionalLight(0xff6b35,.15);
-    fl.position.set(-3,2,-2);
-    s.add(fl);
-    
-    // Platform
-    var plat=new THREE.Mesh(new THREE.CylinderGeometry(1,1.2,.03,32),new THREE.MeshStandardMaterial({color:0x111111,metalness:.6,roughness:.35}));
-    plat.position.y=-.4;
-    s.add(plat);
-    var ring=new THREE.Mesh(new THREE.TorusGeometry(1.2,.006,8,64),new THREE.MeshStandardMaterial({color:0xff6b35,metalness:.6,roughness:.3,emissive:0xff6b35,emissiveIntensity:.08}));
-    ring.rotation.x=Math.PI/2;
-    ring.position.y=-.38;
-    s.add(ring);
-    
-    // Load GLB model (CesiumMan as robot)
-    var robot=null;
-    var loader=new THREE.GLTFLoader();
-    loader.load('https://crazycompanyinc.github.io/zootechnologies-web/models/cesium-man.glb',
-      function(gltf){
-        robot=gltf.scene;
-        robot.scale.set(.8,.8,.8);
-        robot.position.y=-.1;
-        // Enhance materials
-        robot.traverse(function(child){
-          if(child.isMesh&&child.material){
-            child.material=new THREE.MeshStandardMaterial({
-              color:child.material.color||0xcccccc,
-              metalness:.5,
-              roughness:.4,
-              map:child.material.map||null
-            });
-          }
-        });
-        s.add(robot);
-      },
-      undefined,
-      function(){}
-    );
-    
-    var mx3=0;
-    document.addEventListener('mousemove',function(e){
-      mx3=(e.clientX/window.innerWidth-.5)*2;
-    });
-    
-    (function anim(){
-      requestAnimationFrame(anim);
-      var t=Date.now()*.001;
-      if(robot){
-        robot.position.y=-.1+Math.sin(t*.5)*.025;
-        robot.rotation.y+=(mx3*.25-robot.rotation.y)*0.015;
-      }
-      r.render(s,c);
-    })();
-    
-    window.addEventListener('resize',function(){
-      w=container.offsetWidth;h=container.offsetHeight;
-      if(w>0&&h>0){c.aspect=w/h;c.updateProjectionMatrix();r.setSize(w,h);}
-    });
-  }
-  
-  // ══════════════════════════════════════════
-  // INIT + NAV + REVEAL + SCROLL
-  // ══════════════════════════════════════════
-  initHero3D();
-  initAI3D();
-  
-  window.addEventListener('scroll',function(){
-    document.getElementById('nav').classList.toggle('scrolled',window.scrollY>80);
-  },{passive:true});
-  
-  (function(){
-    var obs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis');});
-    },{threshold:.08});
-    document.querySelectorAll('.reveal').forEach(function(el){
-      obs.observe(el);
-      if(el.getBoundingClientRect().top<window.innerHeight)el.classList.add('vis');
-    });
-  })();
-  
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener('click',function(e){
-      e.preventDefault();
-      var t=document.querySelector(a.getAttribute('href'));
-      if(t)t.scrollIntoView({behavior:'smooth'});
-    });
-  });
-  
-  window.addEventListener('resize',function(){
-    camera.aspect=window.innerWidth/window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth,window.innerHeight);
-  });
+  'use strict';
+  // Cursor glow
+  var cg=document.getElementById('cursorGlow'),gx=0,gy=0,tx=0,ty=0;
+  document.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;});
+  (function loop(){gx+=(tx-gx)*0.08;gy+=(ty-gy)*0.08;cg.style.left=gx+'px';cg.style.top=gy+'px';requestAnimationFrame(loop);})();
+  // Nav scroll
+  var nav=document.getElementById('nav'),nt=false;
+  window.addEventListener('scroll',function(){if(!nt){requestAnimationFrame(function(){nav.classList.toggle('scrolled',window.scrollY>80);nt=false;});nt=true;}},{passive:true});
+  // Reveal
+  var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.06,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal,.reveal-scale').forEach(function(el){ro.observe(el);});
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
 })();
 </script>
 </body>
