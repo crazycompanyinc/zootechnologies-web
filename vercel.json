@@ -1,3 +1,21 @@
 {
-  "version": 2
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/products", "destination": "/products.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/checkout", "destination": "/checkout.html" },
+    { "source": "/comparativa", "destination": "/comparativa.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
 }
