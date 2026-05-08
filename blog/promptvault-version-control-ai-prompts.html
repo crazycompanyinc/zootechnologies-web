@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PromptVault: Git-like Version Control for AI Prompts | ZOO Blog</title>
+<meta name="description" content="PromptVault gives you git-like version control for AI prompts. Track changes, A/B test variants, rollback, team collaboration. Framework-agnostic.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--border:#2a2a3a;--text:#e8e8f0;--dim:#8888a0;--accent:#6366f1}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+.container{max-width:720px;margin:0 auto;padding:6rem 2rem 4rem}
+.back{color:var(--dim);text-decoration:none;font-size:0.9rem;display:inline-block;margin-bottom:2rem}
+.back:hover{color:var(--accent)}
+h1{font-size:2.2rem;font-weight:800;margin-bottom:1rem;line-height:1.2}
+.meta{color:var(--dim);font-size:0.85rem;margin-bottom:2rem}
+h2{font-size:1.4rem;font-weight:700;margin:2.5rem 0 1rem}
+h3{font-size:1.15rem;font-weight:600;margin:2rem 0 0.75rem}
+p{margin-bottom:1rem;color:var(--dim)}
+ul,ol{margin:1rem 0 1rem 1.5rem;color:var(--dim)}
+li{margin-bottom:0.5rem}
+code{background:var(--surface);padding:0.15rem 0.4rem;border-radius:4px;font-size:0.85rem;border:1px solid var(--border)}
+pre{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;overflow-x:auto;margin:1.5rem 0;font-size:0.85rem}
+pre code{background:none;padding:0;border:none}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.9rem}
+th{background:var(--surface);padding:0.75rem;text-align:left;border:1px solid var(--border);font-weight:600}
+td{padding:0.75rem;border:1px solid var(--border);color:var(--dim)}
+.check{color:#22c55e;font-weight:700}
+.cross{color:#ef4444}
+.us{color:var(--accent);font-weight:700}
+.cta{background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(168,85,247,0.1));border:1px solid var(--accent);border-radius:12px;padding:2rem;margin:2.5rem 0;text-align:center}
+.cta h3{margin-top:0}
+.btn{display:inline-block;background:var(--accent);color:white;padding:0.75rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem}
+.btn:hover{opacity:0.9}
+</style>
+</head>
+<body>
+<div class="container">
+<a href="/zootechnologies-web/blog.html" class="back">← Back to Blog</a>
+<h1>PromptVault: Git-like Version Control for AI Prompts</h1>
+<div class="meta">Published: May 9, 2026 · Reading time: 4 min · By ZOO Technologies</div>
+
+<h2>The Problem: Your Prompts Are a Mess</h2>
+<p>If you're building with AI, your prompts are probably scattered across Slack threads, Notion pages, and random code files. When a prompt breaks in production, nobody knows what changed or when.</p>
+<p>This affects thousands of AI teams:</p>
+<ul>
+<li><strong>No version history</strong> — Can't see what changed between prompt versions</li>
+<li><strong>No A/B testing</strong> — Guessing which variant performs better</li>
+<li><strong>No collaboration</strong> — Engineers and domain experts can't work together</li>
+<li><strong>No rollback</strong> — Can't instantly revert when a new version breaks</li>
+</ul>
+
+<h2>Existing Solutions (And Why They Fall Short)</h2>
+<p>The current market has gaps:</p>
+<ul>
+<li><strong>PromptLayer</strong> — Enterprise only (no public pricing), cloud-only, no CLI</li>
+<li><strong>LangSmith</strong> — $50-200/mo, LangChain-only, cloud-only</li>
+<li><strong>Helicone</strong> — $50+/mo, no version control, no A/B testing</li>
+</ul>
+<p><strong>The gap:</strong> No affordable, framework-agnostic, self-hosted option with git-like version control.</p>
+
+<h2>Introducing PromptVault</h2>
+<p>PromptVault is git-like version control for AI prompts. Think GitHub, but for your prompts.</p>
+
+<h3>Key Features</h3>
+<ol>
+<li><strong>Git-like Version Control</strong> — Commit, diff, branch, merge prompts</li>
+<li><strong>A/B Testing Engine</strong> — Statistical significance detection</li>
+<li><strong>One-Click Rollback</strong> — Instant revert to any version</li>
+<li><strong>Team Collaboration</strong> — Reviews, comments, approvals</li>
+<li><strong>CI/CD Integration</strong> — API and CLI for automated testing</li>
+<li><strong>Self-Hosted Option</strong> — Your prompts never leave your servers</li>
+</ol>
+
+<h3>Quick Start</h3>
+<pre><code>npm i -g promptvault
+promptvault init
+promptvault commit -m "Add customer support v2"
+promptvault diff v1 v2
+promptvault rollback v1</code></pre>
+
+<h2>Pricing Comparison</h2>
+<table>
+<thead><tr><th>Feature</th><th class="us">PromptVault</th><th>PromptLayer</th><th>LangSmith</th><th>Helicone</th></tr></thead>
+<tbody>
+<tr><td>Version Control</td><td class="check us">✅ Full git-like</td><td class="check">✅ Basic</td><td class="check">✅ Basic</td><td class="cross">❌</td></tr>
+<tr><td>A/B Testing</td><td class="check us">✅ Built-in</td><td class="check">✅</td><td class="cross">❌</td><td class="cross">❌</td></tr>
+<tr><td>Self-Hosted</td><td class="check us">✅</td><td class="cross">❌</td><td class="cross">❌</td><td class="cross">❌</td></tr>
+<tr><td>Framework-Agnostic</td><td class="check us">✅</td><td class="check">✅</td><td class="cross">❌</td><td class="check">✅</td></tr>
+<tr><td>Free Tier</td><td class="check us">✅ 10 prompts</td><td class="check">✅</td><td class="cross">❌</td><td class="check">✅</td></tr>
+<tr><td>Starting Price</td><td class="us">Free</td><td>Custom 💼</td><td>$50/mo</td><td>$50/mo</td></tr>
+</tbody>
+</table>
+
+<h2>Why Now?</h2>
+<p>Gartner predicts that by 2026, 80% of enterprises will use generative AI. Every deployment needs prompt management. But teams are still copy-pasting prompts in Slack. That's not sustainable.</p>
+
+<div class="cta">
+<h3>Try PromptVault</h3>
+<p>Now in beta. Free tier available. No credit card required.</p>
+<a href="https://crazycompanyinc.github.io/promptvault" class="btn">View Landing Page →</a>
+<a href="https://github.com/crazycompanyinc/promptvault" class="btn" style="background:var(--surface);margin-left:0.5rem;">GitHub →</a>
+</div>
+
+<p style="text-align:center;color:var(--dim);font-size:0.85rem;margin-top:3rem;">Built by <a href="https://zootechnologies.com" style="color:var(--accent);">ZOO Technologies</a> — Shipping AI tools for the next generation of developers.</p>
+</div>
+</body>
+</html>
