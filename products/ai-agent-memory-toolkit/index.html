@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Memory Toolkit — Give Your AI Agents Persistent Memory | ZOO</title>
+<meta name="description" content="Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python code, ready to deploy.">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #141420;
+  --border: #2a2a3a;
+  --text: #e4e4e7;
+  --muted: #8888a0;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --green: #22c55e;
+  --gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* NAV */
+nav { padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 60px; }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 20px; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+nav a { color: var(--muted); text-decoration: none; font-size: 14px; margin-left: 24px; }
+nav a:hover { color: var(--text); }
+
+/* HERO */
+.hero { text-align: center; padding: 40px 0 80px; }
+.badge { display: inline-block; padding: 6px 16px; background: rgba(99,102,241,0.15); color: var(--accent2); border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
+.hero h1 { font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+.hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto 40px; }
+.cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn { display: inline-block; padding: 14px 32px; border-radius: 10px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+.btn-primary { background: var(--gradient); color: #fff; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,0.4); }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--accent); }
+.price-tag { font-size: 36px; font-weight: 800; margin: 24px 0; }
+.price-tag span { font-size: 16px; color: var(--muted); font-weight: 400; }
+
+/* SECTIONS */
+section { padding: 60px 0; }
+h2 { font-size: 32px; font-weight: 700; margin-bottom: 16px; }
+.subtitle { color: var(--muted); font-size: 16px; margin-bottom: 40px; }
+
+/* PROBLEM */
+.problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.problem-card .icon { font-size: 28px; margin-bottom: 12px; }
+.problem-card h3 { font-size: 16px; margin-bottom: 8px; }
+.problem-card p { color: var(--muted); font-size: 14px; }
+
+/* FEATURES */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: border-color 0.2s; }
+.feature-card:hover { border-color: var(--accent); }
+.feature-card .icon { font-size: 32px; margin-bottom: 16px; }
+.feature-card h3 { font-size: 18px; margin-bottom: 8px; }
+.feature-card p { color: var(--muted); font-size: 14px; }
+.feature-card code { display: block; margin-top: 12px; padding: 8px 12px; background: var(--bg); border-radius: 6px; font-size: 12px; color: var(--accent2); }
+
+/* ARCHITECTURE */
+.arch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; }
+.arch-diagram { font-family: 'Courier New', monospace; font-size: 13px; color: var(--accent2); white-space: pre; line-height: 1.4; }
+
+/* INCLUDES */
+.includes-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.include-item { display: flex; align-items: center; gap: 12px; padding: 16px; background: var(--surface); border-radius: 8px; }
+.include-item .check { color: var(--green); font-size: 18px; }
+.include-item span { font-size: 14px; }
+
+/* PRICING */
+.pricing { text-align: center; }
+.pricing-card { max-width: 480px; margin: 0 auto; background: var(--surface); border: 2px solid var(--accent); border-radius: 16px; padding: 40px; position: relative; }
+.pricing-card .popular { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient); padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.pricing-card h3 { font-size: 24px; margin-bottom: 8px; }
+.pricing-card .desc { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+.pricing-card .price { font-size: 48px; font-weight: 800; }
+.pricing-card .price span { font-size: 16px; color: var(--muted); font-weight: 400; }
+.pricing-card ul { list-style: none; margin: 24px 0; text-align: left; }
+.pricing-card ul li { padding: 8px 0; font-size: 14px; border-bottom: 1px solid var(--border); }
+.pricing-card ul li:before { content: "✅ "; }
+
+/* FAQ */
+.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.faq-item h3 { font-size: 16px; margin-bottom: 8px; }
+.faq-item p { color: var(--muted); font-size: 14px; }
+
+/* FOOTER */
+footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 13px; }
+footer a { color: var(--accent2); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 32px; }
+  .cta-row { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">🦁 ZOO</div>
+    <div>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge">🔥 Trending on HN — Agent Memory is the #1 bottleneck</div>
+  <h1>Give Your AI Agents <span>Persistent Memory</span></h1>
+  <p>Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python code, copy-paste, deploy today.</p>
+  <div class="price-tag">$39 <span>one-time</span></div>
+  <div class="cta-row">
+    <a href="#pricing" class="btn btn-primary">Get the Toolkit →</a>
+    <a href="#features" class="btn btn-ghost">See What's Inside</a>
+  </div>
+</div>
+
+<section id="problem">
+  <div class="container">
+    <h2>The Problem</h2>
+    <p class="subtitle">Your AI agent forgetts everything. Every. Single. Session.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="icon">🧠</div>
+        <h3>Zero Persistence</h3>
+        <p>Every conversation starts from scratch. Your agent doesn't remember yesterday's decisions, user preferences, or project context.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">💸</div>
+        <h3>Wasted Tokens</h3>
+        <p>You're paying to re-explain the same context every session. 40-60% of your token spend is redundant context.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">🔄</div>
+        <h3>No Learning</h3>
+        <p>Your agent can't learn from past mistakes. Same errors, same corrections, every single time.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">👥</div>
+        <h3>Agents Can't Collaborate</h3>
+        <p>Multiple agents working on the same project? They can't share context. Each one is an island.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <h2>What You Get</h2>
+    <p class="subtitle">5 production-ready modules. Python. Copy-paste. Deploy.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">🗄️</div>
+        <h3>Vector Memory Store</h3>
+        <p>ChromaDB-powered persistent memory with cosine similarity search. Store thousands of memories, retrieve the relevant ones in milliseconds.</p>
+        <code>recall("user preferences") → 5 results</code>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🏗️</div>
+        <h3>Hierarchical Memory System</h3>
+        <p>Three-layer architecture: Working (short-term), Episodic (medium-term), Semantic (long-term). Just like human memory.</p>
+        <code>memory.build_context(query) → rich context</code>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🧹</div>
+        <h3>Memory Consolidation</h3>
+        <p>Automatic promotion of important memories, pruning of stale data. Your agent gets smarter over time, not bloated.</p>
+        <code>consolidate() → clean, relevant memory</code>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🤝</div>
+        <h3>Multi-Agent Sharing</h3>
+        <p>Redis-powered shared memory store. Multiple agents can read/write shared context. Broadcast events across your agent fleet.</p>
+        <code>broadcast("agent1", "update", data)</code>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🚀</div>
+        <h3>Production Agent Class</h3>
+        <p>Complete AgentWithMemory class with OpenAI integration. Drop it into your project. Works out of the box.</p>
+        <code>agent.chat("Hello") → with memory!</code>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📊</div>
+        <h3>Memory Analytics</h3>
+        <p>Track memory usage, access patterns, and consolidation stats. Know exactly what your agent knows.</p>
+        <code>get_stats() → {facts: 42, episodes: 15}</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="container">
+    <h2>Architecture</h2>
+    <p class="subtitle">Three-layer memory with vector search backend</p>
+    <div class="arch">
+      <div class="arch-diagram">
+┌─────────────────────────────────────────────┐
+│              User Input                       │
+└─────────────────┬───────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────┐
+│         Working Memory (Short-term)          │
+│  - Current session context                   │
+│  - Last 20 exchanges                         │
+│  - Auto-eviction by importance               │
+└─────────────────┬───────────────────────────┘
+                  │ (consolidation)
+                  ▼
+┌─────────────────────────────────────────────┐
+│        Episodic Memory (Medium-term)         │
+│  - Past conversation summaries               │
+│  - Emotional context + outcomes              │
+│  - Relevance-ranked retrieval                │
+└─────────────────┬───────────────────────────┘
+                  │ (reflection)
+                  ▼
+┌─────────────────────────────────────────────┐
+│        Semantic Memory (Long-term)            │
+│  - User preferences                          │
+│  - Facts & knowledge base                    │
+│  - Confidence-scored retrieval               │
+└─────────────────────────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────┐
+│         Vector Store (ChromaDB)               │
+│  - Semantic search over all memories         │
+│  - Cosine similarity ranking                 │
+│  - Persistent on disk                        │
+└─────────────────────────────────────────────┘</div>
+    </div>
+  </div>
+</section>
+
+<section id="includes">
+  <div class="container">
+    <h2>What's Included</h2>
+    <div class="includes-list">
+      <div class="include-item"><span class="check">✓</span><span>Complete Python source code</span></div>
+      <div class="include-item"><span class="check">✓</span><span>Vector Memory Store (ChromaDB)</span></div>
+      <div class="include-item"><span class="check">✓</span><span>Hierarchical Memory System</span></div>
+      <div class="include-item"><span class="check">✓</span><span>Memory Consolidation engine</span></div>
+      <div class="include-item"><span class="check">✓</span><span>Multi-Agent Sharing (Redis)</span></div>
+      <div class="include-item"><span class="check">✓</span><span>Production Agent class</span></div>
+      <div class="include-item"><span class="check">✓</span><span>Architecture diagrams</span></div>
+      <div class="include-item"><span class="check">✓</span><span>Quick start guide</span></div>
+      <div class="include-item"><span class="check">✓</span><span>MIT License — commercial use OK</span></div>
+      <div class="include-item"><span class="check">✓</span><span>Free updates</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="pricing">
+  <div class="container">
+    <h2>Get It Now</h2>
+    <p class="subtitle">One-time payment. Lifetime access. Free updates.</p>
+    <div class="pricing-card">
+      <div class="popular">Most Popular</div>
+      <h3>🧠 AI Agent Memory Toolkit</h3>
+      <p class="desc">Complete memory architecture for production AI agents</p>
+      <div class="price">$39 <span>one-time</span></div>
+      <ul>
+        <li>5 production-ready Python modules</li>
+        <li>Vector store integration (ChromaDB)</li>
+        <li>Hierarchical memory system</li>
+        <li>Multi-agent sharing (Redis)</li>
+        <li>Complete documentation + diagrams</li>
+        <li>MIT License — commercial use</li>
+        <li>Free lifetime updates</li>
+      </ul>
+      <a href="https://crazycompany.lemonsqueezy.com/buy/ai-agent-memory-toolkit" class="btn btn-primary" style="width:100%;text-align:center;">Buy Now — $39</a>
+      <p style="margin-top:16px;font-size:13px;color:var(--muted);">🔒 Secure checkout via Lemon Squeezy · 📧 Instant delivery · 💰 30-day money-back guarantee</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <h3>What do I get exactly?</h3>
+      <p>Complete Python source code for 5 memory modules: Vector Store, Hierarchical Memory, Consolidation, Multi-Agent Sharing, and a Production Agent class. Plus documentation and architecture diagrams.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What dependencies do I need?</h3>
+      <p>Python 3.9+, chromadb, openai, and redis (optional, for multi-agent sharing). All pip-installable.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I use this commercially?</h3>
+      <p>Yes. MIT License. Use it in your startup, your agency, your enterprise project. No attribution required.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Do I need Redis?</h3>
+      <p>Only if you want multi-agent memory sharing. The core memory system works with just ChromaDB (embedded, no server needed).</p>
+    </div>
+    <div class="faq-item">
+      <h3>What if it doesn't work for me?</h3>
+      <p>30-day money-back guarantee. Email us, we refund. No questions asked.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 ZOO Technologies · <a href="https://zootechnologies.com">zootechnologies.com</a> · <a href="https://crazycompany.lemonsqueezy.com">Lemon Squeezy Store</a></p>
+</footer>
+
+</body>
+</html>
