@@ -10,36 +10,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black: #060608;
-  --dark: #0b0b0d;
-  --surface: #121214;
-  --surface2: #1a1a1e;
-  --border: rgba(255,255,255,0.06);
-  --border-light: rgba(255,255,255,0.1);
-  --text: #e8e6e3;
-  --text-dim: #6a6a6a;
-  --text-muted: #3a3a3a;
-  --accent: #c9a96e;
-  --accent2: #dbc08a;
-  --accent-glow: rgba(201,169,110,0.15);
-  --green: #22c55e;
-  --indigo: #6366f1;
-  --indigo-glow: rgba(99,102,241,0.2);
-  --cyan: #06b6d4;
-  --warm: #ff6b35;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Inter', -apple-system, sans-serif;
+  --black: #060608; --dark: #0b0b0d; --surface: #121214; --surface2: #1a1a1e;
+  --border: rgba(255,255,255,0.06); --border-light: rgba(255,255,255,0.1);
+  --text: #e8e6e3; --text-dim: #6a6a6a; --text-muted: #3a3a3a;
+  --accent: #c9a96e; --accent2: #dbc08a; --accent-glow: rgba(201,169,110,0.15);
+  --green: #22c55e; --amber: #f59e0b;
+  --font-serif: 'Playfair Display', Georgia, serif; --font-sans: 'Inter', -apple-system, sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--black);-webkit-font-smoothing:antialiased}
 body{font-family:var(--font-sans);background:var(--black);color:var(--text);line-height:1.6}
 ::selection{background:var(--accent);color:#000}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:var(--black)}
-::-webkit-scrollbar-thumb{background:#1a1a1a}
-
-/* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,8,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all 0.6s var(--ease)}
 .nav-logo{font-family:var(--font-serif);font-size:1.2rem;font-weight:700;color:var(--text);text-decoration:none;font-style:italic}
 .nav-logo em{color:var(--accent);font-style:italic}
@@ -48,14 +30,10 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
 .nav-links a:hover{color:var(--text)}
 .nav-cta{padding:10px 22px;border:1px solid var(--accent);border-radius:100px;color:var(--accent);background:transparent;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;text-decoration:none;transition:all 0.4s var(--ease);font-family:var(--font-sans)}
 .nav-cta:hover{background:var(--accent);color:#000}
-
-/* PRODUCTS HERO */
 .products-hero{padding:160px 48px 80px;text-align:center;max-width:800px;margin:0 auto}
 .products-eyebrow{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:20px}
 .products-title{font-family:var(--font-serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.05;letter-spacing:-0.03em;margin-bottom:20px}
 .products-subtitle{color:var(--text-dim);font-size:1.1rem;max-width:550px;margin:0 auto}
-
-/* PRODUCTS GRID */
 .products-section{padding:0 48px 120px;max-width:1200px;margin:0 auto}
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px}
 .product-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:36px;transition:all 0.4s var(--ease);position:relative;overflow:hidden}
@@ -82,22 +60,16 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
 .product-btns{display:flex;gap:10px}
 .product-btns .btn:first-child{flex:2}
 .product-btns .btn:last-child{flex:1}
-
-/* GUARANTEE */
 .guarantee-section{text-align:center;padding:80px 48px;border-top:1px solid var(--border)}
 .guarantee-inner{max-width:600px;margin:0 auto}
 .guarantee-icon{font-size:2.4rem;margin-bottom:16px}
 .guarantee-title{font-family:var(--font-serif);font-size:1.6rem;font-weight:700;margin-bottom:12px}
 .guarantee-text{color:var(--text-dim);font-size:0.9rem}
-
-/* FOOTER */
 .footer{padding:48px 48px 24px;border-top:1px solid var(--border);text-align:center}
 .footer p{color:var(--text-muted);font-size:0.78rem}
 .footer a{color:var(--accent);text-decoration:none}
-
 @media(max-width:768px){
-  .nav{padding:16px 20px}
-  .nav-links{display:none}
+  .nav{padding:16px 20px}.nav-links{display:none}
   .products-hero{padding:120px 20px 60px}
   .products-section{padding:0 20px 80px}
   .products-grid{grid-template-columns:1fr}
@@ -119,16 +91,61 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
   <a href="#products" class="nav-cta">Shop All</a>
 </nav>
 
-<!-- HERO -->
 <div class="products-hero">
   <div class="products-eyebrow">Digital Products</div>
   <h1 class="products-title">Ship faster.<br>Pay once.</h1>
   <p class="products-subtitle">Premium templates, kits, and tools for founders, developers, and traders. Battle-tested. Production-ready. No subscriptions.</p>
 </div>
 
-<!-- PRODUCTS -->
 <div class="products-section" id="products">
   <div class="products-grid">
+
+    <!-- AI AGENT OBSERVABILITY KIT -->
+    <div class="product-card" style="border-color:#f59e0b">
+      <span class="product-icon">🛡️</span>
+      <div class="product-category">AI / Observability</div>
+      <div class="product-name">AI Agent Observability Kit <span style="font-size:0.65rem;background:#f59e0b;color:#000;padding:3px 8px;border-radius:20px;font-family:var(--font-sans);vertical-align:middle">HOT</span></div>
+      <div class="product-desc">Detect hallucinations, trace decisions, monitor memory drift, audit tool calls. 6 modules. Framework-agnostic. Self-hosted.</div>
+      <div class="product-price-row">
+        <span class="product-price"><span class="currency">$</span>39</span>
+        <span class="product-period">one-time</span>
+      </div>
+      <ul class="product-features">
+        <li>Hallucination Detector (source cross-ref)</li>
+        <li>Decision Tracer with replay</li>
+        <li>Memory Drift Monitor</li>
+        <li>Permission Auditor (least-privilege)</li>
+        <li>Cost Tracker + budget alerts</li>
+        <li>Slack + Email alert integration</li>
+      </ul>
+      <div class="product-btns">
+        <a href="/checkout.html?product=observability-kit&price=39" class="btn btn-primary">Get the Kit →</a>
+        <a href="/products/agent-observability-kit/" class="btn btn-secondary">Details</a>
+      </div>
+    </div>
+
+    <!-- AI AGENT MEMORY TOOLKIT -->
+    <div class="product-card" style="border-color:var(--accent)">
+      <span class="product-icon">🧠</span>
+      <div class="product-category">AI / Memory</div>
+      <div class="product-name">AI Agent Memory Toolkit <span style="font-size:0.65rem;background:var(--accent);color:#000;padding:3px 8px;border-radius:20px;font-family:var(--font-sans);vertical-align:middle">NEW</span></div>
+      <div class="product-desc">Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python + ChromaDB.</div>
+      <div class="product-price-row">
+        <span class="product-price"><span class="currency">$</span>39</span>
+        <span class="product-period">one-time</span>
+      </div>
+      <ul class="product-features">
+        <li>Vector Memory Store (ChromaDB)</li>
+        <li>Hierarchical Memory (3 layers)</li>
+        <li>Memory Consolidation engine</li>
+        <li>Multi-Agent Sharing (Redis)</li>
+        <li>Production Agent class included</li>
+      </ul>
+      <div class="product-btns">
+        <a href="/checkout.html?product=memory-toolkit&price=39" class="btn btn-primary">Get the Toolkit →</a>
+        <a href="/products/ai-agent-memory-toolkit/" class="btn btn-secondary">Details</a>
+      </div>
+    </div>
 
     <!-- NOTION TEMPLATE PACK -->
     <div class="product-card">
@@ -223,7 +240,7 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
       </div>
     </div>
 
-    <!-- AI AGENT MEMORY TOOLKIT -->\n    <div class=\"product-card\" style=\"border-color:var(--accent)\">\n      <span class=\"product-icon\">🧠</span>\n      <div class=\"product-category\">AI / Memory</div>\n      <div class=\"product-name\">AI Agent Memory Toolkit <span style=\"font-size:0.65rem;background:var(--accent);color:#000;padding:3px 8px;border-radius:20px;font-family:var(--font-sans);vertical-align:middle\">NEW</span></div>\n      <div class=\"product-desc\">Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python + ChromaDB.</div>\n      <div class=\"product-price-row\">\n        <span class=\"product-price\"><span class=\"currency\">$</span>39</span>\n        <span class=\"product-period\">one-time</span>\n      </div>\n      <ul class=\"product-features\">\n        <li>Vector Memory Store (ChromaDB)</li>\n        <li>Hierarchical Memory (3 layers)</li>\n        <li>Memory Consolidation engine</li>\n        <li>Multi-Agent Sharing (Redis)</li>\n        <li>Production Agent class included</li>\n      </ul>\n      <div class=\"product-btns\">\n        <a href=\"https://crazycompany.lemonsqueezy.com\" class=\"btn btn-primary\">Get the Toolkit →</a>\n        <a href=\"/products/ai-agent-memory-toolkit/\" class=\"btn btn-secondary\">Details</a>\n      </div>\n    </div>\n\n    <!-- LANDING PAGE TEMPLATES -->
+    <!-- LANDING PAGE TEMPLATES -->
     <div class="product-card">
       <span class="product-icon">🎨</span>
       <div class="product-category">Design / Templates</div>
@@ -249,7 +266,6 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
   </div>
 </div>
 
-<!-- GUARANTEE -->
 <div class="guarantee-section">
   <div class="guarantee-inner">
     <div class="guarantee-icon">🛡️</div>
@@ -258,7 +274,6 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
   </div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   <p>© 2026 <a href="/">ZOO Technologies</a> · AI-Powered Technology Studio · All payments secured by Stripe</p>
 </div>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Observability Kit — Debug, Monitor & Trust Your AI Agents | ZOO</title>
+<meta name="description" content="Production-ready observability toolkit for AI agents. Detect hallucinations, trace decisions, monitor memory, audit tool calls. Python + TypeScript.">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #141420;
+  --border: #2a2a3a;
+  --text: #e4e4e7;
+  --muted: #8888a0;
+  --accent: #f59e0b;
+  --accent2: #fbbf24;
+  --green: #22c55e;
+  --red: #ef4444;
+  --gradient: linear-gradient(135deg, #f59e0b, #ef4444, #ec4899);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* NAV */
+nav { padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 60px; }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 20px; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+nav a { color: var(--muted); text-decoration: none; font-size: 14px; margin-left: 24px; }
+nav a:hover { color: var(--text); }
+
+/* HERO */
+.hero { text-align: center; padding: 40px 0 80px; }
+.hero .badge { display: inline-block; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
+.hero h1 { font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+.hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto 40px; }
+.cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn { display: inline-block; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; }
+.btn-primary { background: var(--gradient); color: #fff; }
+.btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.price-tag { font-size: 36px; font-weight: 800; color: var(--accent); margin-top: 16px; }
+.price-tag small { font-size: 14px; color: var(--muted); font-weight: 400; }
+
+/* SECTIONS */
+section { padding: 60px 0; }
+h2 { font-size: 32px; font-weight: 700; margin-bottom: 16px; }
+h2 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.subtitle { color: var(--muted); font-size: 16px; margin-bottom: 40px; }
+
+/* PROBLEM */
+.problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.problem-card .icon { font-size: 28px; margin-bottom: 12px; }
+.problem-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.problem-card p { font-size: 14px; color: var(--muted); }
+
+/* FEATURES */
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: border-color 0.2s; }
+.feature-card:hover { border-color: var(--accent); }
+.feature-card .num { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.feature-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.feature-card p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+.feature-card code { display: block; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-size: 12px; color: var(--green); font-family: 'SF Mono', monospace; overflow-x: auto; }
+
+/* COMPARISON */
+.comparison-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.comparison-table th, .comparison-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+.comparison-table th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+.comparison-table tr:last-child td { border-bottom: none; }
+.comparison-table .check { color: var(--green); }
+.comparison-table .cross { color: var(--red); }
+.comparison-table .highlight { background: rgba(245,158,11,0.08); }
+
+/* PRICING */
+.pricing-card { max-width: 500px; margin: 0 auto; background: var(--surface); border: 2px solid var(--accent); border-radius: 16px; padding: 40px; text-align: center; }
+.pricing-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.pricing-card .price { font-size: 56px; font-weight: 800; color: var(--accent); margin: 16px 0; }
+.pricing-card .price small { font-size: 16px; color: var(--muted); }
+.pricing-card ul { list-style: none; text-align: left; margin: 24px 0; }
+.pricing-card ul li { padding: 8px 0; font-size: 14px; border-bottom: 1px solid var(--border); }
+.pricing-card ul li:before { content: "✓ "; color: var(--green); font-weight: 700; }
+
+/* FAQ */
+.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 12px; }
+.faq-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.faq-item p { font-size: 14px; color: var(--muted); }
+
+/* FOOTER */
+footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">ZOO</div>
+    <div>
+      <a href="https://crazycompanyinc.github.io/zootechnologies-web/products.html">Products</a>
+      <a href="https://crazycompanyinc.github.io/zootechnologies-web/blog.html">Blog</a>
+      <a href="https://crazycompanyinc.github.io/zootechnologies-web/checkout.html">Checkout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">🔥 NEW — Based on real HN demand signals</div>
+    <h1>Your AI Agent Is <span>Lying to You</span>. Here's How to Catch It.</h1>
+    <p>Production-ready observability toolkit for AI agents. Detect hallucinations, trace decisions, monitor memory drift, and audit tool calls — before they cost you $200K.</p>
+    <div class="cta-row">
+      <a href="https://crazycompanyinc.github.io/zootechnologies-web/checkout.html" class="btn btn-primary">Get the Kit — $39</a>
+      <a href="#features" class="btn btn-secondary">See What's Inside</a>
+    </div>
+    <div class="price-tag">$39 <small>one-time payment • lifetime access</small></div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section>
+    <h2>The Problem: <span>AI Agents Are Unpredictable</span></h2>
+    <p class="subtitle">HN is full of horror stories. A Cursor agent wiped a production database in 10 seconds. Another drained $200K via a tweet hack. The common thread? Zero observability.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="icon">🤥</div>
+        <h3>Hallucinations Go Undetected</h3>
+        <p>Agents confidently return wrong answers. Without tracing, you never know until it's too late.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">💸</div>
+        <h3>Cost Explosions</h3>
+        <p>Unmonitored agents make 10x more API calls than needed. Silent token burn.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">🔓</div>
+        <h3>Permission Chain Abuse</h3>
+        <p>Agents exploit overly-broad permissions. One tweet hack → $200K drained.</p>
+      </div>
+      <div class="problem-card">
+        <div class="icon">🧠</div>
+        <h3>Memory Drift</h3>
+        <p>Agent memory corrupts over time. Decisions get worse but nobody notices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <h2>What's Inside the <span>Observability Kit</span></h2>
+    <p class="subtitle">6 production-ready modules. Python + TypeScript. Works with any LLM framework.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="num">MODULE 01</div>
+        <h3>Hallucination Detector</h3>
+        <p>Cross-reference agent outputs against source documents. Flag confidence mismatches.</p>
+        <code>detector.check(response, sources) → {score: 0.12, flag: TRUE}</code>
+      </div>
+      <div class="feature-card">
+        <div class="num">MODULE 02</div>
+        <h3>Decision Tracer</h3>
+        <p>Full audit trail of every agent decision. Replay any conversation step-by-step.</p>
+        <code>tracer.log(step, reasoning, output) → trace_id</code>
+      </div>
+      <div class="feature-card">
+        <div class="num">MODULE 03</div>
+        <h3>Memory Monitor</h3>
+        <p>Track memory consistency over time. Detect drift before it causes bad decisions.</p>
+        <code>monitor.check_drift(memory_snapshot) → drift_score</code>
+      </div>
+      <div class="feature-card">
+        <div class="num">MODULE 04</div>
+        <h3>Cost Tracker</h3>
+        <p>Real-time token usage per agent, per task. Set budgets and auto-throttle.</p>
+        <code>tracker.get_cost(agent_id, period) → {$: 4.20}</code>
+      </div>
+      <div class="feature-card">
+        <div class="num">MODULE 05</div>
+        <h3>Permission Auditor</h3>
+        <p>Scan agent tool permissions. Enforce least-privilege. Prevent chain abuse.</p>
+        <code>auditor.scan(agent_config) → {risks: [...]}</code>
+      </div>
+      <div class="feature-card">
+        <div class="num">MODULE 06</div>
+        <h3>Alert Dashboard</h3>
+        <p>Slack + email alerts for anomalies. Configurable thresholds per metric.</p>
+        <code>dashboard.alert("hallucination", threshold=0.3)</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section>
+    <h2>Why Not Just Use <span>LangSmith / LangFuse?</span></h2>
+    <p class="subtitle">Great tools, but they lock you into their ecosystem. ZOO's kit is framework-agnostic and self-hosted.</p>
+    <table class="comparison-table">
+      <tr>
+        <th>Feature</th>
+        <th>ZOO Observability Kit</th>
+        <th>LangSmith</th>
+        <th>LangFuse</th>
+        <th>Custom Build</th>
+      </tr>
+      <tr>
+        <td>Price</td>
+        <td class="highlight check">$39 one-time</td>
+        <td>$50-200/mo</td>
+        <td>$59-299/mo</td>
+        <td>$5K+ dev time</td>
+      </tr>
+      <tr>
+        <td>Framework lock-in</td>
+        <td class="highlight check">None (any LLM)</td>
+        <td>LangChain only</td>
+        <td>Any (but cloud)</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td>Self-hosted</td>
+        <td class="highlight check">✅ Yes</td>
+        <td>❌ Cloud only</td>
+        <td>⚠️ Enterprise</td>
+        <td>✅ Yes</td>
+      </tr>
+      <tr>
+        <td>Hallucination detection</td>
+        <td class="highlight check">✅ Built-in</td>
+        <td>❌ Manual</td>
+        <td>⚠️ Basic</td>
+        <td>❌ Build it</td>
+      </tr>
+      <tr>
+        <td>Permission auditing</td>
+        <td class="highlight check">✅ Built-in</td>
+        <td>❌ No</td>
+        <td>❌ No</td>
+        <td>❌ Build it</td>
+      </tr>
+      <tr>
+        <td>Setup time</td>
+        <td class="highlight check">30 minutes</td>
+        <td>1 hour</td>
+        <td>1 hour</td>
+        <td>2-4 weeks</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="pricing-card">
+      <h3>AI Agent Observability Kit</h3>
+      <div class="price">$39 <small>one-time</small></div>
+      <p style="color: var(--muted); margin-bottom: 24px;">Everything you need to trust your AI agents in production.</p>
+      <ul>
+        <li>6 Python/TypeScript modules (full source)</li>
+        <li>Hallucination detector with source cross-reference</li>
+        <li>Decision tracer with replay capability</li>
+        <li>Memory drift monitor</li>
+        <li>Cost tracker with budget alerts</li>
+        <li>Permission auditor (least-privilege enforcement)</li>
+        <li>Slack + email alert integration</li>
+        <li>Docker Compose setup (one-command deploy)</li>
+        <li>Documentation + API reference</li>
+        <li>Lifetime updates</li>
+      </ul>
+      <a href="https://crazycompanyinc.github.io/zootechnologies-web/checkout.html" class="btn btn-primary" style="width: 100%; text-align: center;">Get Instant Access — $39</a>
+      <p style="color: var(--muted); font-size: 12px; margin-top: 12px;">30-day money-back guarantee • Instant download</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <h2>Frequently Asked <span>Questions</span></h2>
+    <div class="faq-item">
+      <h3>Does this work with my LLM framework?</h3>
+      <p>Yes. The kit is framework-agnostic. Works with LangChain, LlamaIndex, OpenAI SDK, Anthropic SDK, or any custom setup. Pure Python/TypeScript.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is this just another monitoring dashboard?</h3>
+      <p>No. Dashboards show you metrics. This kit detects problems automatically — hallucinations, permission abuse, memory drift — and alerts you before they cause damage.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why not use LangSmith or LangFuse?</h3>
+      <p>Great tools if you're all-in on their ecosystem. ZOO's kit is self-hosted, framework-agnostic, and includes hallucination detection + permission auditing that LangSmith doesn't offer. One-time $39 vs $50-299/month.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What if it doesn't work for me?</h3>
+      <p>30-day money-back guarantee. No questions asked. Email us and we'll refund you.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 ZOO Technologies — <a href="https://crazycompanyinc.github.io/zootechnologies-web/products.html" style="color: var(--muted);">All Products</a> • <a href="https://crazycompanyinc.github.io/zootechnologies-web/checkout.html" style="color: var(--muted);">Checkout</a></p>
+</footer>
+
+</body>
+</html>
