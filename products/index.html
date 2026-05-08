@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZOO Digital Products — Tools, Templates & Kits for Builders</title>
+<meta name="description" content="Premium digital products for developers, founders, and traders. Notion templates, AI agent kits, landing page templates, trading algorithms, and API boilerplates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b; --surface: #12121a; --surface2: #1a1a26; --border: #2a2a3a;
+  --border-hover: #3a3a4e; --text: #e8e8f0; --text2: #8888a0; --text3: #55556a;
+  --accent: #6366f1; --accent2: #818cf8; --accent-glow: rgba(99,102,241,0.3);
+  --warm: #ff6b35; --green: #22c55e; --cyan: #06b6d4;
+  --gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); height: 64px; display: flex; align-items: center; }
+.nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-weight: 800; font-size: 18px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+.nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
+.nav-links a { color: var(--text2); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+
+.hero { padding: 140px 24px 80px; text-align: center; position: relative; }
+.hero-glow { position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(99,102,241,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero-content { position: relative; max-width: 700px; margin: 0 auto; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(99,102,241,0.1); color: var(--accent2); border: 1px solid rgba(99,102,241,0.2); margin-bottom: 24px; }
+.hero h1 { font-size: clamp(36px, 6vw, 54px); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 20px; }
+.hero h1 .highlight { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text2); font-size: clamp(16px, 2vw, 19px); max-width: 560px; margin: 0 auto; line-height: 1.65; }
+
+.section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header h2 { font-size: clamp(28px, 4vw, 36px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+.section-header p { color: var(--text2); font-size: 16px; max-width: 480px; margin: 0 auto; }
+
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.product-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; transition: all 0.3s; display: flex; flex-direction: column; }
+.product-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(99,102,241,0.12); }
+.product-icon { font-size: 36px; margin-bottom: 16px; }
+.product-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.product-card .desc { color: var(--text2); font-size: 14px; line-height: 1.6; flex-grow: 1; }
+.product-card .price { font-size: 28px; font-weight: 800; margin: 16px 0; }
+.product-card .price .currency { font-size: 16px; vertical-align: super; color: var(--text2); }
+.product-card .price .period { font-size: 13px; color: var(--text3); font-weight: 400; }
+.product-card .features { list-style: none; margin: 12px 0; }
+.product-card .features li { font-size: 13px; color: var(--text2); padding: 3px 0; display: flex; align-items: center; gap: 8px; }
+.product-card .features li::before { content: '✓'; color: var(--green); font-size: 12px; font-weight: 700; }
+.product-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; font-family: var(--font-body); }
+.product-btn-primary { background: var(--gradient); color: #fff; }
+.product-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(--accent-glow); }
+.product-btn-green { background: linear-gradient(135deg, #22c55e, #06b6d4); color: #000; }
+.product-btn-green:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(34,197,94,0.3); }
+.product-btn-cyan { background: linear-gradient(135deg, #06b6d4, #6366f1); color: #fff; }
+.product-btn-cyan:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(6,182,212,0.3); }
+.product-btn-warm { background: linear-gradient(135deg, #ff6b35, #f59e0b); color: #000; }
+.product-btn-warm:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,107,53,0.3); }
+.product-tag { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+.tag-popular { background: rgba(255,107,53,0.12); color: var(--warm); border: 1px solid rgba(255,107,53,0.2); }
+.tag-new { background: rgba(99,102,241,0.12); color: var(--accent2); border: 1px solid rgba(99,102,241,0.2); }
+
+.guarantee { text-align: center; padding: 48px 24px; }
+.guarantee-inner { max-width: 600px; margin: 0 auto; }
+.guarantee h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.guarantee p { color: var(--text2); font-size: 15px; }
+
+.footer { text-align: center; padding: 48px 24px; color: var(--text2); font-size: 13px; border-top: 1px solid var(--border); }
+.footer a { color: var(--accent2); text-decoration: none; }
+.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 auto; max-width: 1100px; }
+
+@media (max-width: 768px) {
+  .hero { padding: 100px 20px 60px; }
+  .section { padding: 60px 20px; }
+  .products-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">ZOO</a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#guarantee">Guarantee</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🏪 ZOO Digital Store</div>
+    <h1>Build Faster.<br><span class="highlight">Ship Smarter.</span></h1>
+    <p>Premium templates, kits, and tools for founders, developers, and traders. Battle-tested. Production-ready. One-time payment.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="products">
+  <div class="section-header">
+    <h2>All Products</h2>
+    <p>Everything you need to go from zero to shipped. Pay once, use forever.</p>
+  </div>
+  <div class="products-grid">
+
+    <!-- Notion Template Pack -->
+    <div class="product-card">
+      <div class="product-icon">📋</div>
+      <h3>Notion Template Pack</h3>
+      <p class="desc">10 battle-tested templates for founders. Startup OS, CRM, Roadmap, Finance Tracker, and more. Save 10+ hours/week.</p>
+      <ul class="features">
+        <li>10 Notion templates (Starter + Pro)</li>
+        <li>Startup OS + CRM + Roadmap</li>
+        <li>Finance Tracker + Hiring Pipeline</li>
+        <li>Founder Guide PDF included</li>
+        <li>Lifetime updates</li>
+      </ul>
+      <div class="price"><span class="currency">$</span>19 <span class="period">— $29</span></div>
+      <a href="/products/notion-template-pack/sales-page.html" class="product-btn product-btn-warm">Get Notion Templates →</a>
+      <span class="product-tag tag-popular">MOST POPULAR</span>
+    </div>
+
+    <!-- AI Agent Starter Kit -->
+    <div class="product-card">
+      <div class="product-icon">🤖</div>
+      <h3>AI Agent Starter Kit</h3>
+      <p class="desc">Production-ready AI Agent boilerplate with memory, tool calling, multi-agent orchestration, and monitoring dashboard.</p>
+      <ul class="features">
+        <li>Python + TypeScript</li>
+        <li>Memory module (vector + SQL)</li>
+        <li>Multi-agent orchestrator</li>
+        <li>45-min video walkthrough</li>
+        <li>Private Discord community</li>
+      </ul>
+      <div class="price"><span class="currency">$</span>49 <span class="period">one-time</span></div>
+      <a href="/products/ai-agent-starter-kit/sales-page.html" class="product-btn product-btn-primary">Get the Kit →</a>
+      <span class="product-tag tag-new">NEW</span>
+    </div>
+
+    <!-- Landing Page Templates -->
+    <div class="product-card">
+      <div class="product-icon">🎨</div>
+      <h3>Landing Page Templates</h3>
+      <p class="desc">7 production-ready landing pages: SaaS, Agency, Product Launch, App, Course, Event, Blog. HTML/CSS/JS + Figma.</p>
+      <ul class="features">
+        <li>7 responsive landing pages</li>
+        <li>Figma source files included</li>
+        <li>Dark mode + 90+ Lighthouse</li>
+        <li>SEO + Analytics ready</li>
+        <li>Contact form + Formspree</li>
+      </ul>
+      <div class="price"><span class="currency">$</span>29 <span class="period">one-time</span></div>
+      <a href="/products/landing-page-templates/saas/index.html" class="product-btn product-btn-green">Browse Templates →</a>
+    </div>
+
+    <!-- Trading EA Templates -->
+    <div class="product-card">
+      <div class="product-icon">📈</div>
+      <h3>Trading EA Templates</h3>
+      <p class="desc">5 professional Expert Advisors: Trend, Mean Reversion, Breakout, Grid, News. MQL4/MQL5 + Pine Script + backtests.</p>
+      <ul class="features">
+        <li>5 strategy templates</li>
+        <li>MQL4 + MQL5 + Pine Script</li>
+        <li>Risk management built-in</li>
+        <li>Backtest reports + video guide</li>
+        <li>Kelly / Martingale options</li>
+      </ul>
+      <div class="price"><span class="currency">$</span>49 <span class="period">one-time</span></div>
+      <a href="/products/trading-ea-templates/sales-page.html" class="product-btn product-btn-green">Get Trading EAs →</a>
+    </div>
+
+    <!-- API Boilerplate -->
+    <div class="product-card">
+      <div class="product-icon">⚡</div>
+      <h3>API Boilerplate Collection</h3>
+      <p class="desc">3 production APIs: REST (Express/Fastify), GraphQL (Apollo), Realtime (WebSocket). Auth, tests, CI/CD, Docker.</p>
+      <ul class="features">
+        <li>REST + GraphQL + Realtime</li>
+        <li>JWT + OAuth2 + RBAC</li>
+        <li>Stripe + S3 + BullMQ + Redis</li>
+        <li>Tests + CI/CD + Docker</li>
+        <li>Deploy to 6 platforms</li>
+      </ul>
+      <div class="price"><span class="currency">$</span>39 <span class="period">one-time</span></div>
+      <a href="/products/api-boilerplate/sales-page.html" class="product-btn product-btn-cyan">Get All 3 APIs →</a>
+    </div>
+
+    <!-- Design System Kit -->
+    <div class="product-card">
+      <div class="product-icon">🎯</div>
+      <h3>Design System Kit</h3>
+      <p class="desc">Complete design system with tokens, components, and page templates. Dark mode. Accessibility compliant.</p>
+      <ul class="features">
+        <li>Design tokens + CSS variables</li>
+        <li>Component library (50+)</li>
+        <li>Page templates included</li>
+        <li>WCAG 2.1 AA compliant</li>
+        <li>Figma + code synced</li>
+      </ul>
+      <div class="price"><span class="currency">$</span>29 <span class="period">one-time</span></div>
+      <a href="#pricing" class="product-btn product-btn-primary">Get Design Kit →</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="guarantee" id="guarantee">
+  <div class="guarantee-inner">
+    <h3>🛡️ 30-Day Money-Back Guarantee</h3>
+    <p>Not satisfied? Get a full refund within 30 days. No questions asked. All payments secured by Stripe.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 ZOO Technologies · <a href="mailto:hello@zootechnologies.com">hello@zootechnologies.com</a></p>
+  <p style="margin-top:8px;color:var(--text3);">Built by builders. For builders.</p>
+</footer>
+
+</body>
+</html>
