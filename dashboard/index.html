@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Dashboard — ZOO Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--black:#060608;--dark:#0b0b0d;--surface:#121214;--surface2:#1a1a1e;--border:rgba(255,255,255,0.06);--border-light:rgba(255,255,255,0.1);--text:#e8e6e3;--text-dim:#6a6a6a;--text-muted:#3a3a3a;--accent:#c9a96e;--green:#22c55e;--red:#ef4444;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;--font-sans:'Inter',-apple-system,sans-serif;--font-mono:'JetBrains Mono',monospace;--ease:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--black);-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-sans);background:var(--black);color:var(--text);line-height:1.6}
+::selection{background:var(--accent);color:#000}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:#1a1a1a}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:var(--dark);border-right:1px solid var(--border);padding:24px 0;z-index:100}
+.sidebar-logo{padding:0 24px 24px;font-family:var(--font-mono);font-size:1rem;font-weight:700;color:var(--text);border-bottom:1px solid var(--border);margin-bottom:16px}
+.sidebar-logo em{color:var(--accent)}
+.sidebar-section{padding:8px 0}
+.sidebar-label{padding:8px 24px;font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:var(--text-muted)}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:10px 24px;color:var(--text-dim);text-decoration:none;font-size:0.85rem;transition:all 0.2s;border-left:2px solid transparent}
+.sidebar-link:hover,.sidebar-link.active{color:var(--text);background:rgba(255,255,255,0.02);border-left-color:var(--accent)}
+.sidebar-link .icon{font-size:1rem;width:20px;text-align:center}
+
+/* MAIN */
+.main{margin-left:220px;padding:32px 40px;min-height:100vh}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.header h1{font-size:1.5rem;font-weight:700}
+.header-sub{color:var(--text-dim);font-size:0.85rem;margin-top:4px}
+.header-right{display:flex;gap:12px;align-items:center}
+.badge{padding:6px 14px;border-radius:100px;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em}
+.badge-live{background:rgba(34,197,94,0.1);color:var(--green);border:1px solid rgba(34,197,94,0.2)}
+.badge-warn{background:rgba(249,115,22,0.1);color:var(--orange);border:1px solid rgba(249,115,22,0.2)}
+.badge-err{background:rgba(239,68,68,0.1);color:var(--red);border:1px solid rgba(239,68,68,0.2)}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:32px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;position:relative;overflow:hidden}
+.stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.stat-card:nth-child(1)::after{background:var(--green)}
+.stat-card:nth-child(2)::after{background:var(--blue)}
+.stat-card:nth-child(3)::after{background:var(--purple)}
+.stat-card:nth-child(4)::after{background:var(--accent)}
+.stat-label{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted);margin-bottom:8px}
+.stat-value{font-size:2rem;font-weight:800;line-height:1;margin-bottom:4px}
+.stat-change{font-size:0.75rem;font-weight:500}
+.stat-change.up{color:var(--green)}
+.stat-change.down{color:var(--red)}
+.stat-change.neutral{color:var(--text-muted)}
+
+/* GRID 2 cols */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
+.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.panel-title{font-size:0.9rem;font-weight:600}
+.panel-sub{font-size:0.75rem;color:var(--text-muted)}
+
+/* PRODUCT ROWS */
+.product-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+.product-row:last-child{border-bottom:none}
+.product-info{display:flex;align-items:center;gap:12px}
+.product-icon{width:36px;height:36px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.product-name{font-size:0.85rem;font-weight:500}
+.product-price{font-size:0.75rem;color:var(--text-muted)}
+.product-sales{text-align:right}
+.product-sales-count{font-size:1.1rem;font-weight:700}
+.product-sales-label{font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+.product-status{padding:3px 10px;border-radius:100px;font-size:0.65rem;font-weight:600}
+.status-live{background:rgba(34,197,94,0.1);color:var(--green)}
+.status-pending{background:rgba(249,115,22,0.1);color:var(--orange)}
+.status-blocked{background:rgba(239,68,68,0.1);color:var(--red)}
+
+/* PIPELINE */
+.pipeline-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.pipeline-row:last-child{border-bottom:none}
+.pipeline-company{font-size:0.85rem;font-weight:500;flex:1}
+.pipeline-value{font-size:0.8rem;color:var(--accent);font-weight:600}
+.pipeline-status{padding:3px 10px;border-radius:100px;font-size:0.65rem;font-weight:600}
+.status-sent{background:rgba(59,130,246,0.1);color:var(--blue)}
+.status-replied{background:rgba(34,197,94,0.1);color:var(--green)}
+
+/* CHART BAR */
+.chart-bar{display:flex;align-items:flex-end;gap:8px;height:120px;padding:20px 0}
+.bar{flex:1;background:var(--accent);border-radius:4px 4px 0 0;opacity:0.6;transition:opacity 0.3s;position:relative;min-height:4px}
+.bar:hover{opacity:1}
+.bar-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:0.65rem;color:var(--text-muted);white-space:nowrap}
+
+/* ACTIVITY LOG */
+.activity-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.activity-dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.activity-dot.green{background:var(--green)}
+.activity-dot.blue{background:var(--blue)}
+.activity-dot.orange{background:var(--orange)}
+.activity-dot.red{background:var(--red)}
+.activity-text{font-size:0.82rem;color:var(--text-dim)}
+.activity-time{font-size:0.7rem;color:var(--text-muted);margin-top:2px}
+
+/* TASK LIST */
+.task-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.task-item:last-child{border-bottom:none}
+.task-check{width:18px;height:18px;border-radius:4px;border:1px solid var(--border-light);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.65rem}
+.task-check.checked{background:var(--green);border-color:var(--green);color:#000}
+.task-text{font-size:0.82rem;color:var(--text-dim)}
+.task-text.done{text-decoration:line-through;color:var(--text-muted)}
+.task-priority{padding:2px 8px;border-radius:100px;font-size:0.6rem;font-weight:600;margin-left:auto}
+.p-high{background:rgba(239,68,68,0.1);color:var(--red)}
+.p-med{background:rgba(249,115,22,0.1);color:var(--orange)}
+.p-low{background:rgba(59,130,246,0.1);color:var(--blue)}
+
+/* PROGRESS BAR */
+.progress-bar{height:6px;background:var(--surface2);border-radius:100px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;border-radius:100px;transition:width 0.6s var(--ease)}
+
+.footer{padding:24px 40px;margin-left:220px;border-top:1px solid var(--border);text-align:center;font-size:0.75rem;color:var(--text-muted)}
+
+@media(max-width:1024px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .grid-2{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{margin-left:0;padding:20px}
+  .footer{margin-left:0}
+  .stats-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">ZOO<em>.</em></div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Main</div>
+    <a href="#" class="sidebar-link active"><span class="icon">📊</span> Dashboard</a>
+    <a href="/products.html" class="sidebar-link"><span class="icon">📦</span> Products</a>
+    <a href="/checkout.html" class="sidebar-link"><span class="icon">💳</span> Checkout</a>
+    <a href="/blog.html" class="sidebar-link"><span class="icon">📝</span> Blog</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Analytics</div>
+    <a href="#revenue" class="sidebar-link"><span class="icon">💰</span> Revenue</a>
+    <a href="#pipeline" class="sidebar-link"><span class="icon">🎯</span> Pipeline</a>
+    <a href="#activity" class="sidebar-link"><span class="icon">⚡</span> Activity</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">System</div>
+    <a href="#tasks" class="sidebar-link"><span class="icon">✅</span> Tasks</a>
+    <a href="#health" class="sidebar-link"><span class="icon">🖥</span> Health</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="header">
+    <div>
+      <h1>Revenue Dashboard</h1>
+      <div class="header-sub">ZOO Technologies — Day 1 — May 8, 2026</div>
+    </div>
+    <div class="header-right">
+      <span class="badge badge-live">● LIVE</span>
+      <span class="badge badge-warn">⚠ Stripe Key</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Revenue</div>
+      <div class="stat-value">$0</div>
+      <div class="stat-change neutral">Day 1 — 9 days to $5K</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pipeline</div>
+      <div class="stat-value">$85K</div>
+      <div class="stat-change up">100+ leads contacted</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Products Live</div>
+      <div class="stat-value">2/5</div>
+      <div class="stat-change down">3 need Payment Links</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Emails Sent</div>
+      <div class="stat-value">183+</div>
+      <div class="stat-change up">1 response (ReJot)</div>
+    </div>
+  </div>
+
+  <!-- ROW 2 -->
+  <div class="grid-2">
+    <!-- PRODUCTS -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Products</div>
+          <div class="panel-sub">5 digital products — 2 with checkout LIVE</div>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="product-info">
+          <div class="product-icon">🤖</div>
+          <div>
+            <div class="product-name">AI Agent Starter Kit</div>
+            <div class="product-price">$49</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="product-sales">
+            <div class="product-sales-count">0</div>
+            <div class="product-sales-label">sales</div>
+          </div>
+          <span class="product-status status-live">LIVE</span>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="product-info">
+          <div class="product-icon">📈</div>
+          <div>
+            <div class="product-name">Trading EA Templates</div>
+            <div class="product-price">$49</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="product-sales">
+            <div class="product-sales-count">0</div>
+            <div class="product-sales-label">sales</div>
+          </div>
+          <span class="product-status status-live">LIVE</span>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="product-info">
+          <div class="product-icon">📦</div>
+          <div>
+            <div class="product-name">Notion Template Pack</div>
+            <div class="product-price">$19/$29</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="product-sales">
+            <div class="product-sales-count">0</div>
+            <div class="product-sales-label">sales</div>
+          </div>
+          <span class="product-status status-pending">NO LINK</span>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="product-info">
+          <div class="product-icon">⚡</div>
+          <div>
+            <div class="product-name">API Boilerplate</div>
+            <div class="product-price">$39</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="product-sales">
+            <div class="product-sales-count">0</div>
+            <div class="product-sales-label">sales</div>
+          </div>
+          <span class="product-status status-pending">NO LINK</span>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="product-info">
+          <div class="product-icon">🎨</div>
+          <div>
+            <div class="product-name">Landing Page Templates</div>
+            <div class="product-price">$29</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="product-sales">
+            <div class="product-sales-count">0</div>
+            <div class="product-sales-label">sales</div>
+          </div>
+          <span class="product-status status-pending">NO LINK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="panel" id="pipeline">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Outreach Pipeline</div>
+          <div class="panel-sub">100+ companies contacted — 1 response</div>
+        </div>
+      </div>
+      <div class="pipeline-row">
+        <span class="pipeline-company">ReJot (Wilco K.)</span>
+        <span class="pipeline-value">HOT</span>
+        <span class="pipeline-status status-replied">REPLIED ✅</span>
+      </div>
+      <div class="pipeline-row">
+        <span class="pipeline-company">Bytes/Fireship</span>
+        <span class="pipeline-value">$2-5K</span>
+        <span class="pipeline-status status-sent">SENT</span>
+      </div>
+      <div class="pipeline-row">
+        <span class="pipeline-company">The Changelog</span>
+        <span class="pipeline-value">$2-5K</span>
+        <span class="pipeline-status status-sent">SENT</span>
+      </div>
+      <div class="pipeline-row">
+        <span class="pipeline-company">Failory</span>
+        <span class="pipeline-value">$1-3K</span>
+        <span class="pipeline-status status-sent">SENT</span>
+      </div>
+      <div class="pipeline-row">
+        <span class="pipeline-company">96 more leads...</span>
+        <span class="pipeline-value">$77K+</span>
+        <span class="pipeline-status status-sent">SENT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3 -->
+  <div class="grid-2">
+    <!-- ACTIVITY -->
+    <div class="panel" id="activity">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Activity Log</div>
+          <div class="panel-sub">Real-time agent activity</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot green"></div>
+        <div>
+          <div class="activity-text"><strong>INSPECTOR</strong> — Fixed 3 critical bugs (DOCTYPE, HN badge, buy button)</div>
+          <div class="activity-time">15:45</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot blue"></div>
+        <div>
+          <div class="activity-text"><strong>ORION</strong> — Batch 5: 15 emails sent (110+ total today)</div>
+          <div class="activity-time">15:38</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot green"></div>
+        <div>
+          <div class="activity-text"><strong>HAWK</strong> — Blog post published: Agent Orchestration</div>
+          <div class="activity-time">15:37</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot orange"></div>
+        <div>
+          <div class="activity-text"><strong>ECHO</strong> — Batch 4: 12 emails (40 total today)</div>
+          <div class="activity-time">15:50</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot green"></div>
+        <div>
+          <div class="activity-text"><strong>VIPER</strong> — System health OK, all deployments ● Ready</div>
+          <div class="activity-time">15:37</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot red"></div>
+        <div>
+          <div class="activity-text"><strong>STRIPE_SECRET_KEY</strong> — Still blocked. Dashboard workaround available.</div>
+          <div class="activity-time">15:30</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot blue"></div>
+        <div>
+          <div class="activity-text"><strong>PHOENIX</strong> — 8 new partners identified (20 total pipeline)</div>
+          <div class="activity-time">15:30</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot green"></div>
+        <div>
+          <div class="activity-text"><strong>FULLSTACK</strong> — Blog page + Revenue Dashboard deployed</div>
+          <div class="activity-time">16:02</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TASKS -->
+    <div class="panel" id="tasks">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Action Items</div>
+          <div class="panel-sub">Priority tasks for revenue</div>
+        </div>
+      </div>
+      <div class="task-item">
+        <div class="task-check">✓</div>
+        <span class="task-text done">Fix DOCTYPE bug (agent-control-flow)</span>
+        <span class="task-priority p-low">DONE</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check">✓</div>
+        <span class="task-text done">Remove fabricated HN badge</span>
+        <span class="task-priority p-low">DONE</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check">✓</div>
+        <span class="task-text done">Replace fake Stripe buy button</span>
+        <span class="task-priority p-low">DONE</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check">✓</div>
+        <span class="task-text done">Deploy Blog page + Revenue Dashboard</span>
+        <span class="task-priority p-low">DONE</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <span class="task-text">Create Payment Links for 3 remaining products</span>
+        <span class="task-priority p-high">HIGH</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <span class="task-text">Follow up with ReJot (Wilco Kruijer)</span>
+        <span class="task-priority p-high">HIGH</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <span class="task-text">Create dev.to + Reddit accounts (HAWK distribution)</span>
+        <span class="task-priority p-med">MED</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <span class="task-text">ProductHunt launch prep (May 12)</span>
+        <span class="task-priority p-med">MED</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check"></div>
+        <span class="task-text">Set up Ko-fi as backup payment (RAKE)</span>
+        <span class="task-priority p-low">LOW</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVENUE GOAL -->
+  <div class="panel" id="revenue" style="margin-top:20px">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title">Revenue Goal — $5,000 by May 17</div>
+        <div class="panel-sub">$556/day needed • 9 days remaining</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:24px;margin-top:12px">
+      <div style="flex:1">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:0%;background:var(--green)"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:0.75rem;color:var(--text-muted)">
+          <span>$0</span>
+          <span>Target: $5,000</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:1.8rem;font-weight:800;color:var(--text)">0%</div>
+        <div style="font-size:0.7rem;color:var(--text-muted)">complete</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center">
+      <div style="padding:16px;background:var(--surface2);border-radius:8px">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--accent)">12</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);margin-top:4px">Sales needed/day</div>
+      </div>
+      <div style="padding:16px;background:var(--surface2);border-radius:8px">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--blue)">183+</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);margin-top:4px">Emails sent</div>
+      </div>
+      <div style="padding:16px;background:var(--surface2);border-radius:8px">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--green)">2/5</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);margin-top:4px">Products with checkout</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  ZOO Technologies — Revenue Dashboard — Day 1 — Built by FULLSTACK 🦁
+</div>
+
+</body>
+</html>
