@@ -417,7 +417,7 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
   animParticles();
   
   // ══════════════════════════════════════════
-  // DRONE EN HEADER — pequeño, arriba, flotando
+  // DRONE EN HEADER — GLB model (DamagedHelmet as UFO)
   // ══════════════════════════════════════════
   function initHero3D(){
     var container=document.getElementById('hero3d');
@@ -427,71 +427,55 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
     
     var s=new THREE.Scene();
     var c=new THREE.PerspectiveCamera(35,w/h,.1,100);
-    c.position.set(0,.4,2.5);
-    c.lookAt(0,.08,0);
+    c.position.set(0,.5,3);
+    c.lookAt(0,.1,0);
     var r=new THREE.WebGLRenderer({antialias:true,alpha:true});
     r.setSize(w,h);
     r.setPixelRatio(Math.min(window.devicePixelRatio,2));
     r.setClearColor(0x000000,0);
     container.appendChild(r.domElement);
     
-    s.add(new THREE.AmbientLight(0x333333,.5));
-    var kl=new THREE.DirectionalLight(0xffffff,.3);
-    kl.position.set(2,3,2);
+    s.add(new THREE.AmbientLight(0x404040,.8));
+    var kl=new THREE.DirectionalLight(0xffffff,.6);
+    kl.position.set(3,5,3);
     s.add(kl);
-    var fl=new THREE.DirectionalLight(0xff6b35,.1);
-    fl.position.set(-2,1,-1);
+    var fl=new THREE.DirectionalLight(0xff6b35,.2);
+    fl.position.set(-2,2,-2);
     s.add(fl);
+    var bl=new THREE.DirectionalLight(0x333333,.3);
+    bl.position.set(0,-3,0);
+    s.add(bl);
     
-    var bM=new THREE.MeshStandardMaterial({color:0x1a1a1a,metalness:.7,roughness:.35});
-    var aM=new THREE.MeshStandardMaterial({color:0xff6b35,metalness:.6,roughness:.3,emissive:0xff6b35,emissiveIntensity:.05});
-    var gM=new THREE.MeshStandardMaterial({color:0x111111,metalness:.9,roughness:.1});
-    
-    var drone=new THREE.Group();
-    drone.add(new THREE.Mesh(new THREE.BoxGeometry(.7,.2,.7),bM));
-    var dome=new THREE.Mesh(new THREE.SphereGeometry(.1,16,12,0,Math.PI*2,0,Math.PI/2),gM);
-    dome.position.y=.1;
-    drone.add(dome);
-    
-    [Math.PI/4,-Math.PI/4,Math.PI*3/4,-Math.PI*3/4].forEach(function(a){
-      var arm=new THREE.Mesh(new THREE.BoxGeometry(.55,.04,.04),bM);
-      arm.rotation.y=a;
-      drone.add(arm);
-      var motor=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,.07,8),aM);
-      motor.position.set(Math.sin(a)*.27,.04,Math.cos(a)*.27);
-      drone.add(motor);
-      var prop=new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.004,16),new THREE.MeshStandardMaterial({color:0x222222,metalness:.4,roughness:.5,transparent:true,opacity:.3}));
-      prop.position.set(Math.sin(a)*.27,.08,Math.cos(a)*.27);
-      drone.add(prop);
-    });
-    
-    var gimb=new THREE.Mesh(new THREE.SphereGeometry(.04,12,8),gM);
-    gimb.position.y=-.05;
-    drone.add(gimb);
-    
-    [[-.2,-.05,-.25],[.2,-.05,-.25],[-.2,-.05,.25],[.2,-.05,.25]].forEach(function(p){
-      var leg=new THREE.Mesh(new THREE.BoxGeometry(.015,.12,.015),bM);
-      leg.position.set(p[0],p[1],p[2]);
-      drone.add(leg);
-    });
-    
-    var s1=new THREE.Mesh(new THREE.BoxGeometry(.72,.004,.01),aM);
-    s1.position.set(0,.105,.18);
-    drone.add(s1);
-    var s2=s1.clone();
-    s2.position.z=-.18;
-    drone.add(s2);
-    
-    var plat=new THREE.Mesh(new THREE.CylinderGeometry(.4,.5,.02,32),new THREE.MeshStandardMaterial({color:0x111111,metalness:.6,roughness:.35}));
-    plat.position.y=-.18;
+    // Platform
+    var plat=new THREE.Mesh(new THREE.CylinderGeometry(.6,.7,.02,32),new THREE.MeshStandardMaterial({color:0x111111,metalness:.6,roughness:.35}));
+    plat.position.y=-.2;
     s.add(plat);
-    var ring=new THREE.Mesh(new THREE.TorusGeometry(.5,.004,8,64),aM);
+    var ring=new THREE.Mesh(new THREE.TorusGeometry(.7,.005,8,64),new THREE.MeshStandardMaterial({color:0xff6b35,metalness:.6,roughness:.3,emissive:0xff6b35,emissiveIntensity:.1}));
     ring.rotation.x=Math.PI/2;
-    ring.position.y=-.16;
+    ring.position.y=-.18;
     s.add(ring);
     
-    drone.position.y=.1;
-    s.add(drone);
+    // Load GLB model (DamagedHelmet as UFO/satellite)
+    var model=null;
+    var loader=new THREE.GLTFLoader();
+    loader.load('https://crazycompanyinc.github.io/zootechnologies-web/models/helmet2.glb',
+      function(gltf){
+        model=gltf.scene;
+        model.scale.set(.5,.5,.5);
+        model.position.y=.1;
+        // Tint accent parts orange
+        model.traverse(function(child){
+          if(child.isMesh&&child.material){
+            if(child.material.name&&child.material.name.toLowerCase().includes('accent')){
+              child.material=new THREE.MeshStandardMaterial({color:0xff6b35,metalness:.7,roughness:.3,emissive:0xff6b35,emissiveIntensity:.1});
+            }
+          }
+        });
+        s.add(model);
+      },
+      undefined,
+      function(){}
+    );
     
     var mx2=0;
     document.addEventListener('mousemove',function(e){
@@ -501,9 +485,10 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
     (function anim(){
       requestAnimationFrame(anim);
       var t=Date.now()*.001;
-      drone.position.y=.1+Math.sin(t*.8)*.03;
-      drone.rotation.y+=(mx2*.25-drone.rotation.y)*0.02;
-      for(var i=6;i<=9;i++)if(drone.children[i])drone.children[i].rotation.y+=0.04;
+      if(model){
+        model.position.y=.1+Math.sin(t*.8)*.03;
+        model.rotation.y+=(mx2*.3-model.rotation.y)*0.02;
+      }
       r.render(s,c);
     })();
     
@@ -514,7 +499,7 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
   }
   
   // ══════════════════════════════════════════
-  // ROBOT EN SECCIÓN AI — procedural humanoide
+  // ROBOT EN SECCIÓN AI — GLB model (CesiumMan)
   // ══════════════════════════════════════════
   function initAI3D(){
     var container=document.getElementById('canvas3d');
@@ -524,73 +509,55 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
     
     var s=new THREE.Scene();
     var c=new THREE.PerspectiveCamera(42,w/h,.1,100);
-    c.position.set(0,1.5,4.5);
-    c.lookAt(0,.4,0);
+    c.position.set(0,1.8,5);
+    c.lookAt(0,.6,0);
     var r=new THREE.WebGLRenderer({antialias:true,alpha:true});
     r.setSize(w,h);
     r.setPixelRatio(Math.min(window.devicePixelRatio,2));
     r.setClearColor(0x000000,0);
     container.appendChild(r.domElement);
     
-    s.add(new THREE.AmbientLight(0x333333,.6));
-    var kl=new THREE.DirectionalLight(0xffffff,.4);
+    s.add(new THREE.AmbientLight(0x404040,.7));
+    var kl=new THREE.DirectionalLight(0xffffff,.5);
     kl.position.set(3,5,3);
     s.add(kl);
     var fl=new THREE.DirectionalLight(0xff6b35,.15);
     fl.position.set(-3,2,-2);
     s.add(fl);
     
-    var bM=new THREE.MeshStandardMaterial({color:0x1a1a1a,metalness:.7,roughness:.35});
-    var aM=new THREE.MeshStandardMaterial({color:0xff6b35,metalness:.6,roughness:.3,emissive:0xff6b35,emissiveIntensity:.06});
-    var gM=new THREE.MeshStandardMaterial({color:0x111111,metalness:.9,roughness:.1});
-    
-    var robot=new THREE.Group();
-    var torso=new THREE.Mesh(new THREE.BoxGeometry(.6,.7,.3),bM);
-    torso.position.y=.75;
-    robot.add(torso);
-    var head=new THREE.Mesh(new THREE.BoxGeometry(.4,.35,.35),bM);
-    head.position.y=1.3;
-    robot.add(head);
-    var visor=new THREE.Mesh(new THREE.BoxGeometry(.34,.08,.05),gM);
-    visor.position.set(0,1.32,.15);
-    robot.add(visor);
-    var antenna=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.15,6),aM);
-    antenna.position.set(0,1.52,0);
-    robot.add(antenna);
-    var tip=new THREE.Mesh(new THREE.SphereGeometry(.025,8,6),aM);
-    tip.position.set(0,1.6,0);
-    robot.add(tip);
-    
-    [-.4,.4].forEach(function(x){
-      var arm=new THREE.Mesh(new THREE.BoxGeometry(.15,.5,.15),bM);
-      arm.position.set(x,.75,0);
-      robot.add(arm);
-      var hand=new THREE.Mesh(new THREE.BoxGeometry(.1,.1,.1),aM);
-      hand.position.set(x,.45,0);
-      robot.add(hand);
-    });
-    
-    [-.14,.14].forEach(function(x){
-      var leg=new THREE.Mesh(new THREE.BoxGeometry(.18,.6,.18),bM);
-      leg.position.set(x,.06,0);
-      robot.add(leg);
-      var foot=new THREE.Mesh(new THREE.BoxGeometry(.15,.06,.2),aM);
-      foot.position.set(x,-.28,.03);
-      robot.add(foot);
-    });
-    
-    var chest=new THREE.Mesh(new THREE.BoxGeometry(.38,.1,.05),aM);
-    chest.position.set(0,.92,.18);
-    robot.add(chest);
-    
-    var plat=new THREE.Mesh(new THREE.CylinderGeometry(.9,1.05,.025,32),new THREE.MeshStandardMaterial({color:0x111111,metalness:.6,roughness:.35}));
-    plat.position.y=-.3;
+    // Platform
+    var plat=new THREE.Mesh(new THREE.CylinderGeometry(1,1.2,.03,32),new THREE.MeshStandardMaterial({color:0x111111,metalness:.6,roughness:.35}));
+    plat.position.y=-.4;
     s.add(plat);
-    var ring=new THREE.Mesh(new THREE.TorusGeometry(1.05,.005,8,64),aM);
+    var ring=new THREE.Mesh(new THREE.TorusGeometry(1.2,.006,8,64),new THREE.MeshStandardMaterial({color:0xff6b35,metalness:.6,roughness:.3,emissive:0xff6b35,emissiveIntensity:.08}));
     ring.rotation.x=Math.PI/2;
-    ring.position.y=-.28;
+    ring.position.y=-.38;
     s.add(ring);
-    s.add(robot);
+    
+    // Load GLB model (CesiumMan as robot)
+    var robot=null;
+    var loader=new THREE.GLTFLoader();
+    loader.load('https://crazycompanyinc.github.io/zootechnologies-web/models/cesium-man.glb',
+      function(gltf){
+        robot=gltf.scene;
+        robot.scale.set(.8,.8,.8);
+        robot.position.y=-.1;
+        // Enhance materials
+        robot.traverse(function(child){
+          if(child.isMesh&&child.material){
+            child.material=new THREE.MeshStandardMaterial({
+              color:child.material.color||0xcccccc,
+              metalness:.5,
+              roughness:.4,
+              map:child.material.map||null
+            });
+          }
+        });
+        s.add(robot);
+      },
+      undefined,
+      function(){}
+    );
     
     var mx3=0;
     document.addEventListener('mousemove',function(e){
@@ -600,8 +567,10 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
     (function anim(){
       requestAnimationFrame(anim);
       var t=Date.now()*.001;
-      robot.position.y=Math.sin(t*.5)*.02;
-      robot.rotation.y+=(mx3*.2-robot.rotation.y)*0.012;
+      if(robot){
+        robot.position.y=-.1+Math.sin(t*.5)*.025;
+        robot.rotation.y+=(mx3*.25-robot.rotation.y)*0.015;
+      }
       r.render(s,c);
     })();
     
