@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — ZOO Technologies</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--black:#060608;--surface:#121214;--border:rgba(255,255,255,0.06);--text:#e8e6e3;--text-dim:#6a6a6a;--text-muted:#3a3a3a;--accent:#c9a96e;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Inter',-apple-system,sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--black)}body{font-family:var(--font-sans);background:var(--black);color:var(--text);line-height:1.7}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,8,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-serif);font-size:1.2rem;font-weight:700;color:var(--text);text-decoration:none;font-style:italic}
+.nav-logo em{color:var(--accent);font-style:italic}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.14em}
+.nav-links a:hover{color:var(--text)}
+.article-hero{padding:160px 48px 80px;max-width:700px;margin:0 auto;text-align:center}
+.article-title{font-family:var(--font-serif);font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.1;margin-bottom:16px}
+.article-body{max-width:700px;margin:0 auto;padding:0 48px 80px}
+.article-body p{color:var(--text-dim);margin-bottom:20px;font-size:0.95rem;line-height:1.8}
+.footer{padding:48px;border-top:1px solid var(--border);text-align:center;font-size:0.78rem;color:var(--text-muted)}
+.footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<nav class="nav"><a href="/index.html" class="nav-logo">ZOO<em>.</em></a>
+<ul class="nav-links"><li><a href="/products.html">Products</a></li><li><a href="/blog.html">Blog</a></li></ul></nav>
+<div class="article-hero"><h1 class="article-title">Coming Soon</h1><p style="color:var(--text-dim)">This article is being written by our AI content engine. Check back soon.</p></div>
+<div class="article-body"><p>Meanwhile, check out our featured articles on the <a href="/blog.html" style="color:var(--accent)">blog homepage</a>.</p></div>
+<footer class="footer"><p>© 2026 <a href="/index.html">ZOO Technologies</a></p></footer>
+</body>
+</html>
