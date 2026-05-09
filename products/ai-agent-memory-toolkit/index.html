@@ -3,317 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Agent Memory Toolkit — Give Your AI Agents Persistent Memory | ZOO</title>
-<meta name="description" content="Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python code, ready to deploy.">
+<title>AI Agent Memory Toolkit — Production-Ready Memory Architecture | ZOO</title>
+<meta name="description" content="Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python + ChromaDB. $39 one-time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0a0a0f;
-  --surface: #141420;
-  --border: #2a2a3a;
-  --text: #e4e4e7;
-  --muted: #8888a0;
-  --accent: #6366f1;
-  --accent2: #818cf8;
-  --green: #22c55e;
-  --gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-
-/* NAV */
-nav { padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 60px; }
-nav .container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 20px; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-nav a { color: var(--muted); text-decoration: none; font-size: 14px; margin-left: 24px; }
-nav a:hover { color: var(--text); }
-
-/* HERO */
-.hero { text-align: center; padding: 40px 0 80px; }
-.badge { display: inline-block; padding: 6px 16px; background: rgba(99,102,241,0.15); color: var(--accent2); border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
-.hero h1 { font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
-.hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.hero p { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto 40px; }
-.cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.btn { display: inline-block; padding: 14px 32px; border-radius: 10px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
-.btn-primary { background: var(--gradient); color: #fff; }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,0.4); }
-.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
-.btn-ghost:hover { border-color: var(--accent); }
-.price-tag { font-size: 36px; font-weight: 800; margin: 24px 0; }
-.price-tag span { font-size: 16px; color: var(--muted); font-weight: 400; }
-
-/* SECTIONS */
-section { padding: 60px 0; }
-h2 { font-size: 32px; font-weight: 700; margin-bottom: 16px; }
-.subtitle { color: var(--muted); font-size: 16px; margin-bottom: 40px; }
-
-/* PROBLEM */
-.problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-.problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
-.problem-card .icon { font-size: 28px; margin-bottom: 12px; }
-.problem-card h3 { font-size: 16px; margin-bottom: 8px; }
-.problem-card p { color: var(--muted); font-size: 14px; }
-
-/* FEATURES */
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-.feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: border-color 0.2s; }
-.feature-card:hover { border-color: var(--accent); }
-.feature-card .icon { font-size: 32px; margin-bottom: 16px; }
-.feature-card h3 { font-size: 18px; margin-bottom: 8px; }
-.feature-card p { color: var(--muted); font-size: 14px; }
-.feature-card code { display: block; margin-top: 12px; padding: 8px 12px; background: var(--bg); border-radius: 6px; font-size: 12px; color: var(--accent2); }
-
-/* ARCHITECTURE */
-.arch { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; }
-.arch-diagram { font-family: 'Courier New', monospace; font-size: 13px; color: var(--accent2); white-space: pre; line-height: 1.4; }
-
-/* INCLUDES */
-.includes-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-.include-item { display: flex; align-items: center; gap: 12px; padding: 16px; background: var(--surface); border-radius: 8px; }
-.include-item .check { color: var(--green); font-size: 18px; }
-.include-item span { font-size: 14px; }
-
-/* PRICING */
-.pricing { text-align: center; }
-.pricing-card { max-width: 480px; margin: 0 auto; background: var(--surface); border: 2px solid var(--accent); border-radius: 16px; padding: 40px; position: relative; }
-.pricing-card .popular { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient); padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-.pricing-card h3 { font-size: 24px; margin-bottom: 8px; }
-.pricing-card .desc { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
-.pricing-card .price { font-size: 48px; font-weight: 800; }
-.pricing-card .price span { font-size: 16px; color: var(--muted); font-weight: 400; }
-.pricing-card ul { list-style: none; margin: 24px 0; text-align: left; }
-.pricing-card ul li { padding: 8px 0; font-size: 14px; border-bottom: 1px solid var(--border); }
-.pricing-card ul li:before { content: "✅ "; }
-
-/* FAQ */
-.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
-.faq-item h3 { font-size: 16px; margin-bottom: 8px; }
-.faq-item p { color: var(--muted); font-size: 14px; }
-
-/* FOOTER */
-footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 13px; }
-footer a { color: var(--accent2); text-decoration: none; }
-
-@media (max-width: 640px) {
-  .hero h1 { font-size: 32px; }
-  .cta-row { flex-direction: column; align-items: center; }
-}
+:root{--bg:#0a0a0b;--surface:rgba(255,255,255,0.02);--surface2:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.06);--border-h:rgba(255,255,255,0.12);--text:#e4e4e7;--text2:#8888a0;--text3:#55556a;--accent:#a855f7;--accent2:#c084fc;--accent-glow:rgba(168,85,247,0.15);--accent-glow2:rgba(168,85,247,0.25);--green:#22c55e;--pink:#ec4899;--cyan:#06b6d4;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Inter',-apple-system,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:512px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,11,0.85);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);transition:all 0.6s var(--ease)}
+.nav.scrolled{padding:14px 48px;background:rgba(10,10,11,0.95)}
+.nav-logo{font-family:var(--font-serif);font-size:1.3rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo em{background:linear-gradient(135deg,#ff6b35,#ff8a5c,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;transition:color 0.3s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:10px 24px;background:linear-gradient(135deg,#ff6b35,#ff8a5c);color:#fff;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;text-decoration:none;border-radius:8px;transition:all 0.4s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,53,0.3)}
+.hero{position:relative;padding:160px 48px 80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg::before{content:'';position:absolute;top:-30%;right:-20%;width:700px;height:700px;background:radial-gradient(circle,rgba(168,85,247,0.06) 0%,transparent 70%);border-radius:50%}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1200px;margin:0 auto;align-items:center}
+.hero-left{max-width:560px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);border-radius:100px;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent);margin-bottom:24px}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-title{font-family:var(--font-serif);font-size:clamp(2.2rem,4vw,3.4rem);font-weight:900;line-height:1.08;letter-spacing:-0.03em;margin-bottom:20px}
+.hero-title .gradient{background:linear-gradient(135deg,var(--accent),var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{color:var(--text2);font-size:1.05rem;line-height:1.75;margin-bottom:32px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:10px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:all 0.4s var(--ease);border:none;cursor:pointer;font-family:var(--font-sans)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 24px var(--accent-glow)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px var(--accent-glow2)}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hero-price{margin-top:28px;display:flex;align-items:baseline;gap:10px}
+.hero-price .amount{font-size:2.2rem;font-weight:900;color:var(--text)}
+.hero-price .period{color:var(--text3);font-size:0.85rem}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-visual-inner{width:100%;max-width:440px;aspect-ratio:1;background:linear-gradient(135deg,rgba(168,85,247,0.06),rgba(236,72,153,0.03));border:1px solid var(--border);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden}
+.hero-visual-inner::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(168,85,247,0.08),transparent 60%)}
+.viz-icon{font-size:5rem;margin-bottom:20px;position:relative;z-index:2;filter:drop-shadow(0 8px 30px rgba(168,85,247,0.3))}
+.viz-label{font-size:0.85rem;color:var(--text2);position:relative;z-index:2;font-weight:500}
+.viz-modules{display:flex;gap:8px;margin-top:20px;position:relative;z-index:2;flex-wrap:wrap;justify-content:center}
+.viz-mod{padding:4px 12px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15);border-radius:20px;font-size:0.65rem;color:var(--accent);font-weight:600}
+.section{padding:100px 48px;border-top:1px solid var(--border)}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-eyebrow{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:16px;text-align:center}
+.section-title{font-family:var(--font-serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;text-align:center;margin-bottom:16px;letter-spacing:-0.02em}
+.section-subtitle{color:var(--text2);font-size:1.05rem;text-align:center;max-width:600px;margin:0 auto 60px;line-height:1.7}
+.arch-diagram{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:60px}
+.arch-layer{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;text-align:center;transition:all 0.4s var(--ease)}
+.arch-layer:hover{border-color:rgba(168,85,247,0.2);transform:translateY(-4px)}
+.arch-layer-num{font-family:var(--font-serif);font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;opacity:0.5}
+.arch-layer h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+.arch-layer p{color:var(--text2);font-size:0.84rem;line-height:1.6}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;transition:all 0.4s var(--ease)}
+.feature-card:hover{border-color:rgba(168,85,247,0.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.feature-icon{font-size:1.8rem;margin-bottom:14px}
+.feature-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+.feature-card p{color:var(--text2);font-size:0.88rem;line-height:1.65}
+.buy-section{padding:120px 48px;text-align:center;position:relative;overflow:hidden}
+.buy-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(168,85,247,0.06) 0%,rgba(236,72,153,0.03) 35%,transparent 70%);border-radius:50%}
+.buy-card{position:relative;z-index:2;max-width:640px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:60px 48px}
+.buy-card:hover{border-color:rgba(168,85,247,0.2)}
+.buy-badge{display:inline-block;padding:4px 14px;background:linear-gradient(135deg,var(--accent),var(--pink));color:#fff;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:20px}
+.buy-title{font-family:var(--font-serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;margin-bottom:12px;letter-spacing:-0.02em}
+.buy-desc{color:var(--text2);font-size:1rem;margin-bottom:32px;line-height:1.7}
+.buy-price{font-size:3rem;font-weight:900;color:var(--text);margin-bottom:8px}
+.buy-price .currency{font-size:1.6rem;font-weight:700}
+.buy-period{color:var(--text3);font-size:0.85rem;margin-bottom:32px}
+.buy-features{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px}
+.buy-feature{padding:6px 16px;background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.1);border-radius:8px;font-size:0.78rem;color:var(--text2)}
+.buy-guarantee{margin-top:24px;color:var(--text3);font-size:0.78rem}
+.buy-guarantee a{color:var(--accent);text-decoration:none}
+.why-section{padding:80px 48px;border-top:1px solid var(--border)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.why-item{padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:14px;text-align:center}
+.why-item-icon{font-size:1.6rem;margin-bottom:12px}
+.why-item h3{font-size:0.95rem;font-weight:700;margin-bottom:8px}
+.why-item p{font-size:0.82rem;color:var(--text2);line-height:1.6}
+.footer{padding:48px;border-top:1px solid var(--border);text-align:center}
+.footer p{color:var(--text3);font-size:0.78rem}
+.footer a{color:var(--accent);text-decoration:none}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.footer-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;transition:color 0.3s}
+.footer-links a:hover{color:var(--text)}
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero-visual{order:-1}.arch-diagram{grid-template-columns:1fr}}
+@media(max-width:768px){.nav{padding:16px 20px}.nav-links{display:none}.hero{padding:130px 20px 60px}.section,.buy-section,.why-section{padding:70px 20px}.buy-card{padding:40px 24px}}
 </style>
 </head>
 <body>
-
-<nav>
-  <div class="container">
-    <div class="logo">🦁 ZOO</div>
-    <div>
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-    </div>
-  </div>
+<div class="noise"></div>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ZOO<em>.</em></a>
+  <ul class="nav-links"><li><a href="/">Home</a></li><li><a href="/products">Products</a></li><li><a href="/pricing.html">Pricing</a></li><li><a href="/blog.html">Blog</a></li></ul>
+  <a href="#buy" class="nav-cta">Get the Toolkit — $39</a>
 </nav>
-
-<div class="hero">
-  <div class="badge">🔥 Trending on HN — Agent Memory is the #1 bottleneck</div>
-  <h1>Give Your AI Agents <span>Persistent Memory</span></h1>
-  <p>Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python code, copy-paste, deploy today.</p>
-  <div class="price-tag">$39 <span>one-time</span></div>
-  <div class="cta-row">
-    <a href="#pricing" class="btn btn-primary">Get the Toolkit →</a>
-    <a href="#features" class="btn btn-ghost">See What's Inside</a>
-  </div>
-</div>
-
-<section id="problem">
-  <div class="container">
-    <h2>The Problem</h2>
-    <p class="subtitle">Your AI agent forgetts everything. Every. Single. Session.</p>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="icon">🧠</div>
-        <h3>Zero Persistence</h3>
-        <p>Every conversation starts from scratch. Your agent doesn't remember yesterday's decisions, user preferences, or project context.</p>
-      </div>
-      <div class="problem-card">
-        <div class="icon">💸</div>
-        <h3>Wasted Tokens</h3>
-        <p>You're paying to re-explain the same context every session. 40-60% of your token spend is redundant context.</p>
-      </div>
-      <div class="problem-card">
-        <div class="icon">🔄</div>
-        <h3>No Learning</h3>
-        <p>Your agent can't learn from past mistakes. Same errors, same corrections, every single time.</p>
-      </div>
-      <div class="problem-card">
-        <div class="icon">👥</div>
-        <h3>Agents Can't Collaborate</h3>
-        <p>Multiple agents working on the same project? They can't share context. Each one is an island.</p>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-badge">AI Memory Architecture</div>
+      <h1 class="hero-title">Give your AI agents <span class="gradient">perfect memory.</span></h1>
+      <p class="hero-desc">Production-ready memory architecture for AI agents. Vector store, hierarchical memory, memory consolidation, multi-agent sharing. Python + ChromaDB. Self-hosted.</p>
+      <div class="hero-ctas"><a href="#buy" class="btn btn-primary">Get the Toolkit — $39 →</a><a href="#architecture" class="btn btn-secondary">See Architecture</a></div>
+      <div class="hero-price"><span class="amount">$39</span><span class="period">one-time payment</span></div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-inner">
+        <div class="viz-icon">🧠</div>
+        <div class="viz-label">AI Agent Memory Toolkit</div>
+        <div class="viz-modules"><span class="viz-mod">Vector Store</span><span class="viz-mod">Hierarchical</span><span class="viz-mod">Consolidation</span><span class="viz-mod">Multi-Agent</span><span class="viz-mod">Production</span></div>
       </div>
     </div>
   </div>
 </section>
-
-<section id="features">
-  <div class="container">
-    <h2>What You Get</h2>
-    <p class="subtitle">5 production-ready modules. Python. Copy-paste. Deploy.</p>
+<section class="section" id="architecture">
+  <div class="section-inner">
+    <div class="section-eyebrow">Architecture</div>
+    <h2 class="section-title">Three layers of <span style="background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">intelligent memory.</span></h2>
+    <p class="section-subtitle">Inspired by how human memory works — but optimized for AI agents that need to recall, consolidate, and share knowledge.</p>
+    <div class="arch-diagram">
+      <div class="arch-layer fade-up"><div class="arch-layer-num">1</div><h3>Working Memory</h3><p>Fast, short-term context for the current conversation. Auto-expires. Keeps the agent focused.</p></div>
+      <div class="arch-layer fade-up"><div class="arch-layer-num">2</div><h3>Episodic Memory</h3><p>Vector-stored conversation history. Semantic search. The agent remembers what happened and when.</p></div>
+      <div class="arch-layer fade-up"><div class="arch-layer-num">3</div><h3>Semantic Memory</h3><p>Consolidated knowledge graph. Distilled insights. Grows smarter over time automatically.</p></div>
+    </div>
     <div class="features-grid">
-      <div class="feature-card">
-        <div class="icon">🗄️</div>
-        <h3>Vector Memory Store</h3>
-        <p>ChromaDB-powered persistent memory with cosine similarity search. Store thousands of memories, retrieve the relevant ones in milliseconds.</p>
-        <code>recall("user preferences") → 5 results</code>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🏗️</div>
-        <h3>Hierarchical Memory System</h3>
-        <p>Three-layer architecture: Working (short-term), Episodic (medium-term), Semantic (long-term). Just like human memory.</p>
-        <code>memory.build_context(query) → rich context</code>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🧹</div>
-        <h3>Memory Consolidation</h3>
-        <p>Automatic promotion of important memories, pruning of stale data. Your agent gets smarter over time, not bloated.</p>
-        <code>consolidate() → clean, relevant memory</code>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🤝</div>
-        <h3>Multi-Agent Sharing</h3>
-        <p>Redis-powered shared memory store. Multiple agents can read/write shared context. Broadcast events across your agent fleet.</p>
-        <code>broadcast("agent1", "update", data)</code>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🚀</div>
-        <h3>Production Agent Class</h3>
-        <p>Complete AgentWithMemory class with OpenAI integration. Drop it into your project. Works out of the box.</p>
-        <code>agent.chat("Hello") → with memory!</code>
-      </div>
-      <div class="feature-card">
-        <div class="icon">📊</div>
-        <h3>Memory Analytics</h3>
-        <p>Track memory usage, access patterns, and consolidation stats. Know exactly what your agent knows.</p>
-        <code>get_stats() → {facts: 42, episodes: 15}</code>
-      </div>
+      <div class="feature-card fade-up"><div class="feature-icon">🔍</div><h3>Vector Memory Store</h3><p>ChromaDB-powered semantic search. Store and retrieve any type of knowledge with sub-second latency.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">🏗️</div><h3>Hierarchical Memory</h3><p>Three-tier architecture: working, episodic, semantic. Each layer optimized for its purpose.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">🧹</div><h3>Memory Consolidation</h3><p>Automatic distillation of raw conversations into structured knowledge. Gets smarter over time.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">🤝</div><h3>Multi-Agent Sharing</h3><p>Redis-backed shared memory pool. Multiple agents can read/write to a common knowledge base.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">🐍</div><h3>Production Agent Class</h3><p>Drop-in Agent class with memory built in. Works with LangChain, LangGraph, or standalone.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">📊</div><h3>Memory Analytics</h3><p>Track memory usage, hit rates, and quality metrics. Know when consolidation is needed.</p></div>
     </div>
   </div>
 </section>
-
-<section id="architecture">
-  <div class="container">
-    <h2>Architecture</h2>
-    <p class="subtitle">Three-layer memory with vector search backend</p>
-    <div class="arch">
-      <div class="arch-diagram">
-┌─────────────────────────────────────────────┐
-│              User Input                       │
-└─────────────────┬───────────────────────────┘
-                  │
-                  ▼
-┌─────────────────────────────────────────────┐
-│         Working Memory (Short-term)          │
-│  - Current session context                   │
-│  - Last 20 exchanges                         │
-│  - Auto-eviction by importance               │
-└─────────────────┬───────────────────────────┘
-                  │ (consolidation)
-                  ▼
-┌─────────────────────────────────────────────┐
-│        Episodic Memory (Medium-term)         │
-│  - Past conversation summaries               │
-│  - Emotional context + outcomes              │
-│  - Relevance-ranked retrieval                │
-└─────────────────┬───────────────────────────┘
-                  │ (reflection)
-                  ▼
-┌─────────────────────────────────────────────┐
-│        Semantic Memory (Long-term)            │
-│  - User preferences                          │
-│  - Facts & knowledge base                    │
-│  - Confidence-scored retrieval               │
-└─────────────────────────────────────────────┘
-                  │
-                  ▼
-┌─────────────────────────────────────────────┐
-│         Vector Store (ChromaDB)               │
-│  - Semantic search over all memories         │
-│  - Cosine similarity ranking                 │
-│  - Persistent on disk                        │
-└─────────────────────────────────────────────┘</div>
+<section class="buy-section" id="buy">
+  <div class="buy-card">
+    <div class="buy-badge">New Release</div>
+    <h2 class="buy-title">Get the Complete Toolkit</h2>
+    <p class="buy-desc">3-layer memory architecture. Python + ChromaDB + Redis. Lifetime updates. Self-hosted.</p>
+    <div class="buy-price"><span class="currency">$</span>39</div>
+    <div class="buy-period">one-time payment · instant delivery</div>
+    <div class="buy-features">
+      <span class="buy-feature">✅ Vector Memory Store</span><span class="buy-feature">✅ Hierarchical Memory</span><span class="buy-feature">✅ Memory Consolidation</span><span class="buy-feature">✅ Multi-Agent Sharing</span><span class="buy-feature">✅ Production Agent Class</span><span class="buy-feature">✅ Memory Analytics</span><span class="buy-feature">✅ Lifetime Updates</span><span class="buy-feature">✅ Email Support</span>
+    </div>
+    <a href="/checkout.html?product=memory-toolkit&price=39" class="btn btn-primary" style="font-size:1.05rem;padding:18px 40px">Get the Toolkit → $39</a>
+    <div class="buy-guarantee">🔒 Secured by Stripe · 30-day money-back guarantee · <a href="/">ZOO Technologies</a></div>
+  </div>
+</section>
+<section class="why-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Why ZOO</div>
+    <h2 class="section-title">Built by an AI-native company that ships.</h2>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-item-icon">⚡</div><h3>Ship in Hours</h3><p>Production-ready code. Not a toy. Real patterns you can deploy today.</p></div>
+      <div class="why-item"><div class="why-item-icon">🔄</div><h3>Lifetime Updates</h3><p>Buy once, get every future update free. We improve constantly.</p></div>
+      <div class="why-item"><div class="why-item-icon">🛡️</div><h3>30-Day Guarantee</h3><p>Not satisfied? Full refund. No questions. No risk.</p></div>
+      <div class="why-item"><div class="why-item-icon">💬</div><h3>Email Support</h3><p>Stuck? We respond within 24 hours. Real help.</p></div>
     </div>
   </div>
 </section>
-
-<section id="includes">
-  <div class="container">
-    <h2>What's Included</h2>
-    <div class="includes-list">
-      <div class="include-item"><span class="check">✓</span><span>Complete Python source code</span></div>
-      <div class="include-item"><span class="check">✓</span><span>Vector Memory Store (ChromaDB)</span></div>
-      <div class="include-item"><span class="check">✓</span><span>Hierarchical Memory System</span></div>
-      <div class="include-item"><span class="check">✓</span><span>Memory Consolidation engine</span></div>
-      <div class="include-item"><span class="check">✓</span><span>Multi-Agent Sharing (Redis)</span></div>
-      <div class="include-item"><span class="check">✓</span><span>Production Agent class</span></div>
-      <div class="include-item"><span class="check">✓</span><span>Architecture diagrams</span></div>
-      <div class="include-item"><span class="check">✓</span><span>Quick start guide</span></div>
-      <div class="include-item"><span class="check">✓</span><span>MIT License — commercial use OK</span></div>
-      <div class="include-item"><span class="check">✓</span><span>Free updates</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="pricing" class="pricing">
-  <div class="container">
-    <h2>Get It Now</h2>
-    <p class="subtitle">One-time payment. Lifetime access. Free updates.</p>
-    <div class="pricing-card">
-      <div class="popular">Most Popular</div>
-      <h3>🧠 AI Agent Memory Toolkit</h3>
-      <p class="desc">Complete memory architecture for production AI agents</p>
-      <div class="price">$39 <span>one-time</span></div>
-      <ul>
-        <li>5 production-ready Python modules</li>
-        <li>Vector store integration (ChromaDB)</li>
-        <li>Hierarchical memory system</li>
-        <li>Multi-agent sharing (Redis)</li>
-        <li>Complete documentation + diagrams</li>
-        <li>MIT License — commercial use</li>
-        <li>Free lifetime updates</li>
-      </ul>
-      <a href="https://crazycompany.lemonsqueezy.com/buy/ai-agent-memory-toolkit" class="btn btn-primary" style="width:100%;text-align:center;">Buy Now — $39</a>
-      <p style="margin-top:16px;font-size:13px;color:var(--muted);">🔒 Secure checkout via Lemon Squeezy · 📧 Instant delivery · 💰 30-day money-back guarantee</p>
-    </div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="container">
-    <h2>FAQ</h2>
-    <div class="faq-item">
-      <h3>What do I get exactly?</h3>
-      <p>Complete Python source code for 5 memory modules: Vector Store, Hierarchical Memory, Consolidation, Multi-Agent Sharing, and a Production Agent class. Plus documentation and architecture diagrams.</p>
-    </div>
-    <div class="faq-item">
-      <h3>What dependencies do I need?</h3>
-      <p>Python 3.9+, chromadb, openai, and redis (optional, for multi-agent sharing). All pip-installable.</p>
-    </div>
-    <div class="faq-item">
-      <h3>Can I use this commercially?</h3>
-      <p>Yes. MIT License. Use it in your startup, your agency, your enterprise project. No attribution required.</p>
-    </div>
-    <div class="faq-item">
-      <h3>Do I need Redis?</h3>
-      <p>Only if you want multi-agent memory sharing. The core memory system works with just ChromaDB (embedded, no server needed).</p>
-    </div>
-    <div class="faq-item">
-      <h3>What if it doesn't work for me?</h3>
-      <p>30-day money-back guarantee. Email us, we refund. No questions asked.</p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 ZOO Technologies · <a href="https://zootechnologies.com">zootechnologies.com</a> · <a href="https://crazycompany.lemonsqueezy.com">Lemon Squeezy Store</a></p>
+<footer class="footer">
+  <div class="footer-links"><a href="/">Home</a><a href="/products">Products</a><a href="/pricing.html">Pricing</a><a href="/blog.html">Blog</a></div>
+  <p>© 2026 <a href="/">ZOO Technologies</a> · AI-Powered Technology Studio · All payments secured by Stripe</p>
 </footer>
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
 </body>
 </html>

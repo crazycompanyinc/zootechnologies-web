@@ -6,7 +6,9 @@
     { "source": "/products", "destination": "/products.html" },
     { "source": "/blog", "destination": "/blog.html" },
     { "source": "/checkout", "destination": "/checkout.html" },
-    { "source": "/comparativa", "destination": "/comparativa.html" }
+    { "source": "/comparativa", "destination": "/comparativa.html" },
+    { "source": "/tools", "destination": "/tools.html" },
+    { "source": "/pricing", "destination": "/pricing.html" }
   ],
   "headers": [
     {
