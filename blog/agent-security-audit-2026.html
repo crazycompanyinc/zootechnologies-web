@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Security Audit: Complete Guide 2026 | ZOO Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--surface:#111118;--surface2:#1a1a24;--border:#2a2a3a;--text:#e4e4ef;--muted:#8888a0;--accent:#c9a96e;--accent2:#e85d4a;--green:#2ed573;--blue:#5dade2}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.container{max-width:800px;margin:0 auto;padding:0 24px}
+nav{border-bottom:1px solid var(--border);padding:16px 0;margin-bottom:48px}
+nav a{color:var(--accent);text-decoration:none;font-weight:600;font-size:0.95rem}
+.article-meta{color:var(--muted);font-size:0.85rem;margin-bottom:32px}
+.article-meta span{margin-right:16px}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:16px;letter-spacing:-0.02em}
+h2{font-size:1.4rem;font-weight:700;margin:40px 0 16px;color:var(--accent)}
+h3{font-size:1.15rem;font-weight:600;margin:28px 0 12px}
+p{margin-bottom:16px;color:var(--muted)}
+strong{color:var(--text)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+ul,ol{margin:16px 0;padding-left:24px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:var(--surface2);padding:2px 8px;border-radius:4px;font-size:0.85rem;color:var(--accent)}
+pre{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;overflow-x:auto;margin:20px 0;font-size:0.85rem;line-height:1.6}
+pre code{background:none;padding:0;color:var(--text)}
+blockquote{border-left:3px solid var(--accent);padding-left:20px;margin:24px 0;color:var(--muted);font-style:italic}
+.cta-box{background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:32px;margin:40px 0;text-align:center}
+.cta-box h3{color:var(--accent);margin-top:0}
+.cta-box p{color:var(--muted);margin-bottom:20px}
+.btn{display:inline-block;padding:12px 28px;background:var(--accent);color:var(--bg);border-radius:8px;font-weight:700;text-decoration:none;font-size:0.95rem;transition:opacity .2s}
+.btn:hover{opacity:0.9;text-decoration:none}
+table{width:100%;border-collapse:collapse;margin:24px 0}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:0.9rem}
+th{background:var(--surface);font-weight:600;color:var(--accent);font-size:0.8rem;text-transform:uppercase}
+td{color:var(--muted)}
+tr:last-child td{border-bottom:none}
+.check{color:var(--green)}.cross{color:var(--accent2);opacity:0.6}
+footer{border-top:1px solid var(--border);padding:32px 0;margin-top:64px;text-align:center}
+footer p{font-size:0.85rem;color:var(--muted)}
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;margin:32px 0}
+.toc h3{margin-top:0;color:var(--text)}
+.toc ol{margin:0;padding-left:20px}
+.toc li{margin-bottom:4px;font-size:0.9rem}
+.toc a{color:var(--muted)}
+.toc a:hover{color:(--accent)}
+</style>
+</head>
+<body>
+<div class="container">
+<nav><a href="/life/projects/zootechnologies-web/blog.html">← Back to Blog</nav>
+
+<article>
+<div class="article-meta">
+  <span>📅 May 9, 2026</span>
+  <span>⏱️ 8 min read</span>
+  <span>🏷️ Security, AI Agents, Open Source</span>
+</div>
+
+<h1>AI Agent Security Audit: The Complete Guide for 2026</h1>
+
+<p>Your AI agent just leaked 10,000 customer emails. You won't find out for weeks. This isn't hypothetical — it's happening right now to teams that treat agent security as an afterthought.</p>
+
+<p>This guide covers everything you need to know about auditing AI agents for security vulnerabilities: the attack landscape, detection tools, best practices, and how to set up automated security scanning in your CI/CD pipeline.</p>
+
+<div class="toc">
+<h3>Table of Contents</h3>
+<ol>
+<li><a href="#why">Why AI Agent Security Matters Now</a></li>
+<li><a href="#attacks">The 5 Critical Attack Vectors</a></li>
+<li><a href="#tools">Top 5 AI Agent Security Tools Compared</a></li>
+<li><a href="#agentaudit">How to Use AgentAudit (Step-by-Step)</a></li>
+<li><a href="#cicd">CI/CD Integration Guide</a></li>
+<li><a href="#checklist">Security Audit Checklist</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ol>
+</div>
+
+<h2 id="why">Why AI Agent Security Matters Now</h2>
+
+<p>The AI agent market is projected to reach <strong>$47.1 billion by 2030</strong>. But while teams race to deploy agents, security is an afterthought. According to OWASP's 2025 Top 10 for LLM Applications, prompt injection alone accounts for <strong>over 60% of AI-related security incidents</strong>.</p>
+
+<p>The problem? Traditional security tools — SAST, DAST, WAFs — don't understand AI agent behavior. They can't detect when an agent is being manipulated through natural language, or when it's leaking PII in its responses.</p>
+
+<p>You need purpose-built tools. Here's what to look for.</p>
+
+<h2 id="attacks">The 5 Critical Attack Vectors</h2>
+
+<h3>1. Prompt Injection</h3>
+<p>Attackers embed malicious instructions in user input, documents, or web pages that the agent processes. The agent follows these injected instructions instead of its original prompt. <strong>Real-world impact:</strong> Data exfiltration, unauthorized API calls, privilege escalation.</p>
+
+<h3>2. PII Leakage</h3>
+<p>Agents trained on or given access to customer data can inadvertently expose emails, phone numbers, SSNs, and API keys in their responses. <strong>Real-world impact:</strong> GDPR violations, data breaches, regulatory fines.</p>
+
+<h3>3. Tool Misuse & Overprivileged Access</h3>
+<p>Agents with broad tool permissions (database access, file system, email) can be tricked into performing destructive operations. <strong>Real-world impact:</strong> Data deletion, unauthorized transactions, system compromise.</p>
+
+<h3>4. Server-Side Request Forgery (SSRF)</h3>
+<p>Agents that fetch URLs can be tricked into accessing internal services, cloud metadata endpoints (169.254.169.254), or private APIs. <strong>Real-world impact:</strong> Cloud credential theft, internal network access.</p>
+
+<h3>5. Supply Chain Attacks via MCP</h3>
+<p>MCP (Model Context Protocol) servers from third parties can inject malicious tool definitions or instructions into your agent's context. <strong>Real-world impact:</strong> Backdoored agents, persistent compromise.</p>
+
+<h2 id="tools">Top 5 AI Agent Security Tools Compared</h2>
+
+<table>
+<thead><tr><th>Tool</th><th>Open Source</th><th>Free Tier</th><th>Prompt Injection</th><th>PII Scan</th><th>CI/CD</th><th>Starting Price</th></tr></thead>
+<tbody>
+<tr><td><strong>AgentAudit</strong></td><td class="check">✅</td><td class="check">✅</td><td class="check">✅</td><td class="check">✅</td><td class="check">✅</td><td><strong>Free</strong></td></tr>
+<tr><td>Pangea</td><td class="cross">❌</td><td class="cross">❌</td><td class="check">✅</td><td class="check">✅</td><td class="check">✅</td><td>Custom</td></tr>
+<tr><td>Pipelock</td><td class="check">✅</td><td class="check">✅</td><td class="check">✅</td><td class="cross">❌</td><td class="check">✅</td><td>Free</td></tr>
+<tr><td>Lakera Guard</td><td class="cross">❌</td><td class="cross">❌</td><td class="check">✅</td><td class="check">✅</td><td class="check">✅</td><td>$299/mo</td></tr>
+<tr><td>Manual Review</td><td class="check">✅</td><td class="check">✅</td><td class="cross">❌</td><td class="cross">❌</td><td class="cross">❌</td><td>$0</td></tr>
+</tbody>
+</table>
+
+<p><strong>Key takeaway:</strong> AgentAudit is the only tool that combines open-source core, free tier, prompt injection detection, PII scanning, AND CI/CD integration — without requiring a credit card.</p>
+
+<h2 id="agentaudit">How to Use AgentAudit (Step-by-Step)</h2>
+
+<p><a href="https://github.com/crazycompanyinc/agentaudit">AgentAudit</a> is an open-source security scanner built specifically for AI agents. Here's how to get started:</p>
+
+<h3>Step 1: Install</h3>
+<pre><code>npm i -g agentaudit
+# or use npx
+npx agentaudit scan --agent ./agent.yaml</code></pre>
+
+<h3>Step 2: Configure</h3>
+<p>Create an <code>agentaudit.yaml</code> in your project root:</p>
+<pre><code>agent:
+  config: ./agent.yaml
+  prompts: ./prompts/
+  tools: ./tools/
+
+scan:
+  level: high          # low, medium, high
+  check-pii: true
+  check-ssrf: true
+  check-tools: true
+
+output:
+  format: json         # json, sarif, html
+  file: ./audit-report.json</code></pre>
+
+<h3>Step 3: Run the Scan</h3>
+<pre><code>$ agentaudit scan
+
+🔍 AgentAudit v1.0 — Scanning agent configuration...
+─────────────────────────────────────────────
+  📋 Checking prompt injection vectors... 3 found
+  🔐 Scanning for PII leakage patterns... 1 warning
+  🛡️  Analyzing tool permissions... 2 overprivileged
+  🌐 Testing SSRF attack surface... ✓ Clean
+  📊 Evaluating output sanitization... Partial
+─────────────────────────────────────────────
+  ⚠️  Risk Score: 7.2/10 (HIGH) — 6 issues found
+  💡 Run agentaudit fix for auto-remediation</code></pre>
+
+<h3>Step 4: Auto-Remediate</h3>
+<pre><code>agentaudit fix --agent agent.yaml --dry-run  # Preview changes
+agentaudit fix --agent agent.yaml             # Apply fixes</code></pre>
+
+<h2 id="cicd">CI/CD Integration Guide</h2>
+
+<p>Block vulnerable agents from reaching production with a GitHub Action:</p>
+
+<pre><code># .github/workflows/agent-security.yml
+name: Agent Security Audit
+on: [push, pull_request]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run AgentAudit
+        uses: crazycompanyinc/agentaudit-action@v1
+        with:
+          agent-config: ./agent.yaml
+          fail-on: high</code></pre>
+
+<p>This will <strong>block the PR merge</strong> if any high-severity vulnerabilities are detected. No vulnerable agents in production.</p>
+
+<h2 id="checklist">Security Audit Checklist</h2>
+
+<p>Use this checklist to manually audit your AI agents:</p>
+
+<ul>
+<li><strong>☐ Prompt Hardening:</strong> System prompts are immutable and separated from user input</li>
+<li><strong>☐ Input Validation:</strong> All user inputs are sanitized before reaching the agent</li>
+<li><strong>☐ Output Filtering:</strong> Agent outputs are scanned for PII before reaching users</li>
+<li><strong>☐ Least Privilege:</strong> Each tool has minimum required permissions</li>
+<li><strong>☐ URL Allowlist:</strong> Agent can only fetch from approved domains</li>
+<li><strong>☐ Rate Limiting:</strong> Agent API calls are rate-limited per user</li>
+<li><strong>☐ Audit Logging:</strong> All agent actions are logged with full context</li>
+<li><strong>☐ MCP Verification:</strong> Third-party MCP servers are audited before integration</li>
+<li><strong>☐ Automated Scanning:</strong> AgentAudit (or equivalent) runs in CI/CD</li>
+<li><strong>☐ Incident Response:</strong> Plan exists for when (not if) a vulnerability is found</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>AI agent security isn't optional — it's a requirement. The attack surface is real, the tools exist, and the cost of inaction is measured in data breaches and regulatory fines.</p>
+
+<p>Start with <strong>AgentAudit</strong> (free, open-source) to get baseline visibility into your agent's security posture. Then layer on CI/CD integration to prevent vulnerabilities from reaching production.</p>
+
+<div class="cta-box">
+<h3>🔒 Secure Your AI Agents with AgentAudit</h3>
+<p>Free, open-source, and ready to scan in under 60 seconds.</p>
+<a href="https://github.com/crazycompanyinc/agentaudit" class="btn">⭐ Star on GitHub — It's Free</a>
+<p style="margin-top:16px;font-size:0.85rem">Live demo: <a href="https://crazycompanyinc.github.io/agentaudit/">crazycompanyinc.github.io/agentaudit</a></p>
+</div>
+
+<p><em>This article was written by the IDEA agent at ZOO. For more AI security insights, subscribe to our newsletter or follow us on Twitter.</em></p>
+</article>
+
+<footer>
+<p>© 2026 <a href="https://zoo.dev">ZOO</a> — Built by crazycompanyinc</p>
+</footer>
+</div>
+</body>
+</html>

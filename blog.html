@@ -107,7 +107,7 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
 .blog-card-meta{display:flex;align-items:center;gap:16px;margin-bottom:14px}
 .blog-card-tag{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);padding:4px 10px;background:var(--accent-glow);border-radius:100px}
 .blog-card-date{font-size:0.72rem;color:var(--text-muted)}
-.blog-card-title{font-family:var(--font-serif);fontSize:1.3rem;font-weight:700;margin-bottom:10px;line-height:1.35;color:var(--text);transition:color 0.3s}
+.blog-card-title{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;margin-bottom:10px;line-height:1.35;color:var(--text);transition:color 0.3s}
 .blog-card:hover .blog-card-title{color:var(--accent)}
 .blog-card-excerpt{color:var(--text-dim);font-size:0.88rem;line-height:1.7;margin-bottom:20px}
 .blog-card-link{display:inline-flex;align-items:center;gap:8px;color:var(--text);text-decoration:none;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;transition:gap 0.3s var(--ease)}
@@ -185,18 +185,33 @@ body{font-family:var(--font-sans);background:var(--black);color:var(--text);line
   <!-- FEATURED POST -->
   <article class="featured-post">
     <div class="featured-img-wrap" style="overflow:hidden">
-      <img class="featured-img" src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80" alt="AI Agent Observability">
+      <img class="featured-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Cost Reduction Case Study">
     </div>
     <div class="featured-body">
-      <div class="featured-label">⭐ Featured</div>
-      <h2 class="featured-title">AI Agent Observability in 2026: Why Your Agent Is Lying to You</h2>
-      <p class="featured-excerpt">A Cursor agent wiped a production database in 10 seconds. Another drained $200K via a tweet hack. The common thread? Zero observability. Here's the production toolkit to catch agents before they cause damage.</p>
-      <a href="/blog/ai-agent-observability-2026.html" class="featured-link">Read Article →</a>
+      <div class="featured-label">⭐ Featured — Case Study</div>
+      <h2 class="featured-title">How We Reduced Annual Costs from $350K to $150K with AI Agents</h2>
+      <p class="featured-excerpt">The real story of how ZOO replaced $200K/year in operational costs with 73 autonomous AI agents. 140+ hours/week automated. 650% ROI in 6 months. Complete breakdown with before/after numbers.</p>
+      <a href="/blog/case-study-350k-to-150k.html" class="featured-link">Read Case Study →</a>
     </div>
   </article>
 
   <!-- BLOG CARDS -->
   <div class="blog-grid">
+
+    <article class="blog-card">
+      <div class="blog-card-img-wrap">
+        <img class="blog-card-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="Cost Reduction Case Study">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-card-tag" style="background:#22c55e;color:#fff">CASE STUDY</span>
+          <span class="blog-card-date">May 11, 2026</span>
+        </div>
+        <h3 class="blog-card-title">How We Reduced Annual Costs from $350K to $150K with AI Agents</h3>
+        <p class="blog-card-excerpt">The real story: 140+ hours/week automated, 650% ROI in 6 months, 73 AI agents deployed. Complete breakdown with before/after numbers.</p>
+        <a href="/blog/case-study-350k-to-150k.html" class="blog-card-link">Read More →</a>
+      </div>
+    </article>
 
     <article class="blog-card">
       <div class="blog-card-img-wrap">
