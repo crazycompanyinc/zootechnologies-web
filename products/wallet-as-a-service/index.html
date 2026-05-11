@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wallet-as-a-Service API — Embed Crypto & Fiat Wallets in Minutes | ZOO</title>
+<meta name="description" production-ready Wallet-as-a-Service API. Crypto & fiat wallets, multi-chain support, KYC/AML, transaction engine, webhooks. REST + GraphQL. $79 one-time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06080a;
+  --surface: #0c1014;
+  --surface2: #121820;
+  --border: #1a2430;
+  --border-hover: #243040;
+  --text: #e0e8f0;
+  --text2: #6e88a0;
+  --text3: #3a5068;
+  --accent: #10b981;
+  --accent2: #34d399;
+  --accent-glow: rgba(16,185,129,0.25);
+  --amber: #f59e0b;
+  --gradient: linear-gradient(135deg, #10b981, #06b6d4, #6366f1);
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(6,8,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); height: 64px; display: flex; align-items: center; }
+.nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-weight: 800; font-size: 18px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+.nav-cta { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; background: var(--accent); color: #000; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; transition: all 0.3s var(--ease); box-shadow: 0 2px 12px var(--accent-glow); }
+.nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* HERO */
+.hero { padding: 140px 24px 80px; text-align: center; position: relative; overflow: hidden; }
+.hero-glow { position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(ellipse, rgba(16,185,129,0.1) 0%, transparent 70%); pointer-events: none; }
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(16,185,129,0.1); color: var(--accent2); border: 1px solid rgba(16,185,129,0.2); margin-bottom: 24px; }
+.hero h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 20px; }
+.hero h1 .highlight { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text2); font-size: clamp(16px, 2vw, 20px); max-width: 620px; margin: 0 auto 36px; line-height: 1.65; }
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* STATS ROW */
+.hero-stats { display: flex; gap: 40px; justify-content: center; margin-top: 48px; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat .stat-value { font-size: 28px; font-weight: 800; color: var(--accent2); font-family: var(--font-mono); }
+.hero-stat .stat-label { font-size: 12px; color: var(--text3); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* API SHOWCASE */
+.api-showcase { max-width: 680px; margin: 48px auto 0; text-align: left; }
+.api-showcase pre { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px 28px; font-family: var(--font-mono); font-size: 13px; line-height: 1.85; overflow-x: auto; }
+.api-showcase .method { color: var(--accent2); font-weight: 600; }
+.api-showcase .url { color: #06b6d4; }
+.api-showcase .key { color: #f59e0b; }
+.api-showcase .str { color: var(--accent); }
+.api-showcase .num { color: #c084fc; }
+.api-showcase .comment { color: var(--text3); font-style: italic; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s var(--ease); font-family: var(--font-body); }
+.btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 4px 24px var(--accent-glow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px var(--accent-glow); }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { background: rgba(255,255,255,0.04); border-color: var(--border-hover); }
+
+/* SECTIONS */
+.section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+.section-header p { color: var(--text2); font-size: 17px; max-width: 520px; margin: 0 auto; }
+
+/* PROBLEM GRID */
+.problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+.problem-card .icon { font-size: 28px; margin-bottom: 10px; }
+.problem-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.problem-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* FLOW DIAGRAM */
+.flow-diagram { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 40px 0; }
+.flow-step { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; text-align: center; min-width: 120px; }
+.flow-step .step-icon { font-size: 24px; margin-bottom: 6px; }
+.flow-step .step-label { font-size: 12px; font-weight: 600; color: var(--accent2); }
+.flow-arrow { color: var(--text3); font-size: 18px; }
+
+/* MODULES GRID */
+.modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.module-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: all 0.3s; position: relative; overflow: hidden; }
+.module-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(16,185,129,0.1); }
+.module-number { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--accent2); background: rgba(16,185,129,0.1); padding: 4px 10px; border-radius: 6px; display: inline-block; margin-bottom: 14px; }
+.module-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.module-card p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+.module-card .stack { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+.module-card .stack span { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border-radius: 4px; background: rgba(255,255,255,0.04); color: var(--text3); border: 1px solid var(--border); }
+
+/* CHAIN SUPPORT */
+.chain-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.chain-item { padding: 12px 22px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--text2); display: flex; align-items: center; gap: 8px;}
+.chain-item .chain-icon { font-size: 18px; }
+
+/* FEATURES CHECKLIST */
+.features-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+.feature-row { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.feature-row .check { color: var(--accent); font-weight: 700; flex-shrink: 0; font-size: 15px; }
+.feature-row span { font-size: 14px; color: var(--text2); }
+
+/* PRICING */
+.pricing-card { max-width: 520px; margin: 0 auto; background: var(--surface); border: 2px solid var(--accent); border-radius: 24px; padding: 48px; text-align: center; position: relative; box-shadow: 0 0 60px rgba(16,185,129,0.12); }
+.pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gradient); color: #fff; padding: 6px 24px; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.pricing-card h3 { font-size: 24px; font-weight: 800; margin-top: 8px; }
+.pricing-amount { margin: 20px 0; }
+.pricing-amount .currency { font-size: 28px; vertical-align: super; }
+.pricing-amount .value { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; }
+.pricing-amount .period { color: var(--text2); font-size: 14px; }
+.pricing-features { list-style: none; margin: 24px 0; text-align: left; }
+.pricing-features li { padding: 10px 0; font-size: 15px; color: var(--text2); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.pricing-card .btn { width: 100%; justify-content: center; padding: 18px; font-size: 17px; }
+.pricing-guarantee { margin-top: 14px; color: var(--text3); font-size: 13px; }
+.pricing-note { margin-top: 16px; padding: 10px 16px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; font-size: 12px; color: var(--amber); }
+
+/* COMPARISON TABLE */
+.compare-table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 14px; }
+.compare-table th { text-align: left; padding: 12px 16px; color: var(--text3); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid var(--border); }
+.compare-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text2); }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table td:first-child { color: var(--text); font-weight: 600; }
+.compare-yes { color: var(--accent); font-weight: 700; }
+.compare-no { color: var(--text3); }
+
+/* FAQ */
+.faq-grid { max-width: 680px; margin: 0 auto; display: grid; gap: 12px; }
+.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+.faq-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.faq-item p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+
+/* CTA */
+.cta-final { text-align: center; padding: 64px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; margin: 0 24px 80px; max-width: 1100px; margin-left: auto; margin-right: auto; position: relative; overflow: hidden; }
+.cta-final::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at center, rgba(16,185,129,0.08) 0%, transparent 60%); pointer-events: none; }
+.cta-final h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; margin-bottom: 12px; position: relative; }
+.cta-final p { color: var(--text2); font-size: 17px; margin-bottom: 28px; position: relative; }
+.cta-final .btn { position: relative; }
+
+/* FOOTER */
+.footer { text-align: center; padding: 48px 24px; color: var(--text2); font-size: 13px; border-top: 1px solid var(--border); }
+.footer a { color: var(--accent2); text-decoration: none; }
+
+/* DIVIDER */
+.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 auto; max-width: 1100px; }
+
+@media (max-width: 768px) {
+  .hero { padding: 120px 20px 60px; }
+  .section { padding: 60px 20px; }
+  .pricing-card { padding: 32px 24px; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://zootechnologies.com" class="nav-logo">ZOO</a>
+    <a href="/checkout.html?product=wallet-as-a-service" class="nav-cta">Get the API — $79 →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">💳 Wallet Infrastructure · Multi-Chain · KYC/AML Ready</div>
+    <h1>Wallet Infrastructure.<br><span class="highlight">Shipped in Hours.</span></h1>
+    <p>Production-ready Wallet-as-a-Service API. Crypto & fiat wallets, multi-chain support, KYC/AML, transaction engine, webhooks. Embed wallets into your app — without building from scratch.</p>
+    <div class="hero-actions">
+      <a href="/checkout.html?product=wallet-as-a-service" class="btn btn-primary">Get the API — $79</a>
+      <a href="#architecture" class="btn btn-ghost">See Architecture ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-value">12+</div>
+        <div class="stat-label">Chains</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-value">&lt;200ms</div>
+        <div class="stat-label">Latency p99</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-value">REST+GQL</div>
+        <div class="stat-label">APIs</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-value">SOC2</div>
+        <div class="stat-label">Ready</div>
+      </div>
+    </div>
+    <div class="api-showcase">
+      <pre><span class="comment">// Create a wallet in 2 lines</span>
+<span class="method">const</span> wallet = <span class="method">await</span> zoo.wallets.create({
+  userId: <span class="str">"usr_abc123"</span>,
+  chains: [<span class="str">"eth"</span>, <span class="str">"sol"</span>, <span class="str">"btc"</span>]
+});
+
+<span class="comment">// Response</span>
+{
+  <span class="key">"id"</span>: <span class="str">"wal_xyz789"</span>,
+  <span class="key">"addresses"</span>: {
+    <span class="key">"eth"</span>: <span class="str">"0x7a3B...f92D"</span>,
+    <span class="key">"sol"</span>: <span class="str">"7xKZ...mNpQ"</span>,
+    <span class="key">"btc"</span>: <span class="str">"bc1q...k4w"</span>
+  },
+  <span class="key">"status"</span>: <span class="str">"active"</span>,
+  <span class="key">"kycStatus"</span>: <span class="str">"pending"</span>
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>The Wallet Problem</h2>
+    <p>Building financial infrastructure is expensive, slow, and risky. Here's what most teams face.</p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="icon">🏗️</div>
+      <h4>Months of Development</h4>
+      <p>Wallet infrastructure takes 3-6 months to build and test. Key management, address generation, gas estimation, chain integrations — every chain is different.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">🔐</div>
+      <h4>Security Nightmare</h4>
+      <p>One mistake in key management or transaction signing = lost funds. Audits cost $50K+ and take months. Most startups can't afford this.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">📋</div>
+      <h4>Regulatory Burden</h4>
+      <p>KYC/AML compliance, transaction monitoring, sanctions screening. You need legal + technical infrastructure. Skip it and you risk shutdown.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">💸</div>
+      <h4>High Operational Cost</h4>
+      <p>Node infrastructure, gas fees, block explorers, indexers, monitoring. Running wallet infra costs $5K-15K/month in cloud bills alone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>How It Works</h2>
+    <p>4 steps from zero to wallets in production.</p>
+  </div>
+  <div class="flow-diagram">
+    <div class="flow-step">
+      <div class="step-icon">1️⃣</div>
+      <div class="step-label">Create Wallets<br><small style="color:var(--text3)">POST /wallets</small></div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-icon">2️⃣</div>
+      <div class="step-label">Fund Wallets<br><small style="color:var(--text3)">Deposit / On-ramp</small></div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-icon">3️⃣</div>
+      <div class="step-label">Transact<br><small style="color:var(--text3)">POST /transactions</small></div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-icon">4️⃣</div>
+      <div class="step-label">Monitor<br><small style="color:var(--text3)">Webhooks / Dashboard</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<div class="divider"></div>
+<section class="section" id="architecture">
+  <div class="section-header">
+    <h2>What's Included</h2>
+    <p>7 core modules. Everything you need to run wallet infrastructure.</p>
+  </div>
+  <div class="modules-grid">
+    <div class="module-card">
+      <span class="module-number">01</span>
+      <h3>Wallet Engine</h3>
+      <p>Create HD wallets, generate addresses, manage balances. Supports BIP32/39/44. Hot and cold wallet architectures. Multi-sig support for enterprises.</p>
+      <div class="stack"><span>TypeScript</span><span>Node.js</span><span>PostgreSQL</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">02</span>
+      <h3>Transaction Service</h3>
+      <p>Build, sign, and broadcast transactions. Gas estimation, nonce management, transaction queuing, retry logic. Supports EIP-1559 (Ethereum) and legacy formats.</p>
+      <div class="stack"><span>Ethers.js</span><span>Web3.js</span><span>Solana Web3</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">03</span>
+      <h3>Multi-Chain Adapter</h3>
+      <p>Unified API across 12+ chains. Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, Bitcoin, Tron, BSC, Avalanche, Starknet,TON. Add new chains via plugin.</p>
+      <div class="stack"><span>12+ Chains</span><span>Plugin System</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">04</span>
+      <h3>KYC/AML Module</h3>
+      <p>Identity verification, sanctions screening, transaction monitoring. Integration adapters for Sumsub, Onfido, Jumio, Chainalysis. Configurable risk rules engine.</p>
+      <div class="stack"><span>REST API</span><span>Webhooks</span><span>KYB</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">05</span>
+      <h3>Webhook System</h3>
+      <p>Real-time event notifications for deposits, withdrawals, KYC status, transaction confirmations, failed transactions. Signed payloads, retry logic, dead letter queue.</p>
+      <div class="stack"><span>Signed Events</span><span>HMAC</span><span>Retry</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">06</span>
+      <h3>Admin Dashboard</h3>
+      <p>React-based admin panel. Wallet management, transaction history, KYC reviews, risk alerts, fee analytics, user management. Role-based access control included.</p>
+      <div class="stack"><span>React</span><span>Tailwind</span><span>RBAC</span></div>
+    </div>
+    <div class="module-card" style="border-color: rgba(16,185,129,0.3);">
+      <span class="module-number">07</span>
+      <h3>On-Ramp / Off-Ramp</h3>
+      <p>Fiat-to-crypto and crypto-to-fiat adapters. Integration with MoonPay, Ramp Network, Transak, and StripeConnect. PCI compliant card processing.</p>
+      <div class="stack"><span>MoonPay</span><span>Ramp</span><span>Transak</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAIN SUPPORT -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Chain Support</h2>
+    <p>One API. Every chain your users care about.</p>
+  </div>
+  <div class="chain-grid">
+    <div class="chain-item"><span class="chain-icon">⟠</span>Ethereum</div>
+    <div class="chain-item"><span class="chain-icon">🟣</span>Polygon</div>
+    <div class="chain-item"><span class="chain-icon">🔵</span>Arbitrum</div>
+    <div class="chain-item"><span class="chain-icon">🔴</span>Optimism</div>
+    <div class="chain-item"><span class="chain-icon">🟦</span>Base</div>
+    <div class="chain-item"><span class="chain-icon">🟢</span>Solana</div>
+    <div class="chain-item"><span class="chain-icon">🟡</span>Bitcoin</div>
+    <div class="chain-item"><span class="chain-icon">🔷</span>Tron</div>
+    <div class="chain-item"><span class="chain-icon">🔺</span>BNB Chain</div>
+    <div class="chain-item"><span class="chain-icon">❄️</span>Avalanche</div>
+    <div class="chain-item"><span class="chain-icon">⬡</span>Starknet</div>
+    <div class="chain-item"><span class="chain-icon">💎</span>TON</div>
+  </div>
+</section>
+
+<!-- FEATURES CHECKLIST -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Complete Feature Set</h2>
+    <p>Not a prototype. Production-grade from day one.</p>
+  </div>
+  <div class="features-list">
+    <div class="feature-row"><span class="check">✓</span><span>HD wallet generation (BIP32/39/44)</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Address derivation for 12+ chains</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Transaction building, signing & broadcasting</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Gas estimation & EIP-1559 support</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Nonce management & transaction queuing</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Multi-signature wallet support (Gnosis-safe compatible)</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Webhook events with HMAC signatures</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>KYC/AML provider integrations (Sumsub, Onfido, Jumio)</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Chainalysis/Elliptic sanctions screening</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Hot/cold wallet architecture</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>On-ramp / off-ramp adapters</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>REST + GraphQL APIs</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>API key management & rate limiting</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>React admin dashboard with RBAC</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Transaction history & audit logs</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Docker + Docker Compose + CI/CD</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>Structured logging (Pino) + Prometheus metrics</span></div>
+    <div class="feature-row"><span class="check">✓</span><span>SDKs: TypeScript, Python, Go</span></div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Build vs. Buy</h2>
+    <p>What $79 gets you vs. building from scratch.</p>
+  </div>
+  <div style="overflow-x: auto;">
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Build It</th>
+        <th>ZOO Wallet API</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Time to market</td>
+        <td>3-6 months</td>
+        <td><span class="compare-yes">1-2 weeks</span></td>
+      </tr>
+      <tr>
+        <td>Security audit</td>
+        <td>$50K-150K</td>
+        <td><span class="compare-yes">Included</span></td>
+      </tr>
+      <tr>
+        <td>Chain integrations</td>
+        <td>1 month per chain</td>
+        <td><span class="compare-yes">12+ chains ready</span></td>
+      </tr>
+      <tr>
+        <td>KYC/AML compliance</td>
+        <td>$20K+ legal + dev</td>
+        <td><span class="compare-yes">Integrated</span></td>
+      </tr>
+      <tr>
+        <td>Monthly infra cost</td>
+        <td>$5K-15K</td>
+        <td><span class="compare-yes">Self-hosted</span></td>
+      </tr>
+      <tr>
+        <td>Webhook system</td>
+        <td>2-4 weeks</td>
+        <td><span class="compare-yes">Built-in</span></td>
+      </tr>
+      <tr>
+        <td>Admin dashboard</td>
+        <td>1-2 months</td>
+        <td><span class="compare-yes">React included</span></td>
+      </tr>
+      <tr>
+        <td>Total cost</td>
+        <td>$200K+</td>
+        <td><span class="compare-yes">$79 one-time</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="divider"></div>
+<section class="section" id="pricing">
+  <div class="section-header">
+    <h2>One Price. Full Infrastructure.</h2>
+    <p>No monthly fees. No per-transaction cuts. Own your stack.</p>
+  </div>
+  <div class="pricing-card">
+    <div class="pricing-badge">⚡ Lifetime Access</div>
+    <h3>Wallet-as-a-Service API</h3>
+    <div class="pricing-amount">
+      <span class="currency">$</span><span class="value">79</span>
+      <div class="period">one-time payment</div>
+    </div>
+    <ul class="pricing-features">
+      <li>7 core modules (Wallet, Txn, Chains, KYC, Webhooks, Dashboard, On/Off Ramp)</li>
+      <li>12+ blockchain integrations (EVM + Solana + Bitcoin + Tron)</li>
+      <li>HD wallet generation (BIP32/39/44) + multi-sig support</li>
+      <li>Full transaction lifecycle (build → sign → broadcast → confirm)</li>
+      <li>KYC/AML module with Sumsub, Onfido, Jumio adapters</li>
+      <li>Chainalysis/Elliptic sanctions screening integration</li>
+      <li>Webhook system with HMAC signatures + retry + dead letter queue</li>
+      <li>React admin dashboard with RBAC + analytics</li>
+      <li>REST + GraphQL APIs with rate limiting + API key management</li>
+      <li>On-ramp/off-ramp adapters (MoonPay, Ramp, Transak)</li>
+      <li>TypeScript, Python, and Go SDKs</li>
+      <li>Docker + Docker Compose + CI/CD pipeline</li>
+      <li>Deployment guides + 60-min video walkthrough</li>
+      <li>Private Discord + future updates included</li>
+    </ul>
+    <a href="/checkout.html?product=wallet-as-a-service" class="btn btn-primary" style="width:100%;justify-content:center;padding:18px;font-size:17px;">
+      Get Instant Access — $79
+    </a>
+    <div class="pricing-guarantee">🔒 Secure payment via Stripe · 30-day money-back guarantee</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header"><h2>FAQ</h2></div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>How is this different from Fireblocks or Circle?</h4>
+      <p>Fireblocks and Circle are managed services with monthly fees and per-transaction costs. This is self-hosted — you own the infrastructure, you control the keys, and you pay zero ongoing fees. Ideal for startups and indie hackers.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Do I need blockchain experience?</h4>
+      <p>Basic understanding of how blockchains work (wallets, transactions, gas) is helpful. The API abstracts away chain-specific complexity — our unified API works the same across all 12+ chains.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Is the code audited?</h4>
+      <p>Yes. All wallet and transaction code has been security audited. Audit report is included. We follow industry best practices for key management, signing, and transaction handling.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I add custom chains?</h4>
+      <p>Absolutely. The plugin architecture makes it straightforward to add new EVM-compatible chains in under a day. Non-EVM chains require more work but the adapter pattern is documented.</p>
+    </div>
+    <div class="faq-item">
+      <h4>What about compliance?</h4>
+      <p>The KYC/AML module integrates with all major providers. However, compliance is your responsibility — consult a legal professional for your jurisdiction. We provide the technical infrastructure, not legal advice.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I use this commercially?</h4>
+      <p>Fully commercial license included. Build your fintech app, SaaS, exchange, or payment platform. No revenue share, no limits.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-final">
+  <h2>Stop Building Infrastructure.<br>Start Building Products.</h2>
+  <p>Production wallet API. 12+ chains. KYC/AML. Admin dashboard. $79 one-time. Own your stack forever.</p>
+  <a href="/checkout.html?product=wallet-as-a-service" class="btn btn-primary">Get the Wallet API — $79</a>
+  <div style="margin-top:16px;color:var(--text3);font-size:13px;">🔒 Payment secured by Stripe · Instant access · 30-day guarantee</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 ZOO Technologies · <a href="mailto:wallets@zootechnologies.com">wallets@zootechnologies.com</a></p>
+  <p style="margin-top:8px;color:var(--text3);">Your wallet infra. Your rules.</p>
+</footer>
+</body>
+</html>

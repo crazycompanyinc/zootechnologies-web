@@ -26,6 +26,14 @@
     <priority>0.9</priority>
   </url>
   
+  <!-- Case Study: 350K to 150K -->
+  <url>
+    <loc>https://zootechnologies.com/blog/case-study-350k-to-150k.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
   <!-- Checkout -->
   <url>
     <loc>https://zootechnologies.com/checkout.html</loc>

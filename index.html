@@ -3,7 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZOO — Autonomous Intelligence</title>
+<title>ZOO — AI Agent Infrastructure & Autonomous Intelligence</title>
+<meta name="description" content="ZOO builds production-ready AI agent systems, algorithmic trading platforms, and autonomous software infrastructure. Ship faster with battle-tested templates, boilerplates, and agent orchestration tools.">
+<meta name="keywords" content="AI agents, agent infrastructure, AI agent starter kit, algorithmic trading, autonomous systems, agent orchestration, LLM tools, developer tools, AI automation, trading EA templates">
+<meta name="author" content="ZOO Technologies">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="canonical" href="https://zootechnologies.com/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="ZOO — AI Agent Infrastructure & Autonomous Intelligence">
+<meta property="og:description" content="Production-ready AI agent systems, algorithmic trading platforms, and autonomous software infrastructure. Ship faster with battle-tested templates and agent orchestration tools.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zootechnologies.com/">
+<meta property="og:site_name" content="ZOO Technologies">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ZOO — AI Agent Infrastructure & Autonomous Intelligence">
+<meta name="twitter:description" content="Production-ready AI agent systems, algorithmic trading platforms, and autonomous software infrastructure.">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ZOO Technologies",
+  "url": "https://zootechnologies.com",
+  "description": "AI agent infrastructure, algorithmic trading systems, and autonomous software",
+  "founder": {
+    "@type": "Person",
+    "name": "Francisco Alonso"
+  },
+  "sameAs": [
+    "https://github.com/crazycompanyinc",
+    "https://discord.gg/zoo"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@zootechnologies.com",
+    "contactType": "sales"
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap&display=swap" rel="preload" as="style" onload="this.rel='stylesheet'">
@@ -242,6 +285,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:
 
 /* ═══════════════════════════════════════════
    ZOO DIAGNOSTIC CHATBOT WIDGET
+<<<<<<< HEAD
    Dark mode, cyan/violet accents, mobile-first
    ═══════════════════════════════════════════ */
 
@@ -714,6 +758,78 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:
   }
 }
 
+=======
+   ═══════════════════════════════════════════ */
+.zoo-chat-trigger{position:fixed;bottom:28px;right:28px;z-index:9999;width:60px;height:60px;border-radius:50%;background:var(--grad);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,229,255,.3),0 0 60px rgba(168,85,247,.15);transition:all .4s var(--ease);animation:zc-triggerPulse 3s ease-in-out infinite}
+.zoo-chat-trigger:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 8px 40px rgba(0,229,255,.4),0 0 80px rgba(168,85,247,.2)}
+.zoo-chat-trigger svg{width:26px;height:26px;fill:var(--bg);transition:transform .3s}
+.zoo-chat-trigger:hover svg{transform:scale(1.1)}
+.zoo-chat-trigger.has-notification::after{content:'';position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:var(--pink);border-radius:50%;border:2px solid var(--bg);animation:zc-notifPulse 1.5s ease-in-out infinite}
+@keyframes zc-triggerPulse{0%,100%{box-shadow:0 4px 24px rgba(0,229,255,.3),0 0 60px rgba(168,85,247,.15)}50%{box-shadow:0 4px 32px rgba(0,229,255,.45),0 0 80px rgba(168,85,247,.25)}}
+@keyframes zc-notifPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.7}}
+.zoo-chat-window{position:fixed;bottom:100px;right:28px;z-index:9999;width:400px;max-width:calc(100vw - 40px);height:580px;max-height:calc(100vh - 140px);background:rgba(8,8,12,.96);backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 120px rgba(0,229,255,.04);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(20px) scale(.95);pointer-events:none;transition:all .4s var(--ease)}
+.zoo-chat-window.open{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
+.zoo-chat-header{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.zoo-chat-header-left{display:flex;align-items:center;gap:12px}
+.zoo-chat-avatar{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(168,85,247,.15));border:1px solid rgba(0,229,255,.2);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.zoo-chat-header-text h3{font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.zoo-chat-header-text p{font-family:var(--mono);font-size:.55rem;color:var(--cyan);text-transform:uppercase;letter-spacing:.12em;display:flex;align-items:center;gap:6px}
+.zoo-chat-header-text p::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:zc-onlinePulse 2s ease-in-out infinite}
+@keyframes zc-onlinePulse{0%,100%{opacity:1;box-shadow:0 0 8px rgba(0,229,255,.4)}50%{opacity:.5;box-shadow:0 0 4px rgba(0,229,255,.2)}}
+.zoo-chat-close{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .2s}
+.zoo-chat-close:hover{border-color:var(--border-h);color:var(--text);background:rgba(255,255,255,.04)}
+.zoo-chat-progress{padding:12px 24px 0;flex-shrink:0}
+.zoo-chat-progress-bar{width:100%;height:3px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden}
+.zoo-chat-progress-fill{height:100%;background:var(--grad);border-radius:3px;transition:width .6s var(--ease)}
+.zoo-chat-progress-label{font-family:var(--mono);font-size:.55rem;color:var(--text3);text-transform:uppercase;letter-spacing:.14em;margin-top:6px;text-align:right}
+.zoo-chat-messages{flex:1;overflow-y:auto;padding:16px 24px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.zoo-chat-messages::-webkit-scrollbar{width:3px}
+.zoo-chat-messages::-webkit-scrollbar-track{background:transparent}
+.zoo-chat-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+.zoo-msg{max-width:85%;animation:zc-msgIn .4s var(--ease) forwards;opacity:0;transform:translateY(10px)}
+@keyframes zc-msgIn{to{opacity:1;transform:translateY(0)}}
+.zoo-msg-bot{align-self:flex-start}
+.zoo-msg-user{align-self:flex-end}
+.zoo-msg-bubble{padding:12px 16px;border-radius:12px;font-family:var(--sans);font-size:.88rem;line-height:1.6;font-weight:400}
+.zoo-msg-bot .zoo-msg-bubble{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:var(--text);border-bottom-left-radius:4px}
+.zoo-msg-user .zoo-msg-bubble{background:linear-gradient(135deg,rgba(0,229,255,.12),rgba(168,85,247,.12));border:1px solid rgba(0,229,255,.15);color:var(--text);border-bottom-right-radius:4px}
+.zoo-typing{display:flex;align-items:center;gap:5px;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;border-bottom-left-radius:4px;width:fit-content}
+.zoo-typing-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:zc-typingBounce 1.4s ease-in-out infinite}
+.zoo-typing-dot:nth-child(2){animation-delay:.2s;background:var(--violet)}
+.zoo-typing-dot:nth-child(3){animation-delay:.4s;background:var(--pink)}
+@keyframes zc-typingBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+.zoo-chat-options{padding:4px 24px 16px;display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0}
+.zoo-option-btn{padding:10px 18px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);color:var(--text2);font-family:var(--sans);font-size:.8rem;font-weight:500;cursor:pointer;transition:all .3s;white-space:nowrap}
+.zoo-option-btn:hover{border-color:rgba(0,229,255,.3);color:var(--cyan);background:rgba(0,229,255,.06);transform:translateY(-1px)}
+.zoo-option-btn:active{transform:translateY(0)}
+.zoo-chat-input-area{padding:0 24px 20px;flex-shrink:0}
+.zoo-chat-input-row{display:flex;gap:8px;align-items:center}
+.zoo-chat-input{flex:1;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:var(--text);font-family:var(--sans);font-size:.88rem;outline:none;transition:all .3s}
+.zoo-chat-input::placeholder{color:var(--text3)}
+.zoo-chat-input:focus{border-color:rgba(0,229,255,.3);background:rgba(0,229,255,.03);box-shadow:0 0 20px rgba(0,229,255,.05)}
+.zoo-chat-send{width:44px;height:44px;border-radius:10px;border:none;background:var(--grad);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.zoo-chat-send:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(0,229,255,.3)}
+.zoo-chat-send svg{width:18px;height:18px;fill:var(--bg)}
+.zoo-result-card{background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(168,85,247,.06));border:1px solid rgba(0,229,255,.12);border-radius:12px;padding:20px;margin:4px 0}
+.zoo-result-card h4{font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:12px}
+.zoo-result-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.zoo-result-stat:last-child{border-bottom:none}
+.zoo-result-stat-label{font-family:var(--mono);font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.12em}
+.zoo-result-stat-value{font-family:var(--display);font-size:1.1rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.zoo-result-cta{display:block;width:100%;margin-top:16px;padding:12px;border-radius:8px;background:var(--grad);color:var(--bg);font-family:var(--mono);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;text-align:center;text-decoration:none;transition:all .3s;border:none;cursor:pointer}
+.zoo-result-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,.25)}
+@media(max-width:480px){
+  .zoo-chat-trigger{bottom:20px;right:20px;width:54px;height:54px}
+  .zoo-chat-window{bottom:0;right:0;left:0;width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;border:none;border-top:1px solid rgba(255,255,255,.06)}
+  .zoo-chat-messages{padding:16px}
+  .zoo-chat-options{padding:4px 16px 16px}
+  .zoo-chat-input-area{padding:0 16px 16px}
+  .zoo-chat-header{padding:16px 16px 12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .zoo-chat-trigger,.zoo-chat-window,.zoo-msg,.zoo-typing-dot,.zoo-chat-header-text p::before{animation:none!important;transition-duration:.01ms!important}
+}
+>>>>>>> 9de9aea (feat: add ZOO diagnostic chatbot widget to landing page)
 </style>
 </head>
 <body>
@@ -1357,6 +1473,81 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:
   updateProgress();
 
 })();
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- ZOO DIAGNOSTIC CHATBOT WIDGET               -->
+<!-- ═══════════════════════════════════════════ -->
+<button class="zoo-chat-trigger" id="zooChatTrigger" aria-label="Open diagnostic chat">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h10v2H7zm0-3h10v2H7zm0 6h7v2H7z"/></svg>
+</button>
+
+<div class="zoo-chat-window" id="zooChatWindow">
+  <div class="zoo-chat-header">
+    <div class="zoo-chat-header-left">
+      <div class="zoo-chat-avatar">Z</div>
+      <div class="zoo-chat-header-text">
+        <h3>ZOO Diagnostic</h3>
+        <p>Online now</p>
+      </div>
+    </div>
+    <button class="zoo-chat-close" id="zooChatClose" aria-label="Close chat">✕</button>
+  </div>
+  <div class="zoo-chat-progress">
+    <div class="zoo-chat-progress-bar">
+      <div class="zoo-chat-progress-fill" id="zooProgressFill" style="width:0%"></div>
+    </div>
+    <div class="zoo-chat-progress-label" id="zooProgressLabel">Step 1 of 5</div>
+  </div>
+  <div class="zoo-chat-messages" id="zooChatMessages"></div>
+  <div class="zoo-chat-options" id="zooChatOptions"></div>
+  <div class="zoo-chat-input-area" id="zooChatInput" style="display:none">
+    <div class="zoo-chat-input-row">
+      <input type="email" class="zoo-chat-input" id="zooEmailInput" placeholder="tu@email.com" autocomplete="email">
+      <button class="zoo-chat-send" id="zooChatSend" aria-label="Send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var ZC={step:0,answers:{},isOpen:false,isTyping:false};
+  var Q=[
+    {id:'welcome',text:"Hey! I'm ZOO's automation diagnostic bot. I'll ask you 5 quick questions to calculate how much time and money your business is losing to manual tasks. Ready?",options:[{label:"Let's go 🚀",value:'ready'},{label:"Tell me more first",value:'more_info'}]},
+    {id:'company_type',text:'What type of company do you run?',options:[{label:'SaaS',value:'saas'},{label:'E-commerce',value:'ecommerce'},{label:'Services',value:'services'},{label:'Other',value:'other'}]},
+    {id:'team_size',text:'How many employees does your team have?',options:[{label:'1-10',value:'1-10'},{label:'11-50',value:'11-50'},{label:'50+',value:'50+'}]},
+    {id:'pain_point',text:'What manual task steals the most time from your team?',options:[{label:'Invoicing & Billing',value:'billing'},{label:'Customer Support',value:'support'},{label:'Operations & Logistics',value:'ops'},{label:'Marketing & Content',value:'marketing'}]},
+    {id:'hours_wasted',text:'How many hours per week does your team spend on repetitive tasks?',options:[{label:'5-10 hrs',value:'5-10'},{label:'11-25 hrs',value:'11-25'},{label:'25-40 hrs',value:'25-40'},{label:'40+ hrs',value:'40+'}]},
+    {id:'email',text:"Last one! Drop your email and I'll send you a personalized diagnostic with your estimated savings + a custom automation roadmap.",input:true}
+  ];
+  var $=function(id){return document.getElementById(id);};
+  var trigger=$('zooChatTrigger'),win=$('zooChatWindow'),closeBtn=$('zooChatClose'),msgs=$('zooChatMessages'),opts=$('zooChatOptions'),inpArea=$('zooChatInput'),emailInp=$('zooEmailInput'),sendBtn=$('zooChatSend'),progFill=$('zooProgressFill'),progLabel=$('zooProgressLabel');
+  function updProg(){var p=Math.round((ZC.step/Q.length)*100);progFill.style.width=p+'%';progLabel.textContent='Step '+(ZC.step+1)+' of '+Q.length;}
+  function scrollB(){msgs.scrollTop=msgs.scrollHeight;}
+  function addTyping(){var d=document.createElement('div');d.className='zoo-msg zoo-msg-bot';d.id='zooTyping';d.innerHTML='<div class="zoo-typing"><div class="zoo-typing-dot"></div><div class="zoo-typing-dot"></div><div class="zoo-typing-dot"></div></div>';msgs.appendChild(d);scrollB();}
+  function remTyping(){var e=document.getElementById('zooTyping');if(e)e.remove();}
+  function addBot(text,delay){delay=delay||600;ZC.isTyping=true;opts.style.display='none';inpArea.style.display='none';addTyping();setTimeout(function(){remTyping();ZC.isTyping=false;var d=document.createElement('div');d.className='zoo-msg zoo-msg-bot';d.innerHTML='<div class="zoo-msg-bubble">'+text+'</div>';msgs.appendChild(d);scrollB();},delay);}
+  function addUser(text){var d=document.createElement('div');d.className='zoo-msg zoo-msg-user';d.innerHTML='<div class="zoo-msg-bubble">'+text+'</div>';msgs.appendChild(d);scrollB();}
+  function showOpts(o){opts.innerHTML='';opts.style.display='flex';inpArea.style.display='none';o.forEach(function(b){var btn=document.createElement('button');btn.className='zoo-option-btn';btn.textContent=b.label;btn.addEventListener('click',function(){handleAns(b.label,b.value);});opts.appendChild(btn);});}
+  function showEmail(){opts.innerHTML='';opts.style.display='none';inpArea.style.display='block';setTimeout(function(){emailInp.focus();},100);}
+  function handleAns(label,value){if(ZC.isTyping)return;addUser(label);ZC.answers[Q[ZC.step].id]=value;ZC.step++;if(ZC.step<Q.length)showQ(ZC.step);}
+  function showQ(i){var q=Q[i];updProg();if(q.id==='welcome'&&ZC.answers['welcome']==='more_info'){addBot("We help businesses automate repetitive tasks using AI agents. Our clients typically save 20-40 hours per week. This diagnostic takes 60 seconds and gives you a personalized savings estimate. No strings attached.",800);setTimeout(function(){addBot(q.text,600);setTimeout(function(){showOpts(q.options);},700);},1200);return;}addBot(q.text,700);setTimeout(function(){if(q.input)showEmail();else showOpts(q.options);},800);}
+  function calcSavings(){var hm={'5-10':7.5,'11-25':18,'25-40':32.5,'40+':50};var tm={'1-10':5,'11-50':30,'50+':75};var h=hm[ZC.answers['hours_wasted']]||15;var tmM=tm[ZC.answers['team_size']]||5;var wc=h*35*(tmM/5);var ac=wc*52;return {annual:Math.round(ac*.6),hours:Math.round(h*.6*52),weekly:h,team:ZC.answers['team_size'],pain:ZC.answers['pain_point']};}
+  function showResults(email){var r=calcSavings();var pl={billing:'Invoicing & Billing',support:'Customer Support',ops:'Operations',marketing:'Marketing'};saveLead(email,r);var h='<div class="zoo-result-card"><h4>📊 Your Diagnostic Results</h4><div class="zoo-result-stat"><span class="zoo-result-stat-label">Annual Loss</span><span class="zoo-result-stat-value">$'+r.annual.toLocaleString()+'/yr</span></div><div class="zoo-result-stat"><span class="zoo-result-stat-label">Hours Recoverable</span><span class="zoo-result-stat-value">'+r.hours.toLocaleString()+' hrs/yr</span></div><div class="zoo-result-stat"><span class="zoo-result-stat-label">Top Pain Point</span><span class="zoo-result-stat-value" style="font-size:.85rem">'+(pl[r.pain]||r.pain)+'</span></div><a href="mailto:hello@zootechnologies.com?subject=Diagnostic Results — $'+r.annual+'/yr savings&body=Hi ZOO team,%0A%0AMy diagnostic showed $'+r.annual+'/yr in potential savings. I\'d like to discuss automation for my '+(ZC.answers['company_type']||'')+' business.%0A%0AThanks!" class="zoo-result-cta">📅 Book a Free Call</a><p style="font-family:var(--mono);font-size:.55rem;color:var(--text3);text-align:center;margin-top:10px;letter-spacing:.08em">Results sent to '+email+'</p></div>';var d=document.createElement('div');d.className='zoo-msg zoo-msg-bot';d.innerHTML=h;msgs.appendChild(d);addBot("I've sent your full diagnostic to "+email+". Our team typically responds within 2 hours. In the meantime, check out our AI Agent Starter Kit — it automates the exact pain points you mentioned.",1200);opts.style.display='none';inpArea.style.display='none';progFill.style.width='100%';progLabel.textContent='Diagnostic complete ✓';scrollB();}
+  function saveLead(email,results){var lead={email:email,timestamp:new Date().toISOString(),answers:ZC.answers,savings:{annual:results.annual,hours:results.hours},source:'zoo_diagnostic_chatbot'};try{var leads=JSON.parse(localStorage.getItem('zoo_leads')||'[]');leads.push(lead);localStorage.setItem('zoo_leads',JSON.stringify(leads));}catch(e){}fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}).catch(function(){});}
+  function handleEmailSubmit(){var email=emailInp.value.trim();if(!email||email.indexOf('@')===-1||email.indexOf('.')===-1){emailInp.style.borderColor='rgba(244,114,182,0.5)';setTimeout(function(){emailInp.style.borderColor='rgba(255,255,255,0.08)';},1500);return;}addUser(email);ZC.answers['email']=email;showResults(email);}
+  sendBtn.addEventListener('click',handleEmailSubmit);
+  emailInp.addEventListener('keydown',function(e){if(e.key==='Enter')handleEmailSubmit();});
+  function openChat(){ZC.isOpen=true;win.classList.add('open');trigger.style.display='none';if(ZC.step===0&&!ZC.answers['welcome'])showQ(0);}
+  function closeChat(){ZC.isOpen=false;win.classList.remove('open');trigger.style.display='flex';}
+  trigger.addEventListener('click',function(){ZC.isOpen?closeChat():openChat();});
+  closeBtn.addEventListener('click',closeChat);
+  document.addEventListener('mouseleave',function(e){if(e.clientY<10&&!ZC.isOpen&&ZC.step===0)trigger.classList.add('has-notification');});
+  updProg();
 })();
 </script>
 </body>

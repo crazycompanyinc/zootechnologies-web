@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Build an AI Agent From Scratch: Complete Guide 2026 — ZOO Blog</title>
+<meta name="description" content="Learn how to build an AI agent from scratch in 2026. Complete guide covering agent architecture, memory systems, tool execution, orchestration patterns, and production deployment.">
+<meta name="keywords" content="build ai agent from scratch, AI agent tutorial, AI agent architecture, agent memory, tool execution, agent orchestration, LLM agent, autonomous agent, AI agent development">
+<meta name="author" content="ZOO Technologies">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://zootechnologies.com/blog/build-ai-agent-from-scratch.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="How to Build an AI Agent From Scratch: Complete Guide 2026">
+<meta property="og:description" content="Learn how to build an AI agent from scratch. Complete guide covering architecture, memory, tool execution, orchestration, and production deployment.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://zootechnologies.com/blog/build-ai-agent-from-scratch.html">
+<meta property="og:site_name" content="ZOO Technologies">
+<meta property="article:published_time" content="2026-05-09">
+<meta property="article:section" content="AI Agents">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Build an AI Agent From Scratch: Complete Guide 2026">
+<meta name="twitter:description" content="Complete guide covering agent architecture, memory systems, tool execution, orchestration patterns, and production deployment.">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Build an AI Agent From Scratch: Complete Guide 2026",
+  "description": "Learn how to build an AI agent from scratch in 2026. Complete guide covering agent architecture, memory systems, tool execution, orchestration patterns, and production deployment.",
+  "author": {
+    "@type": "Organization",
+    "name": "ZOO Technologies"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ZOO Technologies",
+    "url": "https://zootechnologies.com"
+  },
+  "datePublished": "2026-05-09",
+  "dateModified": "2026-05-09",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zootechnologies.com/blog/build-ai-agent-from-scratch.html"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--black:#060608;--dark:#0b0b0d;--surface:#121214;--surface2:#1a1a1e;--border:rgba(255,255,255,0.06);--border-light:rgba(255,255,255,0.1);--text:#e8e6e3;--text-dim:#6a6a6a;--text-muted:#3a3a3a;--accent:#ff6b35;--accent-g:rgba(255,107,53,0.1);--grad:linear-gradient(135deg,#ff6b35,#a855f7);--display:'Playfair Display',serif;--sans:'Inter',sans-serif;--mono:'Space Mono',monospace}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--black);-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--black);color:var(--text);line-height:1.7;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--black)}
+.container{max-width:780px;margin:0 auto;padding:0 24px}
+.nav{padding:24px 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.nav a{color:var(--text);text-decoration:none;font-size:0.85rem}
+.nav .back{color:var(--text-dim);font-family:var(--mono);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em}
+.nav .back:hover{color:var(--accent)}
+.hero{padding:80px 0 60px;text-align:center}
+.hero-tag{display:inline-block;padding:6px 16px;background:var(--accent-g);border:1px solid rgba(255,107,53,0.2);border-radius:4px;font-family:var(--mono);font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:24px}
+.hero h1{font-family:var(--display);font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px}
+.hero h1 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.1rem;color:var(--text-dim);max-width:560px;margin:0 auto;line-height:1.8}
+.meta{display:flex;justify-content:center;gap:24px;padding:20px 0 40px;font-family:var(--mono);font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;border-bottom:1px solid var(--border);margin-bottom:48px}
+.article-content{padding-bottom:80px}
+.article-content h2{font-family:var(--display);font-size:1.8rem;font-weight:700;margin:48px 0 20px;letter-spacing:-0.02em}
+.article-content h3{font-size:1.2rem;font-weight:600;margin:36px 0 14px}
+.article-content p{margin-bottom:18px;color:var(--text-dim);font-size:1.02rem;line-height:1.85}
+.article-content strong{color:var(--text);font-weight:600}
+.article-content ul,.article-content ol{margin:18px 0;padding-left:24px}
+.article-content li{margin-bottom:10px;color:var(--text-dim);line-height:1.8}
+.article-content code{background:var(--surface2);padding:2px 8px;border-radius:4px;font-family:var(--mono);font-size:0.85rem;color:var(--accent)}
+.article-content pre{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;overflow-x:auto;margin:24px 0;font-family:var(--mono);font-size:0.85rem;line-height:1.7}
+.article-content pre code{background:none;padding:0;color:var(--text)}
+.article-content blockquote{border-left:3px solid var(--accent);padding:16px 24px;margin:24px 0;background:var(--accent-g);border-radius:0 8px 8px 0;font-style:italic;color:var(--text)}
+.article-content a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(255,107,53,0.3)}
+.article-content a:hover{border-bottom-color:var(--accent)}
+.cta-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;margin:48px 0;text-align:center}
+.cta-box h3{font-family:var(--display);font-size:1.4rem;margin-bottom:12px}
+.cta-box p{color:var(--text-dim);margin-bottom:20px;font-size:0.95rem}
+.cta-box .btn{display:inline-block;padding:14px 32px;background:var(--grad);color:#fff;font-weight:700;text-decoration:none;border-radius:8px;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;transition:all 0.3s}
+.cta-box .btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,53,0.3)}
+.related{border-top:1px solid var(--border);padding:48px 0}
+.related h4{font-family:var(--mono);font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.related-card{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:all 0.3s}
+.related-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.related-card h5{color:var(--text);font-size:0.95rem;font-weight:600;margin-bottom:6px}
+.related-card p{color:var(--text-dim);font-size:0.8rem;line-height:1.6}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:32px 0;border-top:1px solid var(--border)}
+.tag{padding:4px 12px;background:var(--surface);border:1px solid var(--border);border-radius:4px;font-family:var(--mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em}
+.footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-family:var(--mono);font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+.footer a{color:var(--text-dim);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="container">
+<nav class="nav">
+  <a href="/blog.html" class="back">← Back to Blog</a>
+  <a href="/">ZOO</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-tag">AI Agent Development</div>
+  <h1>How to Build an AI Agent <em>From Scratch</em></h1>
+  <p class="hero-desc">Complete 2026 guide: architecture, memory, tool execution, orchestration, and production deployment.</p>
+</header>
+
+<div class="meta">
+  <span>May 9, 2026</span>
+  <span>18 min read</span>
+  <span>ZOO Technologies</span>
+</div>
+
+<article class="article-content">
+
+<p>The AI agent space is exploding. Every week brings new frameworks, new demos, and new promises. But most tutorials stop at the "Hello World" stage — a single LLM call with a prompt. <strong>Real agents are different.</strong> They have memory, use tools, make decisions, handle errors, and operate autonomously.</p>
+
+<p>This guide walks you through building a production-grade AI agent from scratch. No frameworks. No abstractions hiding the complexity. Just the core patterns that actually matter.</p>
+
+<h2>What Makes an Agent an Agent?</h2>
+
+<p>Before writing code, let's define what we're building. An AI agent is a system that:</p>
+
+<ul>
+<li><strong>Perceives</strong> its environment (user input, tool results, external data)</li>
+<li><strong>Reasons</strong> about what to do next (using an LLM as the decision engine)</li>
+<li><strong>Acts</strong> by executing tools, calling APIs, or modifying state</li>
+<li><strong>Remembers</strong> past interactions and learned context</li>
+<li><strong>Adapts</strong> its behavior based on feedback and outcomes</li>
+</ul>
+
+<p>This is fundamentally different from a chatbot. A chatbot responds. An agent <strong>decides and acts</strong>.</p>
+
+<h2>Architecture: The Core Loop</h2>
+
+<p>Every agent runs on a variation of the same loop:</p>
+
+<pre><code>while not task_complete:
+    context = build_context(memory, history, tools)
+    decision = llm.reason(context)
+    if decision.type == "tool_call":
+        result = execute_tool(decision.tool, decision.args)
+        memory.store(result)
+    elif decision.type == "respond":
+        return decision.response
+    elif decision.type == "plan":
+        subtasks = decompose(decision.goal)
+        for subtask in subtasks:
+            execute(subtask)
+</code></pre>
+
+<p>This seems simple. The complexity is in the details: context management, error handling, tool orchestration, and state persistence.</p>
+
+<h2>Step 1: The Reasoning Engine</h2>
+
+<p>The LLM is your agent's brain. But raw LLM calls aren't enough. You need structured output — the agent must decide <strong>what to do</strong>, not just <strong>what to say</strong>.</p>
+
+<pre><code>const systemPrompt = `You are an autonomous agent. For each step, output JSON:
+{
+  "thought": "your reasoning",
+  "action": "tool_name or 'respond'",
+  "args": { "param": "value" }
+}
+
+Available tools: search, read_file, write_file, execute_code`;
+
+const response = await llm.chat({
+  messages: [...history, { role: "user", content: task }],
+  response_format: { type: "json_object" }
+});
+
+const decision = JSON.parse(response.content);
+</code></pre>
+
+<p>Key insight: <strong>always use structured output</strong>. Free-text responses make it impossible to reliably parse agent decisions. JSON mode or function calling is essential.</p>
+
+<h2>Step 2: Memory Systems</h2>
+
+<p>Without memory, your agent is amnesiac. Every interaction starts from zero. There are three types of memory you need:</p>
+
+<h3>Short-Term Memory (Context Window)</h3>
+<p>The conversation history. Limited by the LLM's context window. Manage it aggressively — summarize old messages, drop irrelevant turns, prioritize recent context.</p>
+
+<h3>Long-Term Memory (Vector Store)</h3>
+<p>Persistent knowledge the agent accumulates. Store embeddings of past interactions, documents, and facts. Retrieve relevant context using semantic search.</p>
+
+<pre><code>// Store a memory
+await vectorStore.add({
+  text: "User prefers Python over TypeScript for agent development",
+  metadata: { type: "preference", timestamp: Date.now() }
+});
+
+// Retrieve relevant memories
+const memories = await vectorStore.search(
+  "What language should I use for this agent?",
+  { limit: 5, threshold: 0.7 }
+);
+</code></pre>
+
+<h3>Working Memory (State)</h3>
+<p>The agent's current task state: what it's doing, what it's learned, what's next. This is typically a structured object that gets updated each loop iteration.</p>
+
+<blockquote><strong>Pro tip:</strong> Most agent failures come from bad memory management, not bad reasoning. Invest here first. Our <a href="/products/ai-agent-starter-kit/">AI Agent Starter Kit</a> includes pre-built memory management with automatic summarization and retrieval.</blockquote>
+
+<h2>Step 3: Tool Execution</h2>
+
+<p>Tools are how agents interact with the world. Every tool needs:</p>
+
+<ul>
+<li>A <strong>clear description</strong> (the LLM uses this to decide when to use it)</li>
+<li><strong>Typed inputs</strong> (JSON schema for arguments)</li>
+<li><strong>Error handling</strong> (what happens when the tool fails)</li>
+<li><strong>Output formatting</strong> (structured results the agent can reason about)</li>
+</ul>
+
+<pre><code>const tools = {
+  search: {
+    description: "Search the web for information. Use when you need current facts.",
+    parameters: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Search query" },
+        max_results: { type: "number", default: 5 }
+      },
+      required: ["query"]
+    },
+    execute: async ({ query, max_results }) => {
+      try {
+        const results = await webSearch(query, max_results);
+        return { success: true, data: results };
+      } catch (error) {
+        return { success: false, error: error.message };
+      }
+    }
+  }
+};
+</code></pre>
+
+<p><strong>Critical pattern:</strong> Always return structured results with success/failure status. The agent needs to know if a tool failed and why.</p>
+
+<h2>Step 4: Error Handling & Recovery</h2>
+
+<p>Production agents fail. A lot. Network timeouts, API rate limits, malformed outputs, infinite loops. Your agent needs to handle all of these:</p>
+
+<ul>
+<li><strong>Retry with backoff</strong> for transient failures (network, rate limits)</li>
+<li><strong>Circuit breakers</strong> for consistently failing tools</li>
+<li><strong>Max iteration limits</strong> to prevent infinite loops</li>
+<li><strong>Graceful degradation</strong> — if a tool fails, try an alternative approach</li>
+<li><strong>Human escalation</strong> — when the agent can't resolve something, ask for help</li>
+</ul>
+
+<pre><code>const MAX_ITERATIONS = 20;
+let iterations = 0;
+
+while (!task_complete && iterations < MAX_ITERATIONS) {
+  iterations++;
+  try {
+    const decision = await agent.reason(context);
+    const result = await execute(decision);
+    context.update(result);
+  } catch (error) {
+    if (isRetryable(error)) {
+      await sleep(Math.pow(2, retryCount) * 1000);
+      continue;
+    }
+    return { error: "Task failed", details: error.message };
+  }
+}
+</code></pre>
+
+<h2>Step 5: Multi-Agent Orchestration</h2>
+
+<p>Complex tasks require multiple agents working together. The most common patterns:</p>
+
+<ul>
+<li><strong>Manager/Worker:</strong> A manager agent decomposes tasks and delegates to specialized workers</li>
+<li><strong>Pipeline:</strong> Agents process data in sequence, each adding value</li>
+<li><strong>Peer-to-Peer:</strong> Agents collaborate as equals, sharing state through a common store</li>
+</ul>
+
+<pre><code>// Manager pattern
+const manager = new Agent({
+  role: "Decompose tasks and delegate to specialists",
+  tools: [delegate_to_researcher, delegate_to_coder, delegate_to_writer]
+});
+
+const researcher = new Agent({ role: "Research and gather information", tools: [search, read_file] });
+const coder = new Agent({ role: "Write and review code", tools: [write_file, execute_code] });
+const writer = new Agent({ role: "Write reports and documentation", tools: [write_file] });
+</code></ul>
+
+<p>Multi-agent systems are where the real power lies — and where most of the complexity hides. Start with a single agent. Add complexity only when the task demands it.</p>
+
+<h2>Step 6: Production Deployment</h2>
+
+<p>Getting an agent to work on your laptop is step one. Running it in production requires:</p>
+
+<ul>
+<li><strong>Observability:</strong> Log every decision, tool call, and outcome. You need to debug agent behavior in production.</li>
+<li><strong>Cost management:</strong> LLM calls are expensive. Cache results, use smaller models for simple decisions, set spending limits.</li>
+<li><strong>Security:</strong> Agents with tool access are powerful — and dangerous. Sandbox execution, limit tool scope, validate all inputs.</li>
+<li><strong>Versioning:</strong> Version your prompts, tools, and agent configurations. You need to roll back when things break.</li>
+</ul>
+
+<h2>Common Mistakes (And How to Avoid Them)</h2>
+
+<ol>
+<li><strong>Too many tools, too fast.</strong> Start with 3-5 tools. Add more only when the agent consistently needs them.</li>
+<li><strong>Ignoring token costs.</strong> Every context token costs money. Summarize aggressively. Use the smallest model that works.</li>
+<li><strong>No human-in-the-loop.</strong> For high-stakes decisions, always have a human approval step.</li>
+<li><strong>Over-engineering.</strong> Don't build a multi-agent system for a task a single agent can handle.</li>
+<li><strong>Skipping observability.</strong> If you can't see what your agent is doing, you can't improve it.</li>
+</ol>
+
+<h2>The Bottom Line</h2>
+
+<p>Building AI agents is not about the LLM. It's about the <strong>system around the LLM</strong> — memory, tools, error handling, orchestration, and observability. The LLM is the engine. Everything else is the car.</p>
+
+<p>Start simple. Build a single agent with 3 tools. Get it working end-to-end. Then add complexity incrementally. The teams that ship agents fastest are the ones that resist the urge to over-engineer from day one.</p>
+
+<div class="cta-box">
+  <h3>Ship Your Agent Faster</h3>
+  <p>The ZOO AI Agent Starter Kit includes production-ready templates for control flow, memory, tool execution, and multi-agent orchestration. Stop building from scratch.</p>
+  <a href="/products/ai-agent-starter-kit/" class="btn">Get the Starter Kit → $49</a>
+</div>
+
+<h2>Related Reading</h2>
+<p>Dive deeper into specific agent topics:</p>
+<ul>
+<li><a href="/blog/ai-agent-memory-bottleneck.html">Why Your AI Agent Forgets Everything (And How to Fix It)</a></li>
+<li><a href="/blog/multi-agent-orchestration-python.html">Multi-Agent Orchestration in Python: A Production Guide</a></li>
+<li><a href="/blog/agent-security-audit.html">Agent Security Audit: The Threats Nobody Talks About</a></li>
+<li><a href="/blog/ai-agent-observability-2026.html">AI Agent Observability in 2026: Why Your Agent Is Lying to You</a></li>
+</ul>
+
+</article>
+
+<div class="tags">
+  <span class="tag">AI Agents</span>
+  <span class="tag">Tutorial</span>
+  <span class="tag">LLM</span>
+  <span class="tag">Agent Architecture</span>
+  <span class="tag">Production</span>
+  <span class="tag">Python</span>
+  <span class="tag">TypeScript</span>
+</div>
+
+<div class="related">
+  <h4>More from ZOO</h4>
+  <div class="related-grid">
+    <a href="/blog/multi-agent-orchestration-python.html" class="related-card">
+      <h5>Multi-Agent Orchestration in Python</h5>
+      <p>Production guide to coordinating multiple AI agents with shared state and task queues.</p>
+    </a>
+    <a href="/blog/ai-agent-memory-bottleneck.html" class="related-card">
+      <h5>AI Agent Memory Bottleneck</h5>
+      <p>Why agents forget everything and how to build a memory system that actually works.</p>
+    </a>
+    <a href="/blog/agent-security-audit.html" class="related-card">
+      <h5>Agent Security Audit</h5>
+      <p>The security threats nobody talks about when building autonomous agents.</p>
+    </a>
+    <a href="/blog/ai-startup-launch-checklist.html" class="related-card">
+      <h5>AI Startup Launch Checklist 2026</h5>
+      <p>Everything you need to launch an AI-powered startup, from idea to first customer.</p>
+    </a>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="/">ZOO Technologies</a> — Built by humans + agents.
+</div>
+
+</div>
+</body>
+</html>
