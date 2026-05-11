@@ -239,6 +239,481 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
 }
+
+/* ═══════════════════════════════════════════
+   ZOO DIAGNOSTIC CHATBOT WIDGET
+   Dark mode, cyan/violet accents, mobile-first
+   ═══════════════════════════════════════════ */
+
+/* Chatbot Trigger Button */
+.zoo-chat-trigger {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0, 229, 255, 0.3), 0 0 60px rgba(168, 85, 247, 0.15);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: triggerPulse 3s ease-in-out infinite;
+}
+.zoo-chat-trigger:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 229, 255, 0.4), 0 0 80px rgba(168, 85, 247, 0.2);
+}
+.zoo-chat-trigger svg {
+  width: 26px;
+  height: 26px;
+  fill: #030305;
+  transition: transform 0.3s;
+}
+.zoo-chat-trigger:hover svg {
+  transform: scale(1.1);
+}
+.zoo-chat-trigger.has-notification::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
+  background: #f472b6;
+  border-radius: 50%;
+  border: 2px solid #030305;
+  animation: notifPulse 1.5s ease-in-out infinite;
+}
+@keyframes triggerPulse {
+  0%, 100% { box-shadow: 0 4px 24px rgba(0, 229, 255, 0.3), 0 0 60px rgba(168, 85, 247, 0.15); }
+  50% { box-shadow: 0 4px 32px rgba(0, 229, 255, 0.45), 0 0 80px rgba(168, 85, 247, 0.25); }
+}
+@keyframes notifPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+/* Chat Window */
+.zoo-chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  z-index: 9999;
+  width: 400px;
+  max-width: calc(100vw - 40px);
+  height: 580px;
+  max-height: calc(100vh - 140px);
+  background: rgba(8, 8, 12, 0.96);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 120px rgba(0, 229, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.zoo-chat-window.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* Chat Header */
+.zoo-chat-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.zoo-chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.zoo-chat-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.zoo-chat-header-text h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e8e8f0;
+  margin-bottom: 2px;
+}
+.zoo-chat-header-text p {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: #00e5ff;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.zoo-chat-header-text p::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00e5ff;
+  animation: onlinePulse 2s ease-in-out infinite;
+}
+@keyframes onlinePulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(0, 229, 255, 0.4); }
+  50% { opacity: 0.5; box-shadow: 0 0 4px rgba(0, 229, 255, 0.2); }
+}
+.zoo-chat-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  color: #5a5a70;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+.zoo-chat-close:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #e8e8f0;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Progress Bar */
+.zoo-chat-progress {
+  padding: 12px 24px 0;
+  flex-shrink: 0;
+}
+.zoo-chat-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.zoo-chat-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00e5ff, #a855f7);
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.zoo-chat-progress-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: #5a5a70;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 6px;
+  text-align: right;
+}
+
+/* Chat Messages */
+.zoo-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-behavior: smooth;
+}
+.zoo-chat-messages::-webkit-scrollbar {
+  width: 3px;
+}
+.zoo-chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.zoo-chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+
+/* Message Bubbles */
+.zoo-msg {
+  max-width: 85%;
+  animation: msgIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+@keyframes msgIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+.zoo-msg-bot {
+  align-self: flex-start;
+}
+.zoo-msg-user {
+  align-self: flex-end;
+}
+.zoo-msg-bubble {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+.zoo-msg-bot .zoo-msg-bubble {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #e8e8f0;
+  border-bottom-left-radius: 4px;
+}
+.zoo-msg-user .zoo-msg-bubble {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(168, 85, 247, 0.12));
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  color: #e8e8f0;
+  border-bottom-right-radius: 4px;
+}
+
+/* Typing Indicator */
+.zoo-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  border-bottom-left-radius: 4px;
+  width: fit-content;
+}
+.zoo-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00e5ff;
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+.zoo-typing-dot:nth-child(2) { animation-delay: 0.2s; background: #a855f7; }
+.zoo-typing-dot:nth-child(3) { animation-delay: 0.4s; background: #f472b6; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Options / Quick Replies */
+.zoo-chat-options {
+  padding: 4px 24px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.zoo-option-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  color: #9090a8;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.zoo-option-btn:hover {
+  border-color: rgba(0, 229, 255, 0.3);
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.06);
+  transform: translateY(-1px);
+}
+.zoo-option-btn:active {
+  transform: translateY(0);
+}
+
+/* Email Input */
+.zoo-chat-input-area {
+  padding: 0 24px 20px;
+  flex-shrink: 0;
+}
+.zoo-chat-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.zoo-chat-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #e8e8f0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  transition: all 0.3s;
+}
+.zoo-chat-input::placeholder {
+  color: #5a5a70;
+}
+.zoo-chat-input:focus {
+  border-color: rgba(0, 229, 255, 0.3);
+  background: rgba(0, 229, 255, 0.03);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.05);
+}
+.zoo-chat-send {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.zoo-chat-send:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+}
+.zoo-chat-send svg {
+  width: 18px;
+  height: 18px;
+  fill: #030305;
+}
+
+/* Result Card */
+.zoo-result-card {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.06), rgba(168, 85, 247, 0.06));
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 4px 0;
+}
+.zoo-result-card h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e8e8f0;
+  margin-bottom: 12px;
+}
+.zoo-result-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.zoo-result-stat:last-child {
+  border-bottom: none;
+}
+.zoo-result-stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: #5a5a70;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.zoo-result-stat-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.zoo-result-cta {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  color: #030305;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+.zoo-result-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 229, 255, 0.25);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .zoo-chat-trigger {
+    bottom: 20px;
+    right: 20px;
+    width: 54px;
+    height: 54px;
+  }
+  .zoo-chat-window {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .zoo-chat-messages {
+    padding: 16px 16px;
+  }
+  .zoo-chat-options {
+    padding: 4px 16px 16px;
+  }
+  .zoo-chat-input-area {
+    padding: 0 16px 16px;
+  }
+  .zoo-chat-header {
+    padding: 16px 16px 12px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .zoo-chat-trigger,
+  .zoo-chat-window,
+  .zoo-msg,
+  .zoo-typing-dot,
+  .zoo-chat-header-text p::before {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -475,6 +950,52 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:
   </div>
 </footer>
 
+
+<!-- CHATBOT WIDGET -->
+<!-- Trigger Button -->
+<button class="zoo-chat-trigger" id="zooChatTrigger" aria-label="Open diagnostic chat">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h10v2H7zm0-3h10v2H7zm0 6h7v2H7z"/></svg>
+</button>
+
+<!-- Chat Window -->
+<div class="zoo-chat-window" id="zooChatWindow">
+  <!-- Header -->
+  <div class="zoo-chat-header">
+    <div class="zoo-chat-header-left">
+      <div class="zoo-chat-avatar">Z</div>
+      <div class="zoo-chat-header-text">
+        <h3>ZOO Diagnostic</h3>
+        <p>Online now</p>
+      </div>
+    </div>
+    <button class="zoo-chat-close" id="zooChatClose" aria-label="Close chat">✕</button>
+  </div>
+
+  <!-- Progress -->
+  <div class="zoo-chat-progress">
+    <div class="zoo-chat-progress-bar">
+      <div class="zoo-chat-progress-fill" id="zooProgressFill" style="width: 0%"></div>
+    </div>
+    <div class="zoo-chat-progress-label" id="zooProgressLabel">Step 1 of 5</div>
+  </div>
+
+  <!-- Messages -->
+  <div class="zoo-chat-messages" id="zooChatMessages"></div>
+
+  <!-- Options -->
+  <div class="zoo-chat-options" id="zooChatOptions"></div>
+
+  <!-- Input (for email) -->
+  <div class="zoo-chat-input-area" id="zooChatInput" style="display:none">
+    <div class="zoo-chat-input-row">
+      <input type="email" class="zoo-chat-input" id="zooEmailInput" placeholder="tu@email.com" autocomplete="email">
+      <button class="zoo-chat-send" id="zooChatSend" aria-label="Send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   'use strict';
@@ -490,6 +1011,352 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:
   document.querySelectorAll('.reveal,.reveal-scale').forEach(function(el){ro.observe(el);});
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
+(function() {
+  'use strict';
+
+  // ═══ STATE ═══
+  var state = {
+    step: 0,
+    answers: {},
+    isOpen: false,
+    isTyping: false
+  };
+
+  // ═══ QUESTIONS FLOW ═══
+  var questions = [
+    {
+      id: 'welcome',
+      text: "Hey! I'm ZOO's automation diagnostic bot. I'll ask you 5 quick questions to calculate how much time and money your business is losing to manual tasks. Ready?",
+      options: [
+        { label: "Let's go 🚀", value: 'ready' },
+        { label: "Tell me more first", value: 'more_info' }
+      ]
+    },
+    {
+      id: 'company_type',
+      text: "What type of company do you run?",
+      options: [
+        { label: "SaaS", value: 'saas' },
+        { label: "E-commerce", value: 'ecommerce' },
+        { label: "Services", value: 'services' },
+        { label: "Other", value: 'other' }
+      ]
+    },
+    {
+      id: 'team_size',
+      text: "How many employees does your team have?",
+      options: [
+        { label: "1-10", value: '1-10' },
+        { label: "11-50", value: '11-50' },
+        { label: "50+", value: '50+' }
+      ]
+    },
+    {
+      id: 'pain_point',
+      text: "What manual task steals the most time from your team?",
+      options: [
+        { label: "Invoicing & Billing", value: 'billing' },
+        { label: "Customer Support", value: 'support' },
+        { label: "Operations & Logistics", value: 'ops' },
+        { label: "Marketing & Content", value: 'marketing' }
+      ]
+    },
+    {
+      id: 'hours_wasted',
+      text: "How many hours per week does your team spend on repetitive tasks?",
+      options: [
+        { label: "5-10 hrs", value: '5-10' },
+        { label: "11-25 hrs", value: '11-25' },
+        { label: "25-40 hrs", value: '25-40' },
+        { label: "40+ hrs", value: '40+' }
+      ]
+    },
+    {
+      id: 'email',
+      text: "Last one! Drop your email and I'll send you a personalized diagnostic with your estimated savings + a custom automation roadmap.",
+      input: true
+    }
+  ];
+
+  // ═══ DOM REFS ═══
+  var trigger = document.getElementById('zooChatTrigger');
+  var window = document.getElementById('zooChatWindow');
+  var closeBtn = document.getElementById('zooChatClose');
+  var messages = document.getElementById('zooChatMessages');
+  var options = document.getElementById('zooChatOptions');
+  var inputArea = document.getElementById('zooChatInput');
+  var emailInput = document.getElementById('zooEmailInput');
+  var sendBtn = document.getElementById('zooChatSend');
+  var progressFill = document.getElementById('zooProgressFill');
+  var progressLabel = document.getElementById('zooProgressLabel');
+
+  // ═══ HELPERS ═══
+  function updateProgress() {
+    var total = questions.length;
+    var pct = Math.round((state.step / total) * 100);
+    progressFill.style.width = pct + '%';
+    progressLabel.textContent = 'Step ' + (state.step + 1) + ' of ' + total;
+  }
+
+  function scrollToBottom() {
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addTypingIndicator() {
+    var div = document.createElement('div');
+    div.className = 'zoo-msg zoo-msg-bot';
+    div.id = 'zooTyping';
+    div.innerHTML = '<div class="zoo-typing"><div class="zoo-typing-dot"></div><div class="zoo-typing-dot"></div><div class="zoo-typing-dot"></div></div>';
+    messages.appendChild(div);
+    scrollToBottom();
+  }
+
+  function removeTypingIndicator() {
+    var el = document.getElementById('zooTyping');
+    if (el) el.remove();
+  }
+
+  function addBotMessage(text, delay) {
+    delay = delay || 600;
+    state.isTyping = true;
+    options.style.display = 'none';
+    inputArea.style.display = 'none';
+
+    addTypingIndicator();
+
+    setTimeout(function() {
+      removeTypingIndicator();
+      state.isTyping = false;
+
+      var div = document.createElement('div');
+      div.className = 'zoo-msg zoo-msg-bot';
+      div.innerHTML = '<div class="zoo-msg-bubble">' + text + '</div>';
+      messages.appendChild(div);
+      scrollToBottom();
+    }, delay);
+  }
+
+  function addUserMessage(text) {
+    var div = document.createElement('div');
+    div.className = 'zoo-msg zoo-msg-user';
+    div.innerHTML = '<div class="zoo-msg-bubble">' + text + '</div>';
+    messages.appendChild(div);
+    scrollToBottom();
+  }
+
+  function showOptions(opts) {
+    options.innerHTML = '';
+    options.style.display = 'flex';
+    inputArea.style.display = 'none';
+
+    opts.forEach(function(opt) {
+      var btn = document.createElement('button');
+      btn.className = 'zoo-option-btn';
+      btn.textContent = opt.label;
+      btn.addEventListener('click', function() {
+        handleAnswer(opt.label, opt.value);
+      });
+      options.appendChild(btn);
+    });
+  }
+
+  function showEmailInput() {
+    options.innerHTML = '';
+    options.style.display = 'none';
+    inputArea.style.display = 'block';
+    setTimeout(function() { emailInput.focus(); }, 100);
+  }
+
+  // ═══ FLOW LOGIC ═══
+  function handleAnswer(label, value) {
+    if (state.isTyping) return;
+
+    addUserMessage(label);
+    state.answers[questions[state.step].id] = value;
+    state.step++;
+
+    if (state.step < questions.length) {
+      showQuestion(state.step);
+    }
+  }
+
+  function showQuestion(index) {
+    var q = questions[index];
+    updateProgress();
+
+    if (q.id === 'welcome' && state.answers['welcome'] === 'more_info') {
+      // If they asked for more info, show it then re-ask welcome
+      addBotMessage("We help businesses automate repetitive tasks using AI agents. Our clients typically save 20-40 hours per week. This diagnostic takes 60 seconds and gives you a personalized savings estimate. No strings attached.", 800);
+      setTimeout(function() {
+        addBotMessage(q.text, 600);
+        setTimeout(function() { showOptions(q.options); }, 700);
+      }, 1200);
+      return;
+    }
+
+    addBotMessage(q.text, 700);
+
+    setTimeout(function() {
+      if (q.input) {
+        showEmailInput();
+      } else {
+        showOptions(q.options);
+      }
+    }, 800);
+  }
+
+  function calculateSavings() {
+    var hoursMap = { '5-10': 7.5, '11-25': 18, '25-40': 32.5, '40+': 50 };
+    var teamMap = { '1-10': 5, '11-50': 30, '50+': 75 };
+    var hours = hoursMap[state.answers['hours_wasted']] || 15;
+    var teamMult = teamMap[state.answers['team_size']] || 5;
+    var hourlyRate = 35; // avg blended rate
+    var weeklyCost = hours * hourlyRate * (teamMult / 5);
+    var annualCost = weeklyCost * 52;
+    var savingsPct = 0.6; // 60% automatable
+    var annualSavings = Math.round(annualCost * savingsPct);
+    var hoursSaved = Math.round(hours * savingsPct * 52);
+
+    return {
+      annualSavings: annualSavings,
+      hoursSaved: hoursSaved,
+      weeklyHours: hours,
+      teamSize: state.answers['team_size'],
+      painPoint: state.answers['pain_point']
+    };
+  }
+
+  function showResults(email) {
+    var r = calculateSavings();
+    var painLabels = {
+      'billing': 'Invoicing & Billing',
+      'support': 'Customer Support',
+      'ops': 'Operations',
+      'marketing': 'Marketing'
+    };
+
+    // Save lead
+    saveLead(email, r);
+
+    var html = '<div class="zoo-result-card">' +
+      '<h4>📊 Your Diagnostic Results</h4>' +
+      '<div class="zoo-result-stat">' +
+        '<span class="zoo-result-stat-label">Annual Loss</span>' +
+        '<span class="zoo-result-stat-value">$' + r.annualSavings.toLocaleString()+'/yr</span>' +
+      '</div>' +
+      '<div class="zoo-result-stat">' +
+        '<span class="zoo-result-stat-label">Hours Recoverable</span>' +
+        '<span class="zoo-result-stat-value">' + r.hoursSaved.toLocaleString() + ' hrs/yr</span>' +
+      '</div>' +
+      '<div class="zoo-result-stat">' +
+        '<span class="zoo-result-stat-label">Top Pain Point</span>' +
+        '<span class="zoo-result-stat-value" style="font-size:0.85rem">' + (painLabels[r.painPoint] || r.painPoint) + '</span>' +
+      '</div>' +
+      '<a href="mailto:hello@zootechnologies.com?subject=Diagnostic Results — $' + r.annualSavings + '/yr savings&body=Hi ZOO team,%0A%0AMy diagnostic showed $' + r.annualSavings + '/yr in potential savings. I\'d like to discuss automation for my ' + (state.answers['company_type'] || '') + ' business.%0A%0AThanks!" class="zoo-result-cta">📅 Book a Free Call</a>' +
+      '<p style="font-family:Space Mono,monospace;font-size:0.55rem;color:#5a5a70;text-align:center;margin-top:10px;letter-spacing:0.08em">Results sent to ' + email + '</p>' +
+    '</div>';
+
+    var div = document.createElement('div');
+    div.className = 'zoo-msg zoo-msg-bot';
+    div.innerHTML = html;
+    messages.appendChild(div);
+
+    // Follow-up message
+    addBotMessage("I've sent your full diagnostic to " + email + ". Our team typically responds within 2 hours. In the meantime, check out our AI Agent Starter Kit — it automates the exact pain points you mentioned.", 1200);
+
+    options.style.display = 'none';
+    inputArea.style.display = 'none';
+    progressFill.style.width = '100%';
+    progressLabel.textContent = 'Diagnostic complete ✓';
+    scrollToBottom();
+  }
+
+  function saveLead(email, results) {
+    var lead = {
+      email: email,
+      timestamp: new Date().toISOString(),
+      answers: state.answers,
+      savings: {
+        annual: results.annualSavings,
+        hours: results.hoursSaved
+      },
+      source: 'zoo_diagnostic_chatbot'
+    };
+
+    // Try to save via API
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead)
+    }).catch(function() {
+      // Fallback: store in localStorage
+      var leads = JSON.parse(localStorage.getItem('zoo_leads') || '[]');
+      leads.push(lead);
+      localStorage.setItem('zoo_leads', JSON.stringify(leads));
+    });
+
+    // Also try to save to a JSON file endpoint (for static hosting)
+    fetch('https://zootechnologies.com/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead),
+      mode: 'no-cors'
+    }).catch(function() {});
+  }
+
+  // ═══ EMAIL HANDLING ═══
+  function handleEmailSubmit() {
+    var email = emailInput.value.trim();
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      emailInput.style.borderColor = 'rgba(244, 114, 182, 0.5)';
+      setTimeout(function() {
+        emailInput.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+      }, 1500);
+      return;
+    }
+    addUserMessage(email);
+    state.answers['email'] = email;
+    showResults(email);
+  }
+
+  sendBtn.addEventListener('click', handleEmailSubmit);
+  emailInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleEmailSubmit();
+  });
+
+  // ═══ TOGGLE CHAT ═══
+  function openChat() {
+    state.isOpen = true;
+    window.classList.add('open');
+    trigger.style.display = 'none';
+    if (state.step === 0 && !state.answers['welcome']) {
+      showQuestion(0);
+    }
+  }
+
+  function closeChat() {
+    state.isOpen = false;
+    window.classList.remove('open');
+    trigger.style.display = 'flex';
+  }
+
+  trigger.addEventListener('click', function() {
+    if (state.isOpen) closeChat();
+    else openChat();
+  });
+  closeBtn.addEventListener('click', closeChat);
+
+  // ═══ EXIT INTENT ═══
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY < 10 && !state.isOpen && state.step === 0) {
+      trigger.classList.add('has-notification');
+    }
+  });
+
+  // ═══ INIT ═══
+  updateProgress();
+
+})();
 })();
 </script>
 </body>

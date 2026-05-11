@@ -1,14 +1,12 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/products", "destination": "/products.html" },
-    { "source": "/blog", "destination": "/blog.html" },
-    { "source": "/checkout", "destination": "/checkout.html" },
-    { "source": "/comparativa", "destination": "/comparativa.html" },
-    { "source": "/tools", "destination": "/tools.html" },
-    { "source": "/pricing", "destination": "/pricing.html" }
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/leads", "dest": "/leads.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ],
   "headers": [
     {
@@ -16,6 +14,7 @@
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
