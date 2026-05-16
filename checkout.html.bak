@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — ZOO Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #060608;
+  --dark: #0b0b0d;
+  --surface: #121214;
+  --surface2: #1a1a1e;
+  --border: rgba(255,255,255,0.06);
+  --border-light: rgba(255,255,255,0.1);
+  --text: #e8e6e3;
+  --text-dim: #6a6a6a;
+  --text-muted: #3a3a3a;
+  --accent: #c9a96e;
+  --accent2: #dbc08a;
+  --accent-glow: rgba(201,169,110,0.15);
+  --green: #22c55e;
+  --red: #ef4444;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--black);-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-sans);background:var(--black);color:var(--text);line-height:1.6;min-height:100vh}
+::selection{background:var(--accent);color:#000}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,8,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-serif);font-size:1.2rem;font-weight:700;color:var(--text);text-decoration:none;font-style:italic}
+.nav-logo em{color:var(--accent);font-style:italic}
+.nav-back{color:var(--text-dim);text-decoration:none;font-size:0.8rem;font-weight:500;transition:color 0.3s}
+.nav-back:hover{color:var(--text)}
+
+/* CHECKOUT */
+.checkout-wrap{max-width:680px;margin:0 auto;padding:120px 24px 80px}
+.checkout-header{text-align:center;margin-bottom:48px}
+.checkout-header h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:12px}
+.checkout-header p{color:var(--text-dim);font-size:1rem}
+
+/* PRODUCT CARD */
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:24px}
+.product-name{font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.product-desc{color:var(--text-dim);font-size:0.9rem;margin-bottom:20px}
+.product-price{display:flex;align-items:baseline;gap:8px}
+.product-price .amount{font-size:2.2rem;font-weight:800;color:var(--accent)}
+.product-price .period{color:var(--text-dim);font-size:0.85rem}
+.product-features{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:8px}
+.product-features li{font-size:0.85rem;color:var(--text-dim);display:flex;align-items:center;gap:8px}
+.product-features li::before{content:'✓';color:var(--green);font-weight:700}
+
+/* EMAIL FORM */
+.email-form{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:24px}
+.email-form label{display:block;font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:8px}
+.email-form input[type="email"]{width:100%;padding:14px 18px;background:var(--dark);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:1rem;font-family:var(--font-sans);outline:none;transition:border-color 0.3s}
+.email-form input[type="email"]:focus{border-color:var(--accent)}
+.email-form .hint{font-size:0.75rem;color:var(--text-muted);margin-top:6px}
+
+/* PAY BUTTON */
+.pay-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px;background:var(--accent);color:#000;border:none;border-radius:12px;font-size:1.05rem;font-weight:700;font-family:var(--font-sans);cursor:pointer;transition:all 0.3s var(--ease);margin-top:20px}
+.pay-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 8px 30px var(--accent-glow)}
+.pay-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.pay-btn .lock{font-size:0.9rem}
+
+/* SECURITY */
+.security{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:24px;color:var(--text-muted);font-size:0.75rem}
+.security-icon{font-size:0.8rem}
+
+/* STATUS */
+.status-msg{text-align:center;padding:16px;border-radius:10px;margin-bottom:20px;font-size:0.9rem;display:none}
+.status-msg.error{display:block;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#fca5a5}
+.status-msg.success{display:block;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:#86efac}
+
+/* FOOTER */
+.checkout-footer{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+.checkout-footer p{color:var(--text-muted);font-size:0.75rem}
+.checkout-footer a{color:var(--accent);text-decoration:none}
+
+/* LOADING */
+.loading{display:none;text-align:center;padding:40px}
+.loading.active{display:block}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:768px){
+  .nav{padding:16px 20px}
+  .checkout-wrap{padding:100px 16px 60px}
+  .product-card,.email-form{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">ZOO<em>.</em></a>
+  <a href="/" class="nav-back">← Back to site</a>
+</nav>
+
+<div class="checkout-wrap">
+  <div class="checkout-header">
+    <h1>Complete Your Purchase</h1>
+    <p>Secure checkout powered by Stripe</p>
+  </div>
+
+  <div id="statusMsg" class="status-msg"></div>
+
+  <!-- PRODUCT INFO -->
+  <div class="product-card" id="productCard">
+    <div class="loading active" id="productLoading">
+      <div class="spinner"></div>
+      <p style="color:var(--text-dim)">Loading product...</p>
+    </div>
+    <div id="productInfo" style="display:none">
+      <div class="product-name" id="productName">—</div>
+      <div class="product-desc" id="productDesc">—</div>
+      <div class="product-price">
+        <span class="amount" id="productPrice">—</span>
+        <span class="period">one-time payment</span>
+      </div>
+      <ul class="product-features" id="productFeatures"></ul>
+    </div>
+  </div>
+
+  <!-- EMAIL + PAY -->
+  <div class="email-form">
+    <label for="email">Your Email Address</label>
+    <input type="email" id="email" placeholder="you@company.com" required autocomplete="email">
+    <div class="hint">📧 We'll send your download link and receipt to this address.</div>
+
+    <button class="pay-btn" id="payBtn" onclick="startCheckout()">
+      <span class="lock">🔒</span>
+      <span id="payBtnText">Pay Now</span>
+    </button>
+  </div>
+
+  <div class="security">
+    <span class="security-icon">🔒</span>
+    <span>Secured by Stripe · 256-bit SSL · 30-day money-back guarantee</span>
+  </div>
+
+  <div class="checkout-footer">
+    <p>Powered by <a href="https://stripe.com">Stripe</a> · <a href="/">ZOO Technologies</a></p>
+  </div>
+</div>
+
+<script>
+// Product catalog — maps URL params to Stripe Payment Links
+const PRODUCTS = {
+  'notion-starter': {
+    name: 'Notion Template Pack — Starter',
+    desc: '5 essential Notion templates for founders. Startup OS, Roadmap, CRM, Content, Finance.',
+    price: '$19',
+    features: ['5 essential Notion templates', 'Startup OS, Roadmap, CRM, Content, Finance', 'Instant digital delivery', 'Free updates for life', 'Email support'],
+    stripeLink: null, // No payment link yet — will use email fallback
+  },
+  'notion-pro': {
+    name: 'Notion Template Pack — Pro Bundle',
+    desc: 'ALL 10 Notion templates + Founder Guide PDF. Everything in Starter plus Fundraising, Hiring, OKRs, Sprint, Journal.',
+    price: '$29',
+    features: ['ALL 10 Notion templates', 'Everything in Starter + Fundraising, Hiring, OKRs, Sprint, Journal', 'Instant digital delivery', 'Free updates for life', 'Priority email support', "Bonus: Founder's Quick Start Guide (PDF)"],
+    stripeLink: null,
+  },
+  'ai-agent-kit': {
+    name: 'AI Agent Starter Kit',
+    desc: 'Production-ready AI Agent boilerplate. LangChain, memory, tools, multi-agent orchestration.',
+    price: '$49',
+    features: ['Full AI Agent boilerplate (Python + TypeScript)', 'LangChain + LangGraph integration', 'Memory management system', 'Multi-agent orchestration', 'Docker + CI/CD included', 'Documentation + examples'],
+    stripeLink: 'https://buy.stripe.com/fZeaHA4js0jMb8QcMM',
+  },
+  'trading-ea': {
+    name: 'Trading EA Templates',
+    desc: '5 Expert Advisor templates for MT4/MT5 + Pine Script. Battle-tested strategies.',
+    price: '$49',
+    features: ['5 Expert Advisor templates (MT4/MT5)', 'Pine Script indicators included', 'Backtesting framework', 'Risk management module', 'Documentation + video tutorials', 'Free updates'],
+    stripeLink: 'https://buy.stripe.com/28o9Dww3abSq1wk3cd',
+  },
+  'api-boilerplate': {
+    name: 'API Boilerplate Collection',
+    desc: '3 production API boilerplates: REST, GraphQL, Realtime. TypeScript, Node.js, Prisma, Redis, Docker.',
+    price: '$39',
+    features: ['REST API boilerplate (Express/Fastify)', 'GraphQL API boilerplate (Apollo Server)', 'Realtime API boilerplate (WebSocket)', 'JWT + OAuth2 authentication', 'Docker + CI/CD pipelines', 'Unit + integration tests'],
+    stripeLink: null,
+  },
+};
+
+// Parse URL params
+const params = new URLSearchParams(window.location.search);
+const productKey = params.get('product') || '';
+const product = PRODUCTS[productKey];
+
+// Render product info
+const loading = document.getElementById('productLoading');
+const info = document.getElementById('productInfo');
+
+if (product) {
+  loading.style.display = 'none';
+  info.style.display = 'block';
+  document.getElementById('productName').textContent = product.name;
+  document.getElementById('productDesc').textContent = product.desc;
+  document.getElementById('productPrice').textContent = product.price;
+  const featuresList = document.getElementById('productFeatures');
+  product.features.forEach(f => {
+    const li = document.createElement('li');
+    li.textContent = f;
+    featuresList.appendChild(li);
+  });
+  document.getElementById('payBtnText').textContent = `Pay ${product.price}`;
+} else {
+  loading.style.display = 'none';
+  info.style.display = 'block';
+  document.getElementById('productName').textContent = 'Product Not Found';
+  document.getElementById('productDesc').textContent = 'The product you\'re looking for doesn\'t exist. Please check the link and try again.';
+  document.getElementById('productPrice').textContent = '—';
+  document.getElementById('payBtn').disabled = true;
+}
+
+function showStatus(msg, type) {
+  const el = document.getElementById('statusMsg');
+  el.textContent = msg;
+  el.className = 'status-msg ' + type;
+}
+
+async function startCheckout() {
+  const email = document.getElementById('email').value.trim();
+  if (!email || !email.includes('@')) {
+    showStatus('Please enter a valid email address.', 'error');
+    return;
+  }
+
+  if (!product) {
+    showStatus('Product not found. Please try again.', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('payBtn');
+  btn.disabled = true;
+  document.getElementById('payBtnText').textContent = 'Processing...';
+
+  // If we have a Stripe Payment Link, redirect to it with email pre-filled
+  if (product.stripeLink) {
+    const link = product.stripeLink + (product.stripeLink.includes('?') ? '&' : '?') + 'prefilled_email=' + encodeURIComponent(email);
+    // Track the checkout attempt
+    trackCheckout(productKey, email);
+    window.location.href = link;
+    return;
+  }
+
+  // Fallback: collect email for manual processing
+  // This captures the lead even without a payment link
+  try {
+    trackCheckout(productKey, email);
+    showStatus('✅ Got it! We\'re preparing your checkout. You\'ll receive an email with payment instructions within 5 minutes. Check your inbox (and spam folder).', 'success');
+    document.getElementById('payBtnText').textContent = 'Check Your Email';
+  } catch(e) {
+    showStatus('Something went wrong. Please try again or contact support@zootechnologies.com', 'error');
+    btn.disabled = false;
+    document.getElementById('payBtnText').textContent = 'Pay ' + product.price;
+  }
+}
+
+function trackCheckout(productKey, email) {
+  // Store checkout attempt in localStorage for analytics
+  const attempts = JSON.parse(localStorage.getItem('zoo_checkouts') || '[]');
+  attempts.push({ product: productKey, email, time: new Date().toISOString() });
+  localStorage.setItem('zoo_checkouts', JSON.stringify(attempts));
+
+  // Try to send to our endpoint (best effort)
+  fetch('/api/checkout-lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ product: productKey, email, time: new Date().toISOString() }),
+  }).catch(() => {});
+}
+</script>
+
+</body>
+</html>

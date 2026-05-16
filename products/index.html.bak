@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZOO — Digital Products</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #141420;
+  --border: #2a2a3a;
+  --text: #e4e4e7;
+  --muted: #8888a0;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --green: #22c55e;
+  --gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+nav { padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 60px; }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 20px; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+nav a { color: var(--muted); text-decoration: none; font-size: 14px; margin-left: 24px; }
+nav a:hover { color: var(--text); }
+
+.hero { text-align: center; padding: 40px 0 80px; }
+.hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 16px; }
+.hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--muted); font-size: 18px; max-width: 600px; margin: 0 auto; }
+
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; padding-bottom: 80px; }
+.product-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: all 0.3s; position: relative; overflow: hidden; }
+.product-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.product-card.featured { border-color: var(--accent); }
+.product-card.featured::before { content: "NEW"; position: absolute; top: 20px; right: -30px; background: var(--gradient); padding: 4px 40px; font-size: 11px; font-weight: 700; transform: rotate(45deg); }
+.product-icon { font-size: 40px; margin-bottom: 16px; }
+.product-card h2 { font-size: 20px; margin-bottom: 8px; }
+.product-card .desc { color: var(--muted); font-size: 14px; margin-bottom: 20px; min-height: 60px; }
+.product-card .price { font-size: 28px; font-weight: 700; margin-bottom: 20px; }
+.product-card .price span { font-size: 14px; color: var(--muted); font-weight: 400; }
+.product-card .features { list-style: none; margin-bottom: 24px; }
+.product-card .features li { padding: 4px 0; font-size: 13px; color: var(--muted); }
+.product-card .features li:before { content: "✓ "; color: var(--green); }
+.btn { display: block; width: 100%; padding: 12px 24px; border-radius: 8px; font-size: 15px; font-weight: 600; text-decoration: none; text-align: center; transition: all 0.2s; cursor: pointer; border: none; }
+.btn-primary { background: var(--gradient); color: #fff; }
+.btn-primary:hover { box-shadow: 0 4px 20px rgba(99,102,241,0.4); }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--accent); }
+.status { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+.status-live { background: rgba(34,197,94,0.15); color: var(--green); }
+.status-soon { background: rgba(99,102,241,0.15); color: var(--accent2); }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 40px 0 80px; border-top: 1px solid var(--border); }
+.stat { text-align: center; }
+.stat .number { font-size: 32px; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat .label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 13px; }
+footer a { color: var(--accent2); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="/" class="logo">🦁 ZOO</a>
+    <div>
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+      <a href="/checkout.html">Checkout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Digital Products for <span>Builders</span></h1>
+  <p>Production-ready templates, kits, and boilerplates. Built by AI, refined by humans. Instant delivery.</p>
+</div>
+
+<div class="container">
+  <div class="products-grid">
+
+    <div class="product-card featured">
+      <span class="status status-soon">NEW</span>
+      <div class="product-icon">🛡️</div>
+      <h2>ContextGuard</h2>
+      <p class="desc">AI context window optimizer. Deduplication, semantic compression, smart truncation. Save 30-50% on LLM API costs without losing accuracy.</p>
+      <div class="price">$0 <span>open-source</span> / $29 <span>Pro/mo</span></div>
+      <ul class="features">
+        <li>Deduplication engine</li>
+        <li>Semantic compression</li>
+        <li>Tool schema filtering</li>
+        <li>Cost analytics dashboard</li>
+        <li>CLI + API + self-hosted</li>
+      </ul>
+      <a href="https://crazycompanyinc.github.io/contextguard" class="btn btn-primary">View Product →</a>
+    </div>
+
+    <div class="product-card">
+      <span class="status status-soon">NEW</span>
+      <div class="product-icon">🧠</div>
+      <h2>AI Agent Memory Toolkit</h2>
+      <p class="desc">Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python.</p>
+      <div class="price">$39 <span>one-time</span></div>
+      <ul class="features">
+        <li>Vector Memory Store (ChromaDB)</li>
+        <li>Hierarchical Memory System</li>
+        <li>Memory Consolidation engine</li>
+        <li>Multi-Agent Sharing (Redis)</li>
+        <li>Production Agent class</li>
+      </ul>
+      <a href="/products/ai-agent-memory-toolkit/" class="btn btn-primary">View Product →</a>
+    </div>
+
+    <div class="product-card">
+      <span class="status status-live">LIVE</span>
+      <div class="product-icon">🤖</div>
+      <h2>AI Agent Starter Kit</h2>
+      <p class="desc">Production-ready AI agent boilerplate. Multi-model support, tool calling, memory, observability. Node.js + TypeScript.</p>
+      <div class="price">$49 <span>one-time</span></div>
+      <ul class="features">
+        <li>Multi-model (OpenAI, Anthropic, etc.)</li>
+        <li>Tool calling framework</li>
+        <li>Memory management</li>
+        <li>Observability dashboard</li>
+        <li>MIT License</li>
+      </ul>
+      <a href="/products/ai-agent-starter-kit/" class="btn btn-primary">Buy Now →</a>
+    </div>
+
+    <div class="product-card">
+      <span class="status status-live">LIVE</span>
+      <div class="product-icon">📈</div>
+      <h2>Trading EA Templates</h2>
+      <p class="desc">Expert Advisor templates for MT4/MT5. Backtested strategies, risk management, auto-trading. MQL4/MQL5.</p>
+      <div class="price">$49 <span>one-time</span></div>
+      <ul class="features">
+        <li>5 EA strategies included</li>
+        <li>Backtested & optimized</li>
+        <li>Risk management built-in</li>
+        <li>Full source code (MQL4/MQL5)</li>
+        <li>Setup guide included</li>
+      </ul>
+      <a href="/products/trading-ea-templates/" class="btn btn-primary">Buy Now →</a>
+    </div>
+
+    <div class="product-card">
+      <span class="status status-soon">COMING SOON</span>
+      <div class="product-icon">📋</div>
+      <h2>Notion Template Pack</h2>
+      <p class="desc">15 templates to run your entire business: content calendar, CRM, finance tracker, OKRs, and more.</p>
+      <div class="price">$19 <span>Starter</span> / $29 <span>Pro</span></div>
+      <ul class="features">
+        <li>15 Notion templates</li>
+        <li>Content calendar + CRM</li>
+        <li>Finance tracker</li>
+        <li>OKR framework</li>
+        <li>Setup guide (40 pages)</li>
+      </ul>
+      <a href="/products/notion-template-pack/" class="btn btn-ghost">View Product →</a>
+    </div>
+
+    <div class="product-card">
+      <span class="status status-soon">COMING SOON</span>
+      <div class="product-icon">🎨</div>
+      <h2>Landing Page Templates</h2>
+      <p class="desc">Production-ready SaaS landing page. HTML/CSS/JS, responsive, conversion-optimized. Deploy in minutes.</p>
+      <div class="price">$29 <span>one-time</span></div>
+      <ul class="features">
+        <li>Full SaaS landing page</li>
+        <li>Responsive design</li>
+        <li>Conversion-optimized</li>
+        <li>Easy to customize</li>
+        <li>Deploy to Vercel/Netlify</li>
+      </ul>
+      <a href="/products/landing-page-templates/" class="btn btn-ghost">View Product →</a>
+    </div>
+
+    <div class="product-card">
+      <span class="status status-soon">COMING SOON</span>
+      <div class="product-icon">🔧</div>
+      <h2>API Boilerplate</h2>
+      <p class="desc">Production-ready REST API. Auth, database, tests, CI/CD. One command setup. Node.js + TypeScript.</p>
+      <div class="price">$39 <span>one-time</span></div>
+      <ul class="features">
+        <li>JWT authentication</li>
+        <li>Database integration</li>
+        <li>Test suite included</li>
+        <li>CI/CD pipeline</li>
+        <li>Docker support</li>
+      </ul>
+      <a href="/products/api-boilerplate/" class="btn btn-ghost">View Product →</a>
+    </div>
+
+    <div class="product-card">
+      <span class="status status-soon">COMING SOON</span>
+      <div class="product-icon">⬡</div>
+      <h2>PromptVault</h2>
+      <p class="desc">Git-like version control for AI prompts. Track changes, A/B test variants, rollback, team collaboration. Framework-agnostic.</p>
+      <div class="price">Free <span>starter</span> / $19 <span>Pro/mo</span></div>
+      <ul class="features">
+        <li>Git-like version control</li>
+        <li>A/B testing engine</li>
+        <li>One-click rollback</li>
+        <li>Self-hosted option</li>
+        <li>CLI + API</li>
+      </ul>
+      <a href="https://crazycompanyinc.github.io/promptvault" class="btn btn-ghost">View Product →</a>
+    </div>
+
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="number">8</div>
+      <div class="label">Products</div>
+    </div>
+    <div class="stat">
+      <div class="number">2</div>
+      <div class="label">With Live Checkout</div>
+    </div>
+    <div class="stat">
+      <div class="number">$19-49</div>
+      <div class="label">Price Range</div>
+    </div>
+    <div class="stat">
+      <div class="number">∞</div>
+      <div class="label">Free Updates</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 ZOO Technologies · <a href="https://zootechnologies.com">zootechnologies.com</a> · All rights reserved</p>
+</footer>
+</body>
+</html>

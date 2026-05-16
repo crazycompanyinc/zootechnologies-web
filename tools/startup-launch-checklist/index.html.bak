@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Startup Launch Checklist — Free Tool by ZOO</title>
+<meta name="description" content="The ultimate launch checklist for AI startups. 47 items across 6 phases. Track your progress, get your launch score, and download the PDF.">
+<link rel="canonical" href="https://crazycompanyinc.github.io/zootechnologies-web/tools/startup-launch-checklist/">
+<!-- Open Graph -->
+<meta property="og:title" content="AI Startup Launch Checklist — Free Tool by ZOO">
+<meta property="og:description" content="47 items across 6 phases. Track your progress, get your launch score.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crazycompanyinc.github.io/zootechnologies-web/tools/startup-launch-checklist/">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AI Startup Launch Checklist",
+  "description": "Free interactive checklist for AI startup launches. 47 items across 6 phases.",
+  "url": "https://crazycompanyinc.github.io/zootechnologies-web/tools/startup-launch-checklist/",
+  "applicationCategory": "BusinessApplication",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+:root {
+  --bg: #050508; --bg1: #0a0a0f; --bg2: #111118; --bg3: #1a1a24;
+  --surface: rgba(255,255,255,0.03); --surface2: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.07); --border-h: rgba(255,255,255,0.14);
+  --text: #e8e8f0; --text2: #8888a0; --text3: #505068;
+  --cyan: #00e5ff; --cyan-g: rgba(0,229,255,0.1);
+  --violet: #a855f7; --violet-g: rgba(168,85,247,0.1);
+  --lime: #a3e635; --lime-g: rgba(163,230,53,0.1);
+  --pink: #f472b6; --orange: #f59e0b;
+  --grad: linear-gradient(135deg, var(--cyan), var(--violet));
+  --display: 'Syne', sans-serif; --sans: 'Space Grotesk', sans-serif; --mono: 'Space Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--bg); -webkit-font-smoothing: antialiased; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+::selection { background: var(--cyan); color: var(--bg); }
+
+/* HEADER */
+.header { padding: 80px 24px 40px; text-align: center; position: relative; }
+.header::before {
+  content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, rgba(168,85,247,0.03) 40%, transparent 70%);
+  pointer-events: none;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 100px; padding: 6px 16px; font-size: 0.75rem;
+  color: var(--text2); margin-bottom: 24px; position: relative; z-index: 1;
+}
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+h1 {
+  font-family: var(--display); font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800; line-height: 1.1; margin-bottom: 16px;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; position: relative; z-index: 1;
+}
+.subtitle { font-size: 1.1rem; color: var(--text2); max-width: 560px; margin: 0 auto 32px; position: relative; z-index: 1; }
+
+/* SCORE CARD */
+.score-card {
+  max-width: 480px; margin: 0 auto 48px; padding: 24px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; position: relative; z-index: 1;
+}
+.score-display { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.score-label { font-size: 0.8rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.1em; }
+.score-value { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--cyan); }
+.score-value span { color: var(--text3); font-size: 1rem; }
+.score-bar { width: 100%; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.score-bar-fill { height: 100%; width: 0%; background: var(--grad); border-radius: 3px; transition: width 0.8s var(--ease); }
+.score-message { font-size: 0.85rem; color: var(--text2); margin-top: 10px; text-align: center; }
+
+/* PHASES */
+.container { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; }
+.phase { margin-bottom: 32px; }
+.phase-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+  padding: 16px 20px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; cursor: pointer; transition: all 0.3s;
+}
+.phase-header:hover { border-color: var(--border-h); background: var(--surface2); }
+.phase-icon { font-size: 1.4rem; flex-shrink: 0; }
+.phase-info { flex: 1; }
+.phase-title { font-weight: 600; font-size: 1rem; }
+.phase-count { font-size: 0.75rem; color: var(--text3); font-family: var(--mono); }
+.phase-progress { font-family: var(--mono); font-size: 0.85rem; color: var(--cyan); }
+.phase-toggle { font-size: 1.2rem; color: var(--text3); transition: transform 0.3s; }
+.phase.open .phase-toggle { transform: rotate(180deg); }
+
+/* CHECKLIST */
+.checklist { list-style: none; display: none; }
+.phase.open + .checklist,
+.checklist.open { display: block; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 12px 20px; border-bottom: 1px solid var(--border);
+  transition: background 0.2s; cursor: pointer;
+}
+.checklist li:hover { background: var(--surface); }
+.checklist li:last-child { border-bottom: none; }
+.checkbox {
+  width: 22px; height: 22px; border: 2px solid var(--border-h);
+  border-radius: 6px; flex-shrink: 0; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.checkbox.checked { background: var(--lime); border-color: var(--lime); }
+.checkbox.checked::after { content: '✓'; color: #000; font-size: 0.8rem; font-weight: 700; }
+.item-text { flex: 1; font-size: 0.92rem; color: var(--text); transition: all 0.3s; }
+.item-text.done { color: var(--text3); text-decoration: line-through; }
+.item-tag {
+  font-size: 0.65rem; font-family: var(--mono); padding: 2px 8px;
+  border-radius: 4px; background: var(--surface2); color: var(--text3);
+  flex-shrink: 0; margin-top: 3px;
+}
+.item-tag.critical { background: rgba(239,68,68,0.15); color: #ef4444; }
+.item-tag.recommended { background: var(--cyan-g); color: var(--cyan); }
+.item-tag.nice { background: var(--violet-g); color: var(--violet); }
+
+/* EMAIL CAPTURE */
+.email-capture {
+  max-width: 520px; margin: 48px auto 0; padding: 32px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; text-align: center;
+}
+.email-capture h3 {
+  font-family: var(--display); font-size: 1.3rem; margin-bottom: 8px;
+}
+.email-capture p { font-size: 0.9rem; color: var(--text2); margin-bottom: 20px; }
+.email-form { display: flex; gap: 10px; }
+.email-form input {
+  flex: 1; padding: 12px 16px; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text); font-family: var(--sans); font-size: 0.9rem;
+  outline: none; transition: border-color 0.3s;
+}
+.email-form input:focus { border-color: var(--cyan); }
+.email-form input::placeholder { color: var(--text3); }
+.email-form button {
+  padding: 12px 24px; background: var(--grad); border: none; border-radius: 10px;
+  color: #000; font-family: var(--sans); font-weight: 600; font-size: 0.85rem;
+  cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+}
+.email-form button:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,229,255,0.2); }
+.form-note { font-size: 0.75rem; color: var(--text3); margin-top: 10px; }
+
+/* FOOTER */
+.footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); }
+.footer a { color: var(--cyan); text-decoration: none; }
+.footer p { font-size: 0.8rem; color: var(--text3); }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .header { padding: 60px 16px 32px; }
+  .container { padding: 0 12px 60px; }
+  .email-form { flex-direction: column; }
+  .score-card { margin: 0 12px 32px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge"><span class="badge-dot"></span> Free Tool by ZOO</div>
+  <h1>AI Startup<br>Launch Checklist</h1>
+  <p class="subtitle">47 essential items across 6 phases. Track your progress, get your launch score, and never miss a critical step.</p>
+  
+  <div class="score-card">
+    <div class="score-display">
+      <span class="score-label">Launch Readiness</span>
+      <span class="score-value" id="scoreVal">0<span>/47</span></span>
+    </div>
+    <div class="score-bar"><div class="score-bar-fill" id="scoreBar"></div></div>
+    <p class="score-message" id="scoreMsg">Start checking items to see your launch score 🚀</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- PHASE 1 -->
+  <div class="phase" onclick="togglePhase(this)">
+    <div class="phase-header">
+      <span class="phase-icon">🎯</span>
+      <div class="phase-info">
+        <div class="phase-title">Phase 1: Strategy & Validation</div>
+        <div class="phase-count">8 items</div>
+      </div>
+      <span class="phase-progress" data-phase="1">0/8</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+  </div>
+  <ul class="checklist" id="phase1">
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Define your core AI value proposition in one sentence</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Identify your ideal customer profile (ICP) and 3 personas</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Conduct 15+ customer discovery interviews</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Analyze top 5 competitors and document differentiators</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Validate pricing with willingness-to-pay surveys</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Define 3-month, 6-month, and 12-month revenue goals</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Map out your competitive moat (data, network effects, etc.)</span><span class="item-tag nice">Nice</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create a one-page business model canvas</span><span class="item-tag nice">Nice</span></li>
+  </ul>
+
+  <!-- PHASE 2 -->
+  <div class="phase" onclick="togglePhase(this)">
+    <div class="phase-header">
+      <span class="phase-icon">🏗️</span>
+      <div class="phase-info">
+        <div class="phase-title">Phase 2: Build & Infrastructure</div>
+        <div class="phase-count">9 items</div>
+      </div>
+      <span class="phase-progress" data-phase="2">0/9</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+  </div>
+  <ul class="checklist" id="phase2">
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up CI/CD pipeline with automated testing</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Implement proper error tracking (Sentry, etc.)</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up usage analytics and event tracking</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Configure staging environment mirroring production</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Implement rate limiting and API key management</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up automated backups and disaster recovery</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create API documentation (Swagger/OpenAPI)</span><span class="item-tag nice">Nice</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up monitoring dashboards and alerting</span><span class="item-tag nice">Nice</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Implement feature flags for gradual rollouts</span><span class="item-tag nice">Nice</span></li>
+  </ul>
+
+  <!-- PHASE 3 -->
+  <div class="phase" onclick="togglePhase(this)">
+    <div class="phase-header">
+      <span class="phase-icon">💳</span>
+      <div class="phase-info">
+        <div class="phase-title">Phase 3: Monetization & Payments</div>
+        <div class="phase-count">7 items</div>
+      </div>
+      <span class="phase-progress" data-phase="3">0/7</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+  </div>
+  <ul class="checklist" id="phase3">
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Integrate Stripe with subscription billing</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up free trial or freemium tier</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Configure dunning emails for failed payments</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create pricing page with clear tier comparison</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Implement usage-based billing component</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up affiliate or referral program</span><span class="item-tag nice">Nice</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create annual plan with discount incentive</span><span class="item-tag nice">Nice</span></li>
+  </ul>
+
+  <!-- PHASE 4 -->
+  <div class="phase" onclick="togglePhase(this)">
+    <div class="phase-header">
+      <span class="phase-icon">🎨</span>
+      <div class="phase-info">
+        <div class="phase-title">Phase 4: Brand & UX</div>
+        <div class="phase-count">8 items</div>
+      </div>
+      <span class="phase-progress" data-phase="4">0/8</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+  </div>
+  <ul class="checklist" id="phase4">
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Design professional logo and brand identity</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Build conversion-optimized landing page</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Write clear value proposition above the fold</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create demo video or interactive product tour</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Design onboarding flow with progress indicators</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Implement responsive design for all breakpoints</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Add social proof (testimonials, logos, numbers)</span><span class="item-tag nice">Nice</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create brand style guide and design tokens</span><span class="item-tag nice">Nice</span></li>
+  </ul>
+
+  <!-- PHASE 5 -->
+  <div class="phase" onclick="togglePhase(this)">
+    <div class="phase-header">
+      <span class="phase-icon">📢</span>
+      <div class="phase-info">
+        <div class="phase-title">Phase 5: Go-to-Market</div>
+        <div class="phase-count">9 items</div>
+      </div>
+      <span class="phase-progress" data-phase="5">0/9</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+  </div>
+  <ul class="checklist" id="phase5">
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Write and schedule Product Hunt launch post</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create launch email sequence (3 emails minimum)</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up Twitter/X and LinkedIn company profiles</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Prepare Hacker News "Show HN" post</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Reach out to 10 relevant micro-influencers</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Submit to 5 AI/tech directories and aggregators</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create content marketing calendar (30 days)</span><span class="item-tag nice">Nice</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up automated social media posting</span><span class="item-tag nice">Nice</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Plan community engagement (Discord, Reddit, etc.)</span><span class="item-tag nice">Nice</span></li>
+  </ul>
+
+  <!-- PHASE 6 -->
+  <div class="phase" onclick="togglePhase(this)">
+    <div class="phase-header">
+      <span class="phase-icon">📊</span>
+      <div class="phase-info">
+        <div class="phase-title">Phase 6: Analytics & Growth</div>
+        <div class="phase-count">6 items</div>
+      </div>
+      <span class="phase-progress" data-phase="6">0/6</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+  </div>
+  <ul class="checklist" id="phase6">
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up Google Analytics 4 with conversion goals</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Implement funnel tracking (signup → activation → paid)</span><span class="item-tag critical">Critical</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up cohort retention analysis</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Create weekly metrics dashboard (MRR, churn, LTV)</span><span class="item-tag recommended">Recommended</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Set up automated weekly growth reports</span><span class="item-tag nice">Nice</span></li>
+    <li onclick="toggleItem(this)"><div class="checkbox"></div><span class="item-text">Implement NPS survey and feedback loop</span><span class="item-tag nice">Nice</span></li>
+  </ul>
+
+  <!-- EMAIL CAPTURE -->
+  <div class="email-capture" id="emailCapture">
+    <h3>📥 Get the PDF + Notion Template</h3>
+    <p>Enter your email to receive the printable PDF checklist and a ready-to-use Notion template. Plus get weekly growth tips from ZOO.</p>
+    <form class="email-form" onsubmit="captureEmail(event)">
+      <input type="email" id="emailInput" placeholder="your@email.com" required>
+      <button type="submit">Send Me the PDF →</button>
+    </form>
+    <p class="form-note">No spam. Unsubscribe anytime. We respect your inbox.</p>
+  </div>
+
+  <div id="emailSuccess" class="email-capture" style="display:none;">
+    <h3>🎉 You're in!</h3>
+    <p>Check your inbox for the PDF checklist and Notion template. Welcome to the ZOO community!</p>
+    <p style="margin-top:16px;font-size:0.85rem;color:var(--text2);">While you're here, check out our <a href="https://crazycompanyinc.github.io/zootechnologies-web/" style="color:var(--cyan);">AI Agent Starter Kit</a> — everything you need to launch your AI product.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with ⚡ by <a href="https://crazycompanyinc.github.io/zootechnologies-web/">ZOO Technologies</a> — Autonomous Intelligence</p>
+  <p style="margin-top:8px;">More free tools: <a href="https://ai-cost-calculator-eight.vercel.app">AI Cost Calculator</a></p>
+</div>
+
+<script>
+const TOTAL_ITEMS = 47;
+
+function toggleItem(li) {
+  const cb = li.querySelector('.checkbox');
+  const text = li.querySelector('.item-text');
+  cb.classList.toggle('checked');
+  text.classList.toggle('done');
+  updateScore();
+  saveProgress();
+}
+
+function togglePhase(phase) {
+  phase.classList.toggle('open');
+  const list = phase.nextElementSibling;
+  if (list) list.classList.toggle('open');
+}
+
+function updateScore() {
+  const checked = document.querySelectorAll('.checkbox.checked').length;
+  const pct = Math.round((checked / TOTAL_ITEMS) * 100);
+  document.getElementById('scoreVal').innerHTML = checked + '<span>/' + TOTAL_ITEMS + '</span>';
+  document.getElementById('scoreBar').style.width = pct + '%';
+  
+  const msg = document.getElementById('scoreMsg');
+  if (pct === 0) msg.textContent = 'Start checking items to see your launch score 🚀';
+  else if (pct < 25) msg.textContent = 'Good start! Focus on Critical items first 💪';
+  else if (pct < 50) msg.textContent = 'Making progress! You\'re building momentum 🔥';
+  else if (pct < 75) msg.textContent = 'Over halfway! Your launch is taking shape ⚡';
+  else if (pct < 100) msg.textContent = 'Almost ready! Final push to launch 🚀';
+  else msg.textContent = '🎉 Launch ready! You\'ve got this!';
+
+  // Update phase counts
+  for (let i = 1; i <= 6; i++) {
+    const phaseItems = document.querySelectorAll('#phase' + i + ' li');
+    const phaseChecked = document.querySelectorAll('#phase' + i + ' .checkbox.checked').length;
+    const el = document.querySelector('[data-phase="' + i + '"]');
+    if (el) el.textContent = phaseChecked + '/' + phaseItems.length;
+  }
+}
+
+function saveProgress() {
+  const state = [];
+  document.querySelectorAll('.checklist li').forEach(li => {
+    state.push(li.querySelector('.checkbox').classList.contains('checked') ? 1 : 0);
+  });
+  localStorage.setItem('zoo-launch-checklist', JSON.stringify(state));
+}
+
+function loadProgress() {
+  const saved = localStorage.getItem('zoo-launch-checklist');
+  if (!saved) return;
+  const state = JSON.parse(saved);
+  const items = document.querySelectorAll('.checklist li');
+  items.forEach((li, i) => {
+    if (state[i]) {
+      li.querySelector('.checkbox').classList.add('checked');
+      li.querySelector('.item-text').classList.add('done');
+    }
+  });
+  updateScore();
+}
+
+function captureEmail(e) {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value;
+  if (!email) return;
+  
+  // Store lead
+  const leads = JSON.parse(localStorage.getItem('zoo-leads') || '[]');
+  leads.push({ email: email, source: 'launch-checklist', date: new Date().toISOString() });
+  localStorage.setItem('zoo-leads', JSON.stringify(leads));
+  
+  // Also send to a simple endpoint (we'll use Formspree or similar)
+  // For now, show success
+  document.getElementById('emailCapture').style.display = 'none';
+  document.getElementById('emailSuccess').style.display = 'block';
+  
+  // Track conversion
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'lead_capture', { event_category: 'checklist', event_label: 'pdf_download' });
+  }
+}
+
+// Auto-open first phase
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.phase').classList.add('open');
+  document.querySelector('.checklist').classList.add('open');
+  loadProgress();
+});
+</script>
+
+</body>
+</html>

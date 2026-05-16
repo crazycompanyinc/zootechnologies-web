@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Services | ZOO — Enterprise AI Solutions</title>
+<meta name="description" content="ZOO offers AI Consulting, AI SaaS Development, AI Integration, and Training services. Transform your business with production-ready AI agent systems.">
+<meta name="keywords" content="AI consulting, AI development, AI integration, AI training, enterprise AI, AI agents, automation">
+<meta name="author" content="ZOO Technologies">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://zootechnologies.com/services">
+
+<!-- Open Graph -->
+<meta property="og:title" content="AI Services | ZOO — Enterprise AI Solutions">
+<meta property="og:description" content="AI Consulting, AI SaaS Development, AI Integration, and Training. Transform your business with production-ready AI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zootechnologies.com/services">
+<meta property="og:site_name" content="ZOO Technologies">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Services | ZOO — Enterprise AI Solutions">
+<meta name="twitter:description" content="AI Consulting, AI SaaS Development, AI Integration, and Training.">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "ZOO AI Services",
+  "provider": {
+    "@type": "Organization",
+    "name": "ZOO Technologies",
+    "url": "https://zootechnologies.com"
+  },
+  "serviceType": "AI Consulting & Development",
+  "areaServed": "Worldwide",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "AI Services",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI Consulting"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI SaaS Development"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI Integration"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI Training"}}
+    ]
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap&display=swap" rel="preload" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{
+  --bg:#030305;--bg1:#08080c;--bg2:#0e0e14;--bg3:#16161e;
+  --surface:rgba(255,255,255,0.02);--surface2:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.06);--border-h:rgba(255,255,255,0.12);
+  --text:#e8e8f0;--text2:#9090a8;--text3:#5a5a70;
+  --cyan:#00e5ff;--cyan-g:rgba(0,229,255,0.12);
+  --violet:#a855f7;--violet-g:rgba(168,85,247,0.12);
+  --pink:#f472b6;--pink-g:rgba(244,114,182,0.12);
+  --lime:#a3e635;--lime-g:rgba(163,230,53,0.12);
+  --grad:linear-gradient(135deg,var(--cyan),var(--violet));
+  --grad2:linear-gradient(135deg,var(--violet),var(--pink));
+  --grad3:linear-gradient(135deg,var(--lime),var(--cyan));
+  --display:'Syne',sans-serif;--sans:'Space Grotesk',sans-serif;--mono:'Space Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--cyan);color:var(--bg)}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg3)}
+
+/* ═══ NOISE ═══ */
+.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.015;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:512px}
+
+/* ═══ PARTICLES ═══ */
+.particles{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:floatParticle linear infinite;opacity:0}
+.particle:nth-child(1){width:2px;height:2px;background:var(--cyan);left:10%;animation-duration:12s;animation-delay:0s}
+.particle:nth-child(2){width:3px;height:3px;background:var(--violet);left:20%;animation-duration:15s;animation-delay:2s}
+.particle:nth-child(3){width:2px;height:2px;background:var(--pink);left:35%;animation-duration:18s;animation-delay:1s}
+.particle:nth-child(4){width:2px;height:2px;background:var(--lime);left:50%;animation-duration:14s;animation-delay:3s}
+.particle:nth-child(5){width:3px;height:3px;background:var(--cyan);left:65%;animation-duration:16s;animation-delay:0.5s}
+.particle:nth-child(6){width:2px;height:2px;background:var(--violet);left:75%;animation-duration:13s;animation-delay:4s}
+.particle:nth-child(7){width:2px;height:2px;background:var(--pink);left:85%;animation-duration:17s;animation-delay:1.5s}
+.particle:nth-child(8){width:3px;height:3px;background:var(--lime);left:92%;animation-duration:11s;animation-delay:2.5s}
+.particle:nth-child(9){width:2px;height:2px;background:var(--cyan);left:45%;animation-duration:19s;animation-delay:5s}
+.particle:nth-child(10){width:2px;height:2px;background:var(--violet);left:55%;animation-duration:20s;animation-delay:3.5s}
+@keyframes floatParticle{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.6}90%{opacity:.6}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+
+/* ═══ NAV ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 56px;display:flex;justify-content:space-between;align-items:center;transition:all 0.5s var(--ease)}
+.nav.scrolled{padding:12px 56px;background:rgba(3,3,5,0.9);backdrop-filter:blur(30px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo em{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.nav-right{display:flex;align-items:center;gap:32px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-family:var(--mono);font-size:0.65rem;font-weight:400;text-transform:uppercase;letter-spacing:0.18em;transition:color 0.3s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-links a.active{color:var(--cyan)}
+.nav-cta{padding:10px 24px;background:var(--grad);color:var(--bg);font-family:var(--mono);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;text-decoration:none;border-radius:6px;transition:all 0.4s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,0.2)}
+
+/* ═══ HERO ═══ */
+.services-hero{position:relative;min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 64px 80px;overflow:hidden}
+.services-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(0,229,255,0.04) 0%,rgba(168,85,247,0.02) 40%,transparent 70%)}
+.services-hero-content{position:relative;z-index:2;max-width:800px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan)}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--grad)}
+.hero-title{font-family:var(--display);font-size:clamp(3rem,7vw,5.5rem);font-weight:800;line-height:0.95;letter-spacing:-0.05em;margin-bottom:24px}
+.hero-title .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.05rem;color:var(--text2);max-width:560px;margin:0 auto;line-height:1.85;font-weight:300}
+
+/* ═══ SECTION ═══ */
+.section{padding:8rem 64px;position:relative}
+.section-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan);margin-bottom:20px}
+.section-tag::before{content:'';width:16px;height:1px;background:var(--cyan);opacity:0.5}
+.section-title{font-family:var(--display);font-size:clamp(2.5rem,5vw,4.2rem);font-weight:800;line-height:1;letter-spacing:-0.04em;margin-bottom:18px}
+.section-title .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-desc{font-size:1rem;color:var(--text2);max-width:480px;line-height:1.85;font-weight:300;margin-bottom:48px}
+
+/* ═══ SERVICES GRID ═══ */
+.services-section{border-top:1px solid var(--border)}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.service-card{position:relative;padding:48px 40px;background:var(--surface);border:1px solid var(--border);border-radius:16px;transition:all 0.5s var(--ease);overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0;transition:opacity 0.4s}
+.service-card:hover{border-color:var(--border-h);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.service-card:hover::before{opacity:1}
+.service-icon{width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:1px solid var(--border);margin-bottom:28px;transition:all 0.4s}
+.service-card:nth-child(1) .service-icon{background:var(--cyan-g);border-color:rgba(0,229,255,0.15)}
+.service-card:nth-child(2) .service-icon{background:var(--violet-g);border-color:rgba(168,85,247,0.15)}
+.service-card:nth-child(3) .service-icon{background:var(--pink-g);border-color:rgba(244,114,182,0.15)}
+.service-card:nth-child(4) .service-icon{background:var(--lime-g);border-color:rgba(163,230,53,0.15)}
+.service-card:hover .service-icon{border-color:var(--border-h)}
+.service-card h3{font-family:var(--display);font-size:1.4rem;font-weight:700;margin-bottom:12px;letter-spacing:-0.02em}
+.service-card p{font-size:0.85rem;color:var(--text2);line-height:1.7;font-weight:300;margin-bottom:24px}
+.service-benefits{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.service-benefits li{display:flex;align-items:flex-start;gap:10px;font-size:0.8rem;color:var(--text2);font-weight:300}
+.service-benefits li::before{content:'→';color:var(--cyan);font-family:var(--mono);font-size:0.7rem;flex-shrink:0;margin-top:2px}
+.service-pricing{display:flex;align-items:baseline;gap:8px;padding-top:20px;border-top:1px solid var(--border)}
+.service-pricing .from{font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.14em}
+.service-pricing .price{font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--text)}
+.service-pricing .period{font-family:var(--mono);font-size:0.65rem;color:var(--text3)}
+.service-cta{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:transparent;border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;text-decoration:none;border-radius:6px;transition:all 0.4s var(--ease);margin-top:24px;cursor:pointer}
+.service-cta:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-g)}
+
+/* ═══ PROCESS ═══ */
+.process-section{border-top:1px solid var(--border)}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.process-step{position:relative;padding:36px 28px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-align:center;transition:all 0.4s var(--ease)}
+.process-step:hover{border-color:var(--border-h);transform:translateY(-4px)}
+.process-num{font-family:var(--mono);font-size:0.6rem;color:var(--cyan);letter-spacing:0.14em;margin-bottom:16px}
+.process-icon{font-size:2rem;margin-bottom:16px}
+.process-step h4{font-family:var(--display);font-size:1rem;font-weight:700;margin-bottom:8px;letter-spacing:-0.01em}
+.process-step p{font-size:0.78rem;color:var(--text2);line-height:1.7;font-weight:300}
+
+/* ═══ WHY ZOO ═══ */
+.why-section{border-top:1px solid var(--border);position:relative;overflow:hidden}
+.why-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(168,85,247,0.03) 0%,transparent 70%);pointer-events:none}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.why-card{padding:36px;background:var(--surface);border:1px solid var(--border);border-radius:12px;transition:all 0.4s var(--ease)}
+.why-card:hover{border-color:var(--border-h);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.why-card .icon{font-size:1.5rem;margin-bottom:16px}
+.why-card h4{font-family:var(--display);font-size:1rem;font-weight:700;margin-bottom:8px}
+.why-card p{font-size:0.8rem;color:var(--text2);line-height:1.7;font-weight:300}
+
+/* ═══ CONTACT / CTA ═══ */
+.contact-section{border-top:1px solid var(--border);padding:8rem 64px;position:relative;overflow:hidden}
+.contact-section::before{content:'';position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(0,229,255,0.05) 0%,rgba(168,85,247,0.03) 40%,transparent 70%);filter:blur(60px);pointer-events:none}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:1100px;margin:0 auto;align-items:start}
+.contact-info{position:relative;z-index:2}
+.contact-info .section-title{margin-bottom:16px}
+.contact-info .section-desc{margin-bottom:40px}
+.contact-details{display:flex;flex-direction:column;gap:20px}
+.contact-detail{display:flex;align-items:center;gap:14px;font-size:0.85rem;color:var(--text2)}
+.contact-detail .icon{width:40px;height:40px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-detail a{color:var(--text);text-decoration:none;transition:color 0.3s}
+.contact-detail a:hover{color:var(--cyan)}
+
+/* ═══ CONTACT FORM ═══ */
+.contact-form{position:relative;z-index:2;padding:40px;background:var(--surface);border:1px solid var(--border);border-radius:16px}
+.contact-form h3{font-family:var(--display);font-size:1.3rem;font-weight:700;margin-bottom:8px}
+.contact-form .form-subtitle{font-size:0.8rem;color:var(--text2);margin-bottom:32px;font-weight:300}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-family:var(--mono);font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text2);margin-bottom:8px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:14px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:0.85rem;transition:border-color 0.3s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--cyan)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-submit{width:100%;padding:16px;background:var(--grad);color:var(--bg);font-family:var(--mono);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;border:none;border-radius:8px;cursor:pointer;transition:all 0.4s var(--ease)}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,229,255,0.2)}
+.form-status{margin-top:16px;font-size:0.8rem;text-align:center;min-height:24px}
+.form-status.success{color:var(--lime)}
+.form-status.error{color:var(--pink)}
+
+/* ═══ TESTIMONIAL ═══ */
+.testimonial-section{border-top:1px solid var(--border);text-align:center;padding:8rem 64px}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.testimonial-card{padding:36px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-align:left;transition:all 0.4s var(--ease)}
+.testimonial-card:hover{border-color:var(--border-h);transform:translateY(-4px)}
+.testimonial-stars{color:var(--cyan);font-size:0.8rem;margin-bottom:16px;letter-spacing:2px}
+.testimonial-text{font-size:0.85rem;color:var(--text2);line-height:1.8;font-weight:300;margin-bottom:20px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:12px}
+.testimonial-avatar{width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:0.8rem;font-weight:700;color:var(--cyan)}
+.testimonial-name{font-size:0.8rem;font-weight:600}
+.testimonial-role{font-family:var(--mono);font-size:0.55rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em}
+
+/* ═══ FINAL CTA ═══ */
+.final-cta{border-top:1px solid var(--border);padding:8rem 64px;text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(0,229,255,0.05) 0%,rgba(168,85,247,0.03) 40%,transparent 70%);filter:blur(60px);pointer-events:none}
+.final-cta .cta-label{font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan);margin-bottom:24px}
+.final-cta .cta-title{font-family:var(--display);font-size:clamp(3rem,6.5vw,5.5rem);font-weight:800;line-height:0.98;letter-spacing:-0.05em;margin-bottom:40px}
+.final-cta .cta-title .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;font-family:var(--mono);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;text-decoration:none;border-radius:6px;transition:all 0.4s var(--ease);border:none;cursor:pointer}
+.btn-primary{background:var(--grad);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,229,255,0.2)}
+.btn-ghost{border:1px solid var(--border);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* ═══ FOOTER ═══ */
+.footer{padding:56px 64px 28px;border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand{font-family:var(--display);font-size:1.2rem;font-weight:800;margin-bottom:14px}
+.footer-brand em{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.footer-desc{color:var(--text3);font-size:0.82rem;line-height:1.8;font-weight:300;max-width:280px}
+.footer h5{font-family:var(--mono);font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--text);margin-bottom:16px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{color:var(--text3);text-decoration:none;font-size:0.8rem;transition:color 0.3s}
+.footer-links a:hover{color:var(--text)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border);font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.12em}
+.footer-bottom a{color:var(--text2);text-decoration:none;transition:color 0.3s}
+.footer-bottom a:hover{color:var(--cyan)}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-scale{opacity:0;transform:scale(0.92);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+.stagger>*:nth-child(1){transition-delay:0.04s}
+.stagger>*:nth-child(2){transition-delay:0.08s}
+.stagger>*:nth-child(3){transition-delay:0.12s}
+.stagger>*:nth-child(4){transition-delay:0.16s}
+.stagger>*:nth-child(5){transition-delay:0.2s}
+.stagger>*:nth-child(6){transition-delay:0.24s}
+
+/* ═══ CHATBOT WIDGET (same as index) ═══ */
+.zoo-chat-trigger{position:fixed;bottom:28px;right:28px;width:56px;height:56px;border-radius:50%;background:var(--grad);border:none;cursor:pointer;z-index:9990;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,229,255,0.2);transition:all 0.4s var(--ease)}
+.zoo-chat-trigger:hover{transform:scale(1.08);box-shadow:0 12px 40px rgba(0,229,255,0.3)}
+.zoo-chat-trigger svg{width:24px;height:24px;fill:var(--bg)}
+.zoo-chat-trigger.has-notification::after{content:'';position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:var(--pink);border-radius:50%;border:2px solid var(--bg);animation:pulse 2s ease-in-out infinite}
+.zoo-chat-window{position:fixed;bottom:96px;right:28px;width:380px;max-height:560px;background:var(--bg1);border:1px solid var(--border);border-radius:16px;z-index:9991;display:none;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.6)}
+.zoo-chat-window.open{display:flex}
+.zoo-chat-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.zoo-chat-header-left{display:flex;align-items:center;gap:12px}
+.zoo-chat-avatar{width:36px;height:36px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:0.9rem;font-weight:700;color:var(--bg)}
+.zoo-chat-header-text h3{font-family:var(--display);font-size:0.85rem;font-weight:700;color:var(--text)}
+.zoo-chat-header-text p{font-family:var(--mono);font-size:0.55rem;color:var(--lime);letter-spacing:0.08em}
+.zoo-chat-close{width:28px;height:28px;border-radius:6px;background:transparent;border:1px solid var(--border);color:var(--text3);cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center;transition:all 0.3s}
+.zoo-chat-close:hover{border-color:var(--pink);color:var(--pink)}
+.zoo-chat-progress{padding:10px 20px;border-bottom:1px solid var(--border)}
+.zoo-chat-progress-bar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.zoo-chat-progress-fill{height:100%;background:var(--grad);border-radius:2px;transition:width 0.4s var(--ease);width:0%}
+.zoo-chat-progress-label{font-family:var(--mono);font-size:0.5rem;color:var(--text3);margin-top:4px;letter-spacing:0.1em}
+.zoo-chat-messages{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px;min-height:200px;max-height:300px}
+.zoo-msg{display:flex;flex-direction:column}
+.zoo-msg-bot{align-items:flex-start}
+.zoo-msg-user{align-items:flex-end}
+.zoo-msg-bubble{padding:10px 14px;border-radius:10px;font-size:0.8rem;line-height:1.6;max-width:85%}
+.zoo-msg-bot .zoo-msg-bubble{background:var(--surface);border:1px solid var(--border);color:var(--text)}
+.zoo-msg-user .zoo-msg-bubble{background:var(--grad);color:var(--bg)}
+.zoo-chat-options{padding:10px 20px;display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--border)}
+.zoo-option-btn{padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:0.6rem;cursor:pointer;transition:all 0.3s;text-transform:uppercase;letter-spacing:0.08em}
+.zoo-option-btn:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-g)}
+.zoo-chat-input-area{padding:12px 20px;border-top:1px solid var(--border)}
+.zoo-chat-input-row{display:flex;gap:8px}
+.zoo-chat-input{flex:1;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:0.8rem;outline:none;transition:border-color 0.3s}
+.zoo-chat-input:focus{border-color:var(--cyan)}
+.zoo-chat-send{width:40px;height:40px;border-radius:8px;background:var(--grad);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.zoo-chat-send svg{width:18px;height:18px;fill:var(--bg)}
+.zoo-typing{display:flex;align-items:center;gap:4px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+.zoo-typing-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:typingBounce 1.4s ease-in-out infinite}
+.zoo-typing-dot:nth-child(2){animation-delay:0.2s}
+.zoo-typing-dot:nth-child(3){animation-delay:0.4s}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.zoo-result-card{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+.zoo-result-card h4{font-family:var(--display);font-size:0.9rem;font-weight:700;margin-bottom:16px;color:var(--text)}
+.zoo-result-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.zoo-result-stat:last-of-type{border-bottom:none}
+.zoo-result-stat-label{font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em}
+.zoo-result-stat-value{font-family:var(--display);font-size:0.9rem;font-weight:700;color:var(--cyan)}
+.zoo-result-cta{display:block;text-align:center;margin-top:16px;padding:12px;background:var(--grad);color:var(--bg);font-family:var(--mono);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;border-radius:8px;transition:all 0.3s}
+.zoo-result-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,255,0.2)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+  .nav{padding:18px 36px}.nav.scrolled{padding:10px 36px}
+  .services-hero{padding:120px 36px 60px}
+  .section{padding:5rem 36px}
+  .services-grid{grid-template-columns:1fr}
+  .process-grid{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr;gap:40px}
+  .testimonial-grid{grid-template-columns:1fr}
+  .final-cta{padding:5rem 36px}
+  .footer{padding:40px 36px 20px}.footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav{padding:14px 20px}.nav-links{display:none}
+  .nav-cta{padding:8px 16px;font-size:0.55rem}
+  .services-hero{padding:100px 20px 40px}
+  .section{padding:4rem 20px}
+  .service-card{padding:32px 24px}
+  .process-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .contact-section{padding:4rem 20px}
+  .testimonial-section{padding:4rem 20px}
+  .final-cta{padding:4rem 20px}
+  .footer{padding:32px 20px 16px}.footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;gap:6px;text-align:center}
+  .zoo-chat-window{width:calc(100% - 40px);right:20px;bottom:90px}
+}
+</style>
+</head>
+<body>
+
+<!-- Noise overlay -->
+<div class="noise"></div>
+
+<!-- Particles -->
+<div class="particles">
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ZOO<em>Tech</em></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/services" class="active">Services</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="services-hero">
+  <div class="services-hero-bg"></div>
+  <div class="services-hero-content">
+    <div class="hero-tag reveal">Enterprise AI Services</div>
+    <h1 class="hero-title reveal">
+      Transform Your Business<br>
+      <span class="grad-text">With AI Agents</span>
+    </h1>
+    <p class="hero-desc reveal">
+      From strategy to production — we build, integrate, and train AI systems that automate operations, reduce costs, and unlock new revenue streams.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ SERVICES GRID ═══ -->
+<section class="section services-section" id="services">
+  <div style="text-align:center;max-width:600px;margin:0 auto 64px">
+    <div class="section-tag reveal">What We Offer</div>
+    <h2 class="section-title reveal">AI Services Built for <span class="grad">Scale</span></h2>
+    <p class="section-desc reveal" style="margin:0 auto">End-to-end AI solutions tailored to your business needs. Each service is designed to deliver measurable ROI within 90 days.</p>
+  </div>
+  <div class="services-grid stagger">
+    <!-- Service 1: AI Consulting -->
+    <div class="service-card reveal">
+      <div class="service-icon">🧠</div>
+      <h3>AI Consulting</h3>
+      <p>Strategic roadmap to identify high-impact AI opportunities across your organization. We assess your workflows, data infrastructure, and team readiness.</p>
+      <ul class="service-benefits">
+        <li>AI readiness assessment & audit</li>
+        <li>Workflow automation opportunity mapping</li>
+        <li>Technology stack recommendations</li>
+        <li>ROI projections & implementation timeline</li>
+        <li>Change management & adoption strategy</li>
+      </ul>
+      <div class="service-pricing">
+        <span class="from">From</span>
+        <span class="price">$2,500</span>
+        <span class="period">/ engagement</span>
+      </div>
+      <a href="#contact" class="service-cta">Book a Consultation →</a>
+    </div>
+
+    <!-- Service 2: AI SaaS Development -->
+    <div class="service-card reveal">
+      <div class="service-icon">⚡</div>
+      <h3>AI SaaS Development</h3>
+      <p>Custom AI-powered software products built from scratch. We handle everything from UX design to deployment, monitoring, and iteration.</p>
+      <ul class="service-benefits">
+        <li>Full-stack AI application development</li>
+        <li>LLM integration (GPT, Claude, custom models)</li>
+        <li>Agent orchestration & workflow automation</li>
+        <li>Scalable cloud infrastructure (AWS/GCP)</li>
+        <li>Analytics, monitoring & continuous improvement</li>
+      </ul>
+      <div class="service-pricing">
+        <span class="from">From</span>
+        <span class="price">$8,000</span>
+        <span class="period">/ project</span>
+      </div>
+      <a href="#contact" class="service-cta">Start Your Project →</a>
+    </div>
+
+    <!-- Service 3: AI Integration -->
+    <div class="service-card reveal">
+      <div class="service-icon">🔗</div>
+      <h3>AI Integration</h3>
+        <p>Seamlessly embed AI capabilities into your existing tech stack. We connect AI agents with your CRM, ERP, databases, and internal tools.</p>
+      <ul class="service-benefits">
+        <li>API-first AI agent integration</li>
+        <li>CRM/ERP/DB connectivity (Salesforce, HubSpot, etc.)</li>
+        <li>Custom middleware & data pipelines</li>
+        <li>Legacy system modernization</li>
+        <li>Real-time sync & event-driven automation</li>
+      </ul>
+      <div class="service-pricing">
+        <span class="from">From</span>
+        <span class="price">$4,500</span>
+        <span class="period">/ integration</span>
+      </div>
+      <a href="#contact" class="service-cta">Integrate AI →</a>
+    </div>
+
+    <!-- Service 4: AI Training -->
+    <div class="service-card reveal">
+      <div class="service-icon">🎓</div>
+      <h3>AI Training & Enablement</h3>
+      <p>Upskill your team to build, manage, and scale AI systems independently. Hands-on workshops, documentation, and ongoing support.</p>
+      <ul class="service-benefits">
+        <li>Custom workshops for engineering teams</li>
+        <li>Prompt engineering & LLM best practices</li>
+        <li>Agent development bootcamp (3-day intensive)</li>
+        <li>Internal knowledge base & documentation</li>
+        <li>30-day post-training support included</li>
+      </ul>
+      <div class="service-pricing">
+        <span class="from">From</span>
+        <span class="price">$1,800</span>
+        <span class="period">/ workshop</span>
+      </div>
+      <a href="#contact" class="service-cta">Train Your Team →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section class="section process-section" id="process">
+  <div style="text-align:center;max-width:600px;margin:0 auto 64px">
+    <div class="section-tag reveal">How We Work</div>
+    <h2 class="section-title reveal">Our <span class="grad">Process</span></h2>
+    <p class="section-desc reveal" style="margin:0 auto">A proven 4-phase methodology that takes you from initial concept to production AI systems in weeks, not months.</p>
+  </div>
+  <div class="process-grid stagger">
+    <div class="process-step reveal">
+      <div class="process-num">01</div>
+      <div class="process-icon">🔍</div>
+      <h4>Discovery</h4>
+      <p>Deep-dive into your workflows, data, and goals. We identify the highest-impact AI opportunities.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-num">02</div>
+      <div class="process-icon">📐</div>
+      <h4>Architecture</h4>
+      <p>Design the AI system architecture, select models, and plan the integration strategy.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-num">03</div>
+      <div class="process-icon">⚙️</div>
+      <h4>Build & Integrate</h4>
+      <p>Develop, test, and deploy AI agents with full integration into your existing stack.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-num">04</div>
+      <div class="process-icon">🚀</div>
+      <h4>Scale & Optimize</h4>
+      <p>Monitor performance, iterate on results, and scale the system across your organization.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY ZOO ═══ -->
+<section class="section why-section">
+  <div style="text-align:center;max-width:600px;margin:0 auto 64px">
+    <div class="section-tag reveal">Why ZOO</div>
+    <h2 class="section-title reveal">Built by <span class="grad">Engineers</span></h2>
+    <p class="section-desc reveal" style="margin:0 auto">We don't just consult — we build production AI systems that run 24/7 and deliver measurable results.</p>
+  </div>
+  <div class="why-grid stagger">
+    <div class="why-card reveal">
+      <div class="icon">🏗️</div>
+      <h4>Production-First</h4>
+      <p>We build for scale from day one. No prototypes — only battle-tested, production-ready AI systems.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="icon">⚡</div>
+      <h4>Fast Delivery</h4>
+      <p>From kickoff to production in 4-8 weeks. Our agent-based development approach accelerates delivery.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="icon">🔒</div>
+      <h4>Enterprise Security</h4>
+      <p>SOC 2 compliant processes, data encryption, and private cloud deployments for sensitive workloads.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="icon">📊</div>
+      <h4>Measurable ROI</h4>
+      <p>Every engagement includes KPIs and tracking. We prove value with data, not promises.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="icon">🤝</div>
+      <h4>Long-Term Partnership</h4>
+      <p>We don't disappear after launch. Ongoing support, optimization, and scaling as you grow.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="icon">🧩</div>
+      <h4>Full-Stack Capability</h4>
+      <p>From LLM fine-tuning to frontend dashboards — one team handles the entire AI stack.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="section testimonial-section">
+  <div style="text-align:center;max-width:600px;margin:0 auto 64px">
+    <div class="section-tag reveal">Client Results</div>
+    <h2 class="section-title reveal">Trusted by <span class="grad">Innovators</span></h2>
+  </div>
+  <div class="testimonial-grid stagger">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"ZOO's AI consulting engagement identified $340K in annual savings we didn't know existed. Their team delivered the full automation pipeline in 6 weeks."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">MR</div>
+        <div>
+          <div class="testimonial-name">Maria Rodriguez</div>
+          <div class="testimonial-role">CTO, Fintech Startup</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"The AI integration with our CRM was flawless. Customer response time dropped from 4 hours to 12 minutes. ZOO's team is incredibly technical and fast."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">JK</div>
+        <div>
+          <div class="testimonial-name">James Kim</div>
+          <div class="testimonial-role">VP Engineering, SaaS Platform</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Their AI training bootcamp transformed our engineering team. We went from zero to building our own agents in 3 days. Best investment we've made."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">AL</div>
+        <div>
+          <div class="testimonial-name">Ana Lopez</div>
+          <div class="testimonial-role">Head of AI, E-commerce Co</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-tag reveal">Get In Touch</div>
+      <h2 class="section-title reveal">Let's Build<br><span class="grad">Together</span></h2>
+      <p class="section-desc reveal">Tell us about your project and we'll get back to you within 2 hours with a custom proposal.</p>
+      <div class="contact-details">
+        <div class="contact-detail reveal">
+          <div class="icon">📧</div>
+          <a href="mailto:hello@zootechnologies.com">hello@zootechnologies.com</a>
+        </div>
+        <div class="contact-detail reveal">
+          <div class="icon">💬</div>
+          <a href="https://discord.gg/zoo" target="_blank" rel="noopener">Discord Community</a>
+        </div>
+        <div class="contact-detail reveal">
+          <div class="icon">🐙</div>
+          <a href="https://github.com/crazycompanyinc" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="contact-detail reveal">
+          <div class="icon">🌍</div>
+          <span>Worldwide — Remote First</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <h3>Request a Proposal</h3>
+      <p class="form-subtitle">Fill out the form and we'll respond within 2 hours.</p>
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="john@company.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" placeholder="Acme Inc.">
+          </div>
+          <div class="form-group">
+            <label for="service">Service Interested In</label>
+            <select id="service" name="service">
+              <option value="">Select a service...</option>
+              <option value="consulting">AI Consulting</option>
+              <option value="development">AI SaaS Development</option>
+              <option value="integration">AI Integration</option>
+              <option value="training">AI Training</option>
+              <option value="multiple">Multiple Services</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your project</label>
+          <textarea id="message" name="message" placeholder="Describe your use case, team size, and goals..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Request →</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="final-cta">
+  <div class="cta-label reveal">Ready to Start?</div>
+  <h2 class="cta-title reveal">
+    Let's Automate<br>
+    <span class="grad">Your Business</span>
+  </h2>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap" class="reveal">
+    <a href="#contact" class="btn btn-primary">Book a Free Call</a>
+    <a href="/pricing" class="btn btn-ghost">View Pricing</a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">ZOO<em>Tech</em></div>
+      <p class="footer-desc">Building production-ready AI agent systems, algorithmic trading platforms, and autonomous software infrastructure.</p>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul class="footer-links">
+        <li><a href="#services">AI Consulting</a></li>
+        <li><a href="#services">AI Development</a></li>
+        <li><a href="#services">AI Integration</a></li>
+        <li><a href="#services">AI Training</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Connect</h5>
+      <ul class="footer-links">
+        <li><a href="mailto:hello@zootechnologies.com">Email</a></li>
+        <li><a href="https://discord.gg/zoo" target="_blank" rel="noopener">Discord</a></li>
+        <li><a href="https://github.com/crazycompanyinc" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://twitter.com/zootechnologies" target="_blank" rel="noopener">Twitter</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 ZOO Technologies. All rights reserved.</span>
+    <span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></span>
+  </div>
+</footer>
+
+<!-- ═══ CHATBOT WIDGET ═══ -->
+<button class="zoo-chat-trigger" id="zooChatTrigger" aria-label="Open diagnostic chat">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h10v2H7zm0-3h10v2H7zm0 6h7v2H7z"/></svg>
+</button>
+
+<div class="zoo-chat-window" id="zooChatWindow">
+  <div class="zoo-chat-header">
+    <div class="zoo-chat-header-left">
+      <div class="zoo-chat-avatar">Z</div>
+      <div class="zoo-chat-header-text">
+        <h3>ZOO Diagnostic</h3>
+        <p>Online now</p>
+      </div>
+    </div>
+    <button class="zoo-chat-close" id="zooChatClose" aria-label="Close chat">✕</button>
+  </div>
+  <div class="zoo-chat-progress">
+    <div class="zoo-chat-progress-bar">
+      <div class="zoo-chat-progress-fill" id="zooProgressFill" style="width:0%"></div>
+    </div>
+    <div class="zoo-chat-progress-label" id="zooProgressLabel">Step 1 of 5</div>
+  </div>
+  <div class="zoo-chat-messages" id="zooChatMessages"></div>
+  <div class="zoo-chat-options" id="zooChatOptions"></div>
+  <div class="zoo-chat-input-area" id="zooChatInput" style="display:none">
+    <div class="zoo-chat-input-row">
+      <input type="email" class="zoo-chat-input" id="zooEmailInput" placeholder="tu@email.com" autocomplete="email">
+      <button class="zoo-chat-send" id="zooChatSend" aria-label="Send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SCRIPTS                                          -->
+<!-- ═══════════════════════════════════════════ -->
+<script>
+(function(){
+  'use strict';
+
+  // ═══ NAV SCROLL ═══
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }, {passive:true});
+
+  // ═══ REVEAL ON SCROLL ═══
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+  reveals.forEach(function(el){ observer.observe(el); });
+
+  // ═══ CONTACT FORM ═══
+  var form = document.getElementById('contactForm');
+  var formStatus = document.getElementById('formStatus');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var company = document.getElementById('company').value.trim();
+    var service = document.getElementById('service').value;
+    var message = document.getElementById('message').value.trim();
+
+    if(!name || !email){
+      formStatus.textContent = 'Please fill in name and email.';
+      formStatus.className = 'form-status error';
+      return;
+    }
+    if(!email.includes('@') || !email.includes('.')){
+      formStatus.textContent = 'Please enter a valid email.';
+      formStatus.className = 'form-status error';
+      return;
+    }
+
+    // Build mailto fallback
+    var serviceLabels = {
+      'consulting': 'AI Consulting',
+      'development': 'AI SaaS Development',
+      'integration': 'AI Integration',
+      'training': 'AI Training',
+      'multiple': 'Multiple Services'
+    };
+    var subject = 'Services Inquiry from ' + name + (company ? ' (' + company + ')' : '');
+    var body = 'Name: ' + name + '\n';
+    body += 'Email: ' + email + '\n';
+    if(company) body += 'Company: ' + company + '\n';
+    if(service) body += 'Service: ' + (serviceLabels[service] || service) + '\n';
+    body += '\nProject Details:\n' + (message || 'No additional details provided.') + '\n';
+    body += '\n---\nSent from zootechnologies.com/services';
+
+    // Try API first
+    var leadData = {
+      name: name,
+      email: email,
+      company: company,
+      service: service,
+      message: message,
+      source: 'services_contact_form',
+      page: '/services',
+      timestamp: new Date().toISOString()
+    };
+
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(leadData)
+    }).then(function(res){
+      return res.json();
+    }).then(function(data){
+      formStatus.textContent = '✓ Message sent! We\'ll respond within 2 hours.';
+      formStatus.className = 'form-status success';
+      form.reset();
+    }).catch(function(){
+      // Fallback: open mailto
+      window.location.href = 'mailto:hello@zootechnologies.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      formStatus.textContent = 'Opening your email client...';
+      formStatus.className = 'form-status success';
+    });
+
+    // Also save to localStorage
+    try {
+      var leads = JSON.parse(localStorage.getItem('zoo_leads') || '[]');
+      leads.push(leadData);
+      localStorage.setItem('zoo_leads', JSON.stringify(leads));
+    } catch(e){}
+  });
+
+  // ═══ CHATBOT WIDGET ═══
+  var ZC={step:0,answers:{},isOpen:false,isTyping:false};
+  var Q=[
+    {id:'welcome',text:"Hey! I'm ZOO's automation diagnostic bot. I'll ask you 5 quick questions to calculate how much time and money your business is losing to manual tasks. Ready?",options:[{label:"Let's go 🚀",value:'ready'},{label:"Tell me more first",value:'more_info'}]},
+    {id:'company_type',text:'What type of company do you run?',options:[{label:'SaaS',value:'saas'},{label:'E-commerce',value:'ecommerce'},{label:'Services',value:'services'},{label:'Other',value:'other'}]},
+    {id:'team_size',text:'How many employees does your team have?',options:[{label:'1-10',value:'1-10'},{label:'11-50',value:'11-50'},{label:'50+',value:'50+'}]},
+    {id:'pain_point',text:'What manual task steals the most time from your team?',options:[{label:'Invoicing & Billing',value:'billing'},{label:'Customer Support',value:'support'},{label:'Operations & Logistics',value:'ops'},{label:'Marketing & Content',value:'marketing'}]},
+    {id:'hours_wasted',text:'How many hours per week does your team spend on repetitive tasks?',options:[{label:'5-10 hrs',value:'5-10'},{label:'11-25 hrs',value:'11-25'},{label:'25-40 hrs',value:'25-40'},{label:'40+ hrs',value:'40+'}]},
+    {id:'email',text:"Last one! Drop your email and I'll send you a personalized diagnostic with your estimated savings + a custom automation roadmap.",input:true}
+  ];
+  var $=function(id){return document.getElementById(id);};
+  var trigger=$('zooChatTrigger'),win=$('zooChatWindow'),closeBtn=$('zooChatClose'),msgs=$('zooChatMessages'),opts=$('zooChatOptions'),inpArea=$('zooChatInput'),emailInp=$('zooEmailInput'),sendBtn=$('zooChatSend'),progFill=$('zooProgressFill'),progLabel=$('zooProgressLabel');
+
+  function updProg(){var p=Math.round((ZC.step/Q.length)*100);progFill.style.width=p+'%';progLabel.textContent='Step '+(ZC.step+1)+' of '+Q.length;}
+  function scrollB(){msgs.scrollTop=msgs.scrollHeight;}
+  function addTyping(){var d=document.createElement('div');d.className='zoo-msg zoo-msg-bot';d.id='zooTyping';d.innerHTML='<div class="zoo-typing"><div class="zoo-typing-dot"></div><div class="zoo-typing-dot"></div><div class="zoo-typing-dot"></div></div>';msgs.appendChild(d);scrollB();}
+  function remTyping(){var e=document.getElementById('zooTyping');if(e)e.remove();}
+  function addBot(text,delay){delay=delay||600;ZC.isTyping=true;opts.style.display='none';inpArea.style.display='none';addTyping();setTimeout(function(){remTyping();ZC.isTyping=false;var d=document.createElement('div');d.className='zoo-msg zoo-msg-bot';d.innerHTML='<div class="zoo-msg-bubble">'+text+'</div>';msgs.appendChild(d);scrollB();},delay);}
+  function addUser(text){var d=document.createElement('div');d.className='zoo-msg zoo-msg-user';d.innerHTML='<div class="zoo-msg-bubble">'+text+'</div>';msgs.appendChild(d);scrollB();}
+  function showOpts(o){opts.innerHTML='';opts.style.display='flex';inpArea.style.display='none';o.forEach(function(b){var btn=document.createElement('button');btn.className='zoo-option-btn';btn.textContent=b.label;btn.addEventListener('click',function(){handleAns(b.label,b.value);});opts.appendChild(btn);});}
+  function showEmail(){opts.innerHTML='';opts.style.display='none';inpArea.style.display='block';setTimeout(function(){emailInp.focus();},100);}
+  function handleAns(label,value){if(ZC.isTyping)return;addUser(label);ZC.answers[Q[ZC.step].id]=value;ZC.step++;if(ZC.step<Q.length)showQ(ZC.step);}
+  function showQ(i){var q=Q[i];updProg();if(q.id==='welcome'&&ZC.answers['welcome']==='more_info'){addBot("We help businesses automate repetitive tasks using AI agents. Our clients typically save 20-40 hours per week. This diagnostic takes 60 seconds and gives you a personalized savings estimate. No strings attached.",800);setTimeout(function(){addBot(q.text,600);setTimeout(function(){showOpts(q.options);},700);},1200);return;}addBot(q.text,700);setTimeout(function(){if(q.input)showEmail();else showOpts(q.options);},800);}
+  function calcSavings(){var hm={'5-10':7.5,'11-25':18,'25-40':32.5,'40+':50};var tm={'1-10':5,'11-50':30,'50+':75};var h=hm[ZC.answers['hours_wasted']]||15;var tmM=tm[ZC.answers['team_size']]||5;var wc=h*35*(tmM/5);var ac=wc*52;return {annual:Math.round(ac*.6),hours:Math.round(h*.6*52),weekly:h,team:ZC.answers['team_size'],pain:ZC.answers['pain_point']};}
+  function showResults(email){var r=calcSavings();var pl={billing:'Invoicing & Billing',support:'Customer Support',ops:'Operations',marketing:'Marketing'};saveLead(email,r);var h='<div class="zoo-result-card"><h4>📊 Your Diagnostic Results</h4><div class="zoo-result-stat"><span class="zoo-result-stat-label">Annual Loss</span><span class="zoo-result-stat-value">$'+r.annual.toLocaleString()+'/yr</span></div><div class="zoo-result-stat"><span class="zoo-result-stat-label">Hours Recoverable</span><span class="zoo-result-stat-value">'+r.hours.toLocaleString()+' hrs/yr</span></div><div class="zoo-result-stat"><span class="zoo-result-stat-label">Top Pain Point</span><span class="zoo-result-stat-value" style="font-size:.85rem">'+(pl[r.pain]||r.pain)+'</span></div><a href="mailto:hello@zootechnologies.com?subject=Diagnostic Results — $'+r.annual+'/yr savings&body=Hi ZOO team,%0A%0AMy diagnostic showed $'+r.annual+'/yr in potential savings. I\'d like to discuss automation for my '+(ZC.answers['company_type']||'')+' business.%0A%0AThanks!" class="zoo-result-cta">📅 Book a Free Call</a><p style="font-family:var(--mono);font-size:.55rem;color:var(--text3);text-align:center;margin-top:10px;letter-spacing:.08em">Results sent to '+email+'</p></div>';var d=document.createElement('div');d.className='zoo-msg zoo-msg-bot';d.innerHTML=h;msgs.appendChild(d);addBot("I've sent your full diagnostic to "+email+". Our team typically responds within 2 hours. In the meantime, check out our AI Agent Starter Kit — it automates the exact pain points you mentioned.",1200);opts.style.display='none';inpArea.style.display='none';progFill.style.width='100%';progLabel.textContent='Diagnostic complete ✓';scrollB();}
+  function saveLead(email,results){var lead={email:email,timestamp:new Date().toISOString(),answers:ZC.answers,savings:{annual:results.annual,hours:results.hours},source:'zoo_diagnostic_chatbot'};try{var leads=JSON.parse(localStorage.getItem('zoo_leads')||'[]');leads.push(lead);localStorage.setItem('zoo_leads',JSON.stringify(leads));}catch(e){}fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}).catch(function(){});}
+  function handleEmailSubmit(){var email=emailInp.value.trim();if(!email||email.indexOf('@')===-1||email.indexOf('.')===-1){emailInp.style.borderColor='rgba(244,114,182,0.5)';setTimeout(function(){emailInp.style.borderColor='rgba(255,255,255,0.08)';},1500);return;}addUser(email);ZC.answers['email']=email;showResults(email);}
+  sendBtn.addEventListener('click',handleEmailSubmit);
+  emailInp.addEventListener('keydown',function(e){if(e.key==='Enter')handleEmailSubmit();});
+  function openChat(){ZC.isOpen=true;win.classList.add('open');trigger.style.display='none';if(ZC.step===0&&!ZC.answers['welcome'])showQ(0);}
+  function closeChat(){ZC.isOpen=false;win.classList.remove('open');trigger.style.display='flex';}
+  trigger.addEventListener('click',function(){ZC.isOpen?closeChat():openChat();});
+  closeBtn.addEventListener('click',closeChat);
+  document.addEventListener('mouseleave',function(e){if(e.clientY<10&&!ZC.isOpen&&ZC.step===0)trigger.classList.add('has-notification');});
+  updProg();
+
+})();
+</script>
+
+</body>
+</html>

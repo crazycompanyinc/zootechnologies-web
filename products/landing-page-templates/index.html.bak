@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing Page Templates — 7 Responsive HTML/CSS Templates | ZOO</title>
+<meta name="description" content="7 production-ready landing page templates: SaaS, agency, product launch, course, event, blog, portfolio. Fully responsive, accessible, Figma files included. $29.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b; --surface: #12121a; --surface2: #1a1a26; --border: #2a2a3a;
+  --border-hover: #3a3a4e; --text: #e8e8f0; --text2: #8888a0; --text3: #55556a;
+  --accent: #f59e0b; --accent2: #fbbf24; --accent-glow: rgba(245,158,11,0.3);
+  --warm: #ff6b35; --gradient: linear-gradient(135deg, #f59e0b, #ef4444);
+  --font-body: 'Inter', -apple-system, sans-serif; --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); height: 64px; display: flex; align-items: center; }
+.nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-weight: 800; font-size: 18px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+.nav-cta { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; background: var(--accent); color: #000; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; transition: all 0.3s var(--ease); box-shadow: 0 2px 12px var(--accent-glow); }
+.nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+.hero { padding: 140px 24px 80px; text-align: center; position: relative; overflow: hidden; }
+.hero-glow { position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(245,158,11,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(245,158,11,0.1); color: var(--accent2); border: 1px solid rgba(245,158,11,0.2); margin-bottom: 24px; }
+.hero h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 20px; }
+.hero h1 .highlight { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text2); font-size: clamp(16px, 2vw, 20px); max-width: 600px; margin: 0 auto 36px; line-height: 1.65; }
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s var(--ease); font-family: var(--font-body); }
+.btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 4px 24px var(--accent-glow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px var(--accent-glow); }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { background: rgba(255,255,255,0.04); border-color: var(--border-hover); }
+
+.templates-showcase { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.templates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.template-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
+.template-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(245,158,11,0.1); }
+.template-preview { height: 180px; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 48px; position: relative; overflow: hidden; }
+.template-preview::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(10,10,11,0.8) 100%); }
+.template-info { padding: 20px; }
+.template-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.template-info p { color: var(--text2); font-size: 13px; }
+
+.section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+.section-header p { color: var(--text2); font-size: 17px; max-width: 520px; margin: 0 auto; }
+
+.features-full { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.feature-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; display: flex; align-items: center; gap: 12px; }
+.feature-item .check { color: var(--accent); font-size: 16px; flex-shrink: 0; }
+.feature-item span { font-size: 14px; color: var(--text2); }
+
+.tech-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.tech-item { padding: 10px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; font-weight: 500; color: var(--text2); }
+
+.pricing-card { max-width: 520px; margin: 0 auto; background: var(--surface); border: 2px solid var(--accent); border-radius: 24px; padding: 48px; text-align: center; position: relative; box-shadow: 0 0 60px rgba(245,158,11,0.12); }
+.pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gradient); color: #fff; padding: 6px 24px; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.pricing-card h3 { font-size: 24px; font-weight: 800; margin-top: 8px; }
+.pricing-amount { margin: 20px 0; }
+.pricing-amount .currency { font-size: 28px; vertical-align: super; }
+.pricing-amount .value { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; }
+.pricing-amount .period { color: var(--text2); font-size: 14px; }
+.pricing-features { list-style: none; margin: 24px 0; text-align: left; }
+.pricing-features li { padding: 10px 0; font-size: 15px; color: var(--text2); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.pricing-card .btn { width: 100%; justify-content: center; padding: 18px; font-size: 17px; }
+.pricing-guarantee { margin-top: 14px; color: var(--text3); font-size: 13px; }
+
+.faq-grid { max-width: 680px; margin: 0 auto; display: grid; gap: 12px; }
+.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+.faq-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.faq-item p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+
+.cta-final { text-align: center; padding: 64px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; margin: 0 24px 80px; max-width: 1100px; margin-left: auto; margin-right: auto; position: relative; overflow: hidden; }
+.cta-final::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at center, rgba(245,158,11,0.08) 0%, transparent 60%); pointer-events: none; }
+.cta-final h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; margin-bottom: 12px; position: relative; }
+.cta-final p { color: var(--text2); font-size: 17px; margin-bottom: 28px; position: relative; }
+.cta-final .btn { position: relative; }
+
+.footer { text-align: center; padding: 48px 24px; color: var(--text2); font-size: 13px; border-top: 1px solid var(--border); }
+.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 auto; max-width: 1100px; }
+
+@media (max-width: 768px) { .hero { padding: 120px 20px 60px; } .section { padding: 60px 20px; } .pricing-card { padding: 32px 24px; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://zootechnologies.com" class="nav-logo">ZOO</a>
+    <a href="#pricing" class="nav-cta">Get 7 Templates — $29 →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🎨 HTML/CSS · Fully Responsive · Figma Files Included</div>
+    <h1>Landing Pages That<br><span class="highlight">Convert Visitors.</span></h1>
+    <p>7 production-ready HTML/CSS landing page templates. SaaS, agency, product launch, course, event, blog, portfolio. Clean code, fully responsive, accessible. Ship your next project in hours, not weeks.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn btn-primary">Get All 7 — $29</a>
+      <a href="#templates" class="btn btn-ghost">Preview Templates ↓</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="templates">
+  <div class="section-header">
+    <h2>7 Templates. 7 Use Cases.</h2>
+    <p>Each template is production-ready and fully customizable.</p>
+  </div>
+  <div class="templates-grid">
+    <div class="template-card">
+      <div class="template-preview">🚀</div>
+      <div class="template-info">
+        <h3>SaaS Landing</h3>
+        <p>Features, pricing, testimonials, CTA. Perfect for any SaaS product.</p>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-preview">🏢</div>
+      <div class="template-info">
+        <h3>Agency Portfolio</h3>
+        <p>Showcase services, case studies, team. Convert leads into clients.</p>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-preview">📦</div>
+      <div class="template-info">
+        <h3>Product Launch</h3>
+        <p>Countdown, features, social proof. Build hype and capture emails.</p>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-preview">🎓</div>
+      <div class="template-info">
+        <h3>Course / Education</h3>
+        <p>Syllabus, instructor bio, enrollment CTA. Sell knowledge at scale.</p>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-preview">🎪</div>
+      <div class="template-info">
+        <h3>Event / Conference</h3>
+        <p>Schedule, speakers, registration. Fill seats and sell sponsorships.</p>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-preview">📝</div>
+      <div class="template-info">
+        <h3>Blog / Magazine</h3>
+        <p>Clean typography, categories, newsletter. Content-first design.</p>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-preview">💼</div>
+      <div class="template-info">
+        <h3>Personal Portfolio</h3>
+        <p>Projects, skills, contact. Stand out to clients and employers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Everything Included</h2>
+    <p>Not a mockup. Real, production-ready code.</p>
+  </div>
+  <div class="features-full">
+    <div class="feature-item"><span class="check">✓</span><span>7 complete HTML/CSS templates</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>Fully responsive (mobile, tablet, desktop)</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>WCAG 2.1 AA accessible</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>Clean, commented, modular CSS</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>No frameworks — pure HTML/CSS</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>Figma design files included</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>SEO-optimized structure</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>Fast loading (no bloat)</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>Easy to customize and extend</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>Cross-browser compatible</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>Free future updates</span></div>
+    <div class="feature-item"><span class="check">✓</span><span>Commercial license included</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Tech Stack</h2>
+    <p>Simple. Fast. No dependencies.</p>
+  </div>
+  <div class="tech-grid">
+    <span class="tech-item">HTML5 Semantic</span>
+    <span class="tech-item">CSS3 Custom Properties</span>
+    <span class="tech-item">CSS Grid + Flexbox</span>
+    <span class="tech-item">Responsive Design</span>
+    <span class="tech-item">Google Fonts</span>
+    <span class="tech-item">Figma Files</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="pricing">
+  <div class="section-header">
+    <h2>Ship Faster. Pay Once.</h2>
+    <p>7 templates. One price. Lifetime updates.</p>
+  </div>
+  <div class="pricing-card">
+    <div class="pricing-badge">🎨 All 7 Templates</div>
+    <h3>Landing Page Template Pack</h3>
+    <div class="pricing-amount">
+      <span class="currency">$</span><span class="value">29</span>
+      <div class="period">one-time payment</div>
+    </div>
+    <ul class="pricing-features">
+      <li>7 production-ready HTML/CSS templates</li>
+      <li>SaaS, agency, product, course, event, blog, portfolio</li>
+      <li>Fully responsive (mobile + tablet + desktop)</li>
+      <li>WCAG 2.1 AA accessible</li>
+      <li>Clean, modular, well-commented code</li>
+      <li>Figma design files for all 7 templates</li>
+      <li>SEO-optimized HTML structure</li>
+      <li>Cross-browser compatible</li>
+      <li>Commercial license — use for client projects</li>
+      <li>Free future template additions</li>
+    </ul>
+    <a href="/checkout.html?product=landing-templates&price=29" class="btn btn-primary" style="width:100%;justify-content:center;padding:18px;font-size:17px;">
+      Get All 7 Templates — $29
+    </a>
+    <div class="pricing-guarantee">🔒 Secure payment via Stripe · 30-day money-back guarantee</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header"><h2>FAQ</h2></div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>Do I need JavaScript knowledge?</h4>
+      <p>No. These are pure HTML/CSS templates. If you can edit HTML, you can customize them.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I use these for client projects?</h4>
+      <p>Absolutely. The included commercial license covers unlimited personal and client projects.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Are the Figma files included?</h4>
+      <p>Yes. All 7 templates come with their Figma source files for easy visual customization.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Do they work with React/Next.js?</h4>
+      <p>The HTML/CSS can be adapted to any framework. They're vanilla by default for maximum compatibility.</p>
+    </div>
+    <div class="faq-item">
+      <h4>What if I need help customizing?</h4>
+      <p>The code is clean and well-commented. If you get stuck, reach out — we'll point you in the right direction.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-final">
+  <h2>Stop Building From Scratch.<br>Start Shipping.</h2>
+  <p>7 landing page templates. Clean code. Figma files. $29 one-time.</p>
+  <a href="/checkout.html?product=landing-templates&price=29" class="btn btn-primary">Get All 7 Templates — $29</a>
+  <div style="margin-top:16px;color:var(--text3);font-size:13px;">🔒 Payment secured by Stripe · Instant access · 30-day guarantee</div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 ZOO Technologies · <a href="mailto:design@zootechnologies.com" style="color:var(--accent2);">design@zootechnologies.com</a></p>
+  <p style="margin-top:8px;color:var(--text3);">Design once. Ship everywhere.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Observability Kit — Debug, Monitor & Trust Your AI Agents | ZOO</title>
+<meta name="description" content="Production-ready observability toolkit for AI agents. Detect hallucinations, trace decisions, monitor memory, audit tool calls. Python + TypeScript. $39 one-time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0b;--surface:rgba(255,255,255,0.02);--surface2:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.06);--border-h:rgba(255,255,255,0.12);--text:#e4e4e7;--text2:#8888a0;--text3:#55556a;--accent:#f59e0b;--accent2:#fbbf24;--accent-glow:rgba(245,158,11,0.15);--accent-glow2:rgba(245,158,11,0.25);--green:#22c55e;--pink:#ec4899;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Inter',-apple-system,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--accent);color:#000}
+.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:512px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,11,0.85);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);transition:all 0.6s var(--ease)}
+.nav.scrolled{padding:14px 48px;background:rgba(10,10,11,0.95)}
+.nav-logo{font-family:var(--font-serif);font-size:1.3rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo em{background:linear-gradient(135deg,#ff6b35,#ff8a5c,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;transition:color 0.3s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:10px 24px;background:linear-gradient(135deg,#ff6b35,#ff8a5c);color:#fff;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;text-decoration:none;border-radius:8px;transition:all 0.4s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,53,0.3)}
+.hero{position:relative;padding:160px 48px 80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg::before{content:'';position:absolute;top:-30%;right:-20%;width:700px;height:700px;background:radial-gradient(circle,rgba(245,158,11,0.06) 0%,transparent 70%);border-radius:50%}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1200px;margin:0 auto;align-items:center}
+.hero-left{max-width:560px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:100px;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent);margin-bottom:24px}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-title{font-family:var(--font-serif);font-size:clamp(2.2rem,4vw,3.4rem);font-weight:900;line-height:1.08;letter-spacing:-0.03em;margin-bottom:20px}
+.hero-title .gradient{background:linear-gradient(135deg,var(--accent),#ef4444,var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{color:var(--text2);font-size:1.05rem;line-height:1.75;margin-bottom:32px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:10px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:all 0.4s var(--ease);border:none;cursor:pointer;font-family:var(--font-sans)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;box-shadow:0 4px 24px var(--accent-glow)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px var(--accent-glow2)}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hero-price{margin-top:28px;display:flex;align-items:baseline;gap:10px}
+.hero-price .amount{font-size:2.2rem;font-weight:900;color:var(--text)}
+.hero-price .period{color:var(--text3);font-size:0.85rem}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-visual-inner{width:100%;max-width:440px;aspect-ratio:1;background:linear-gradient(135deg,rgba(245,158,11,0.06),rgba(236,72,153,0.03));border:1px solid var(--border);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden}
+.hero-visual-inner::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(245,158,11,0.08),transparent 60%)}
+.viz-icon{font-size:5rem;margin-bottom:20px;position:relative;z-index:2;filter:drop-shadow(0 8px 30px rgba(245,158,11,0.3))}
+.viz-label{font-size:0.85rem;color:var(--text2);position:relative;z-index:2;font-weight:500}
+.viz-modules{display:flex;gap:8px;margin-top:20px;position:relative;z-index:2;flex-wrap:wrap;justify-content:center}
+.viz-mod{padding:4px 12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);border-radius:20px;font-size:0.65rem;color:var(--accent);font-weight:600}
+.section{padding:100px 48px;border-top:1px solid var(--border)}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-eyebrow{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:16px;text-align:center}
+.section-title{font-family:var(--font-serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;text-align:center;margin-bottom:16px;letter-spacing:-0.02em}
+.section-subtitle{color:var(--text2);font-size:1.05rem;text-align:center;max-width:600px;margin:0 auto 60px;line-height:1.7}
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.problem-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;transition:all 0.4s var(--ease)}
+.problem-card:hover{border-color:rgba(239,68,68,0.2);transform:translateY(-4px)}
+.problem-icon{font-size:2rem;margin-bottom:14px}
+.problem-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+.problem-card p{color:var(--text2);font-size:0.88rem;line-height:1.65}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;transition:all 0.4s var(--ease)}
+.feature-card:hover{border-color:rgba(245,158,11,0.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.feature-icon{font-size:1.8rem;margin-bottom:14px}
+.feature-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+.feature-card p{color:var(--text2);font-size:0.88rem;line-height:1.65}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.step-card{text-align:center;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px}
+.step-num{font-family:var(--font-serif);font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;opacity:0.6}
+.step-card h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+.step-card p{color:var(--text2);font-size:0.84rem;line-height:1.6}
+.buy-section{padding:120px 48px;text-align:center;position:relative;overflow:hidden}
+.buy-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(245,158,11,0.06) 0%,rgba(236,72,153,0.03) 35%,transparent 70%);border-radius:50%}
+.buy-card{position:relative;z-index:2;max-width:640px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:60px 48px}
+.buy-card:hover{border-color:rgba(245,158,11,0.2)}
+.buy-badge{display:inline-block;padding:4px 14px;background:linear-gradient(135deg,var(--accent),var(--pink));color:#fff;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:20px}
+.buy-title{font-family:var(--font-serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;margin-bottom:12px;letter-spacing:-0.02em}
+.buy-desc{color:var(--text2);font-size:1rem;margin-bottom:32px;line-height:1.7}
+.buy-price{font-size:3rem;font-weight:900;color:var(--text);margin-bottom:8px}
+.buy-price .currency{font-size:1.6rem;font-weight:700}
+.buy-period{color:var(--text3);font-size:0.85rem;margin-bottom:32px}
+.buy-features{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px}
+.buy-feature{padding:6px 16px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.1);border-radius:8px;font-size:0.78rem;color:var(--text2)}
+.buy-guarantee{margin-top:24px;color:var(--text3);font-size:0.78rem}
+.buy-guarantee a{color:var(--accent);text-decoration:none}
+.why-section{padding:80px 48px;border-top:1px solid var(--border)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.why-item{padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:14px;text-align:center;transition:all 0.3s var(--ease)}
+.why-item:hover{border-color:var(--border-h);transform:translateY(-2px)}
+.why-item-icon{font-size:1.6rem;margin-bottom:12px}
+.why-item h3{font-size:0.95rem;font-weight:700;margin-bottom:8px}
+.why-item p{font-size:0.82rem;color:var(--text2);line-height:1.6}
+.footer{padding:48px;border-top:1px solid var(--border);text-align:center}
+.footer p{color:var(--text3);font-size:0.78rem}
+.footer a{color:var(--accent);text-decoration:none}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.footer-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;transition:color 0.3s}
+.footer-links a:hover{color:var(--text)}
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero-visual{order:-1}}
+@media(max-width:768px){.nav{padding:16px 20px}.nav-links{display:none}.hero{padding:130px 20px 60px}.section,.buy-section,.why-section{padding:70px 20px}.buy-card{padding:40px 24px}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ZOO<em>.</em></a>
+  <ul class="nav-links"><li><a href="/">Home</a></li><li><a href="/products">Products</a></li><li><a href="/pricing.html">Pricing</a></li><li><a href="/blog.html">Blog</a></li></ul>
+  <a href="#buy" class="nav-cta">Get the Kit — $39</a>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-badge">AI Observability</div>
+      <h1 class="hero-title">See what your AI agents <span class="gradient">actually do.</span></h1>
+      <p class="hero-desc">Production-ready observability toolkit. Detect hallucinations, trace decisions, monitor memory drift, audit tool calls. 6 modules. Framework-agnostic. Self-hosted. Python + TypeScript.</p>
+      <div class="hero-ctas"><a href="#buy" class="btn btn-primary">Get the Kit — $39 →</a><a href="#features" class="btn btn-secondary">See Features</a></div>
+      <div class="hero-price"><span class="amount">$39</span><span class="period">one-time payment</span></div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-inner">
+        <div class="viz-icon">🛡️</div>
+        <div class="viz-label">AI Agent Observability Kit</div>
+        <div class="viz-modules">
+          <span class="viz-mod">Hallucination Detector</span><span class="viz-mod">Decision Tracer</span><span class="viz-mod">Memory Monitor</span><span class="viz-mod">Permission Auditor</span><span class="viz-mod">Cost Tracker</span><span class="viz-mod">Alerts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="problem">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Problem</div>
+    <h2 class="section-title">AI agents are <span style="background:linear-gradient(135deg,var(--accent),#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent">black boxes.</span></h2>
+    <p class="section-subtitle">You can't fix what you can't see. Most teams deploy AI agents with zero observability — then wonder why things break in production.</p>
+    <div class="problem-grid">
+      <div class="problem-card fade-up"><div class="problem-icon">🌀</div><h3>Hallucinations in Production</h3><p>Agents confidently return wrong answers. Without source cross-referencing, you won't catch them until a customer complains.</p></div>
+      <div class="problem-card fade-up"><div class="problem-icon">🔍</div><h3>No Decision Tracing</h3><p>When an agent makes a bad call, you have no audit trail. No replay. No way to understand what went wrong.</p></div>
+      <div class="problem-card fade-up"><div class="problem-icon">🧠</div><h3>Memory Drift</h3><p>Agent memory degrades over time. Without monitoring, your agent slowly becomes less accurate — and you won't notice.</p></div>
+      <div class="problem-card fade-up"><div class="problem-icon">💸</div><h3>Uncontrolled Costs</h3><p>Token usage spirals. One bad prompt chain can burn $50 in API calls. Without cost tracking, you're flying blind.</p></div>
+    </div>
+  </div>
+</section>
+<section class="section" id="features">
+  <div class="section-inner">
+    <div class="section-eyebrow">What's Inside</div>
+    <h2 class="section-title">6 modules. <span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Complete observability.</span></h2>
+    <p class="section-subtitle">Everything you need to debug, monitor, and trust your AI agents in production.</p>
+    <div class="features-grid">
+      <div class="feature-card fade-up"><div class="feature-icon">🔬</div><h3>Hallucination Detector</h3><p>Cross-references agent outputs against source documents. Flags confidence mismatches and unsupported claims in real-time.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">🔍</div><h3>Decision Tracer</h3><p>Full audit trail of every agent decision. Replay any conversation to understand exactly why the agent chose what it chose.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">🧠</div><h3>Memory Drift Monitor</h3><p>Tracks memory quality over time. Alerts when accuracy drops or when memory consolidation is needed.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">🔐</div><h3>Permission Auditor</h3><p>Enforces least-privilege access. Audits every tool call and flags unauthorized access attempts.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">💰</div><h3>Cost Tracker</h3><p>Real-time token usage tracking with budget alerts. Per-agent, per-conversation, and per-tool breakdowns.</p></div>
+      <div class="feature-card fade-up"><div class="feature-icon">📡</div><h3>Slack + Email Alerts</h3><p>Get notified when things go wrong. Configurable thresholds for hallucinations, cost spikes, and permission violations.</p></div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">How It Works</div>
+    <h2 class="section-title">Up and running <span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">in minutes.</span></h2>
+    <div class="steps-grid">
+      <div class="step-card fade-up"><div class="step-num">1</div><h3>Install</h3><p>pip install or npm install. Two lines of code.</p></div>
+      <div class="step-card fade-up"><div class="step-num">2</div><h3>Configure</h3><p>Set alert thresholds, connect Slack/Email, choose modules.</p></div>
+      <div class="step-card fade-up"><div class="step-num">3</div><h3>Wrap Your Agent</h3><p>Decorate your agent's run method. That's it.</p></div>
+      <div class="step-card fade-up"><div class="step-num">4</div><h3>Monitor</h3><p>Dashboard + alerts. See everything. Fix fast.</p></div>
+    </div>
+  </div>
+</section>
+<section class="buy-section" id="buy">
+  <div class="buy-card">
+    <div class="buy-badge">Limited Launch Price</div>
+    <h2 class="buy-title">Get the Complete Kit</h2>
+    <p class="buy-desc">6 modules. Python + TypeScript. Lifetime updates. Self-hosted. No subscriptions.</p>
+    <div class="buy-price"><span class="currency">$</span>39</div>
+    <div class="buy-period">one-time payment · instant delivery</div>
+    <div class="buy-features">
+      <span class="buy-feature">✅ Hallucination Detector</span><span class="buy-feature">✅ Decision Tracer</span><span class="buy-feature">✅ Memory Monitor</span><span class="buy-feature">✅ Permission Auditor</span><span class="buy-feature">✅ Cost Tracker</span><span class="buy-feature">✅ Slack + Email Alerts</span><span class="buy-feature">✅ Lifetime Updates</span><span class="buy-feature">✅ Email Support</span>
+    </div>
+    <a href="/checkout.html?product=observability-kit&price=39" class="btn btn-primary" style="font-size:1.05rem;padding:18px 40px">Get the Kit → $39</a>
+    <div class="buy-guarantee">🔒 Secured by Stripe · 30-day money-back guarantee · <a href="/">ZOO Technologies</a></div>
+  </div>
+</section>
+<section class="why-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Why ZOO</div>
+    <h2 class="section-title">Built by an AI-native company that ships.</h2>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-item-icon">⚡</div><h3>Ship in Hours</h3><p>Production-ready code. Not a toy. Real patterns you can deploy today.</p></div>
+      <div class="why-item"><div class="why-item-icon">🔄</div><h3>Lifetime Updates</h3><p>Buy once, get every future update free. We improve constantly.</p></div>
+      <div class="why-item"><div class="why-item-icon">🛡️</div><h3>30-Day Guarantee</h3><p>Not satisfied? Full refund. No questions. No risk.</p></div>
+      <div class="why-item"><div class="why-item-icon">💬</div><h3>Email Support</h3><p>Stuck? We respond within 24 hours. Real help.</p></div>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer-links"><a href="/">Home</a><a href="/products">Products</a><a href="/pricing.html">Pricing</a><a href="/blog.html">Blog</a></div>
+  <p>© 2026 <a href="/">ZOO Technologies</a> · AI-Powered Technology Studio · All payments secured by Stripe</p>
+</footer>
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZOO — Autonomous Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap&display=swap" rel="preload" as="style" onload="this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{
+  --bg:#030305;--bg1:#08080c;--bg2:#0e0e14;--bg3:#16161e;
+  --surface:rgba(255,255,255,0.02);--surface2:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.06);--border-h:rgba(255,255,255,0.12);
+  --text:#e8e8f0;--text2:#9090a8;--text3:#5a5a70;
+  --cyan:#00e5ff;--cyan-g:rgba(0,229,255,0.12);
+  --violet:#a855f7;--violet-g:rgba(168,85,247,0.12);
+  --pink:#f472b6;--pink-g:rgba(244,114,182,0.12);
+  --lime:#a3e635;--lime-g:rgba(163,230,53,0.12);
+  --grad:linear-gradient(135deg,var(--cyan),var(--violet));
+  --grad2:linear-gradient(135deg,var(--violet),var(--pink));
+  --grad3:linear-gradient(135deg,var(--lime),var(--cyan));
+  --display:'Syne',sans-serif;--sans:'Space Grotesk',sans-serif;--mono:'Space Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--cyan);color:var(--bg)}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg3)}
+
+/* ═══ CURSOR GLOW ═══ */
+.cursor-glow{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,0.06) 0%,rgba(168,85,247,0.03) 35%,transparent 70%);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);will-change:left,top;mix-blend-mode:screen}
+
+/* ═══ NOISE ═══ */
+.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.015;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:512px}
+
+/* ═══ PARTICLES (CSS only) ═══ */
+.particles{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:floatParticle linear infinite;opacity:0}
+.particle:nth-child(1){width:2px;height:2px;background:var(--cyan);left:10%;animation-duration:12s;animation-delay:0s}
+.particle:nth-child(2){width:3px;height:3px;background:var(--violet);left:20%;animation-duration:15s;animation-delay:2s}
+.particle:nth-child(3){width:2px;height:2px;background:var(--pink);left:35%;animation-duration:18s;animation-delay:1s}
+.particle:nth-child(4){width:2px;height:2px;background:var(--lime);left:50%;animation-duration:14s;animation-delay:3s}
+.particle:nth-child(5){width:3px;height:3px;background:var(--cyan);left:65%;animation-duration:16s;animation-delay:0.5s}
+.particle:nth-child(6){width:2px;height:2px;background:var(--violet);left:75%;animation-duration:13s;animation-delay:4s}
+.particle:nth-child(7){width:2px;height:2px;background:var(--pink);left:85%;animation-duration:17s;animation-delay:1.5s}
+.particle:nth-child(8){width:3px;height:3px;background:var(--lime);left:92%;animation-duration:11s;animation-delay:2.5s}
+.particle:nth-child(9){width:2px;height:2px;background:var(--cyan);left:45%;animation-duration:19s;animation-delay:5s}
+.particle:nth-child(10){width:2px;height:2px;background:var(--violet);left:55%;animation-duration:20s;animation-delay:3.5s}
+@keyframes floatParticle{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.6}90%{opacity:.6}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+
+/* ═══ NAV ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 56px;display:flex;justify-content:space-between;align-items:center;transition:all 0.5s var(--ease)}
+.nav.scrolled{padding:12px 56px;background:rgba(3,3,5,0.9);backdrop-filter:blur(30px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo em{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.nav-right{display:flex;align-items:center;gap:32px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-family:var(--mono);font-size:0.65rem;font-weight:400;text-transform:uppercase;letter-spacing:0.18em;transition:color 0.3s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{padding:10px 24px;background:var(--grad);color:var(--bg);font-family:var(--mono);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;text-decoration:none;border-radius:6px;transition:all 0.4s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,0.2)}
+
+/* ═══ HERO — Split asymmetric ═══ */
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:55% 45%;overflow:hidden;padding-top:0}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:0 56px 0 64px;z-index:2}
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;z-index:2;overflow:hidden}
+.hero-right-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(0,229,255,0.04) 0%,rgba(168,85,247,0.02) 40%,transparent 70%)}
+
+/* Hero visual — geometric */
+.hero-visual{position:relative;width:420px;height:420px}
+.geo-ring{position:absolute;border-radius:50%;border:1px solid;animation:spin linear infinite}
+.geo-ring:nth-child(1){inset:0;border-color:rgba(0,229,255,0.15);animation-duration:20s}
+.geo-ring:nth-child(2){inset:40px;border-color:rgba(168,85,247,0.12);animation-duration:25s;animation-direction:reverse}
+.geo-ring:nth-child(3){inset:80px;border-color:rgba(244,114,182,0.1);animation-duration:30s}
+.geo-ring:nth-child(4){inset:120px;border-color:rgba(163,230,53,0.08);animation-duration:35s;animation-direction:reverse}
+.geo-dot{position:absolute;width:8px;height:8px;border-radius:50%;top:50%;left:50%;margin:-4px}
+.geo-dot:nth-child(5){background:var(--cyan);transform:rotate(0deg) translateX(210px);box-shadow:0 0 20px var(--cyan);animation:pulse 2s ease-in-out infinite}
+.geo-dot:nth-child(6){background:var(--violet);transform:rotate(120deg) translateX(170px);box-shadow:0 0 20px var(--violet);animation:pulse 2s ease-in-out infinite 0.5s}
+.geo-dot:nth-child(7){background:var(--pink);transform:rotate(240deg) translateX(130px);box-shadow:0 0 20px var(--pink);animation:pulse 2s ease-in-out infinite 1s}
+.geo-center{position:absolute;inset:140px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,0.08) 0%,transparent 70%);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:2.5rem;font-weight:800;background-clip:padding-box}
+.geo-center span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1) translateX(210px)}50%{opacity:.5;transform:scale(0.7) translateX(210px)}}
+
+.hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan)}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--grad)}
+.hero-title{font-family:var(--display);font-size:clamp(3.2rem,7vw,6rem);font-weight:800;line-height:0.95;letter-spacing:-0.05em;margin-bottom:24px}
+.hero-title .line{display:block}
+.hero-title .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1rem;color:var(--text2);max-width:420px;line-height:1.85;margin-bottom:40px;font-weight:300}
+.hero-cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;font-family:var(--mono);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;text-decoration:none;border-radius:6px;transition:all 0.4s var(--ease);border:none;cursor:pointer}
+.btn-primary{background:var(--grad);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,229,255,0.2)}
+.btn-ghost{border:1px solid var(--border);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* ═══ TICKER ═══ */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:18px 0}
+.ticker-track{display:flex;gap:48px;animation:ticker 30s linear infinite;width:max-content}
+.ticker-item{font-family:var(--mono);font-size:0.7rem;font-weight:400;text-transform:uppercase;letter-spacing:0.2em;color:var(--text3);white-space:nowrap;display:flex;align-items:center;gap:12px}
+.ticker-item::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:0.4}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ═══ SECTION ═══ */
+.section{padding:8rem 64px;position:relative}
+.section-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan);margin-bottom:20px}
+.section-tag::before{content:'';width:16px;height:1px;background:var(--cyan);opacity:0.5}
+.section-title{font-family:var(--display);font-size:clamp(2.5rem,5vw,4.2rem);font-weight:800;line-height:1;letter-spacing:-0.04em;margin-bottom:18px}
+.section-title .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-desc{font-size:1rem;color:var(--text2);max-width:480px;line-height:1.85;font-weight:300;margin-bottom:48px}
+
+/* ═══ SERVICES — Stacked cards ═══ */
+.services-section{border-top:1px solid var(--border)}
+.services-list{max-width:1100px;margin:0 auto}
+.service-row{display:grid;grid-template-columns:80px 1fr auto;gap:40px;align-items:center;padding:48px 0;border-bottom:1px solid var(--border);transition:all 0.4s var(--ease);cursor:default}
+.service-row:last-child{border-bottom:none}
+.service-row:hover{background:var(--surface);padding-left:24px;padding-right:24px;margin:0 -24px;border-radius:12px;border-bottom-color:transparent}
+.service-num{font-family:var(--mono);font-size:0.65rem;color:var(--text3);letter-spacing:0.1em}
+.service-content h3{font-family:var(--display);font-size:1.6rem;font-weight:700;margin-bottom:8px;letter-spacing:-0.02em}
+.service-content p{font-size:0.85rem;color:var(--text2);line-height:1.7;max-width:480px;font-weight:300}
+.service-arrow{font-size:1.2rem;color:var(--text3);transition:all 0.4s var(--ease)}
+.service-row:hover .service-arrow{color:var(--cyan);transform:translateX(6px)}
+.service-icon{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid var(--border);transition:all 0.4s}
+.service-row:hover .service-icon{border-color:var(--cyan);background:var(--cyan-g)}
+
+/* ═══ WORK — Masonry-ish grid ═══ */
+.work-section{border-top:1px solid var(--border)}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1280px;margin:0 auto}
+.work-card{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3;background:var(--bg2);border:1px solid var(--border);transition:all 0.5s var(--ease);cursor:default}
+.work-card:hover{transform:translateY(-6px);border-color:var(--border-h);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.work-card.large{grid-column:span 2;aspect-ratio:16/9}
+.work-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(50%) contrast(1.1) brightness(0.7);transition:all 0.5s}
+.work-card:hover img{filter:grayscale(20%) contrast(1.1) brightness(0.85);transform:scale(1.03)}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(3,3,5,0.9) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.work-overlay h3{font-family:var(--display);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.work-overlay p{font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.14em}
+.work-tag{position:absolute;top:16px;right:16px;padding:4px 12px;background:rgba(3,3,5,0.7);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:4px;font-family:var(--mono);font-size:0.55rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.12em}
+
+/* ═══ STATS — Big numbers ═══ */
+.stats-section{border-top:1px solid var(--border);padding:6rem 64px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;max-width:1280px;margin:0 auto}
+.stat{text-align:center}
+.stat-value{font-family:var(--display);font-size:3.5rem;font-weight:800;line-height:1;margin-bottom:8px}
+.stat-value .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.18em}
+
+/* ═══ PHILOSOPHY — Big text ═══ */
+.philosophy-section{border-top:1px solid var(--border);padding:10rem 64px;text-align:center;position:relative;overflow:hidden}
+.philosophy-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,229,255,0.03) 0%,transparent 70%);pointer-events:none}
+.philosophy-text{font-family:var(--display);font-size:clamp(2rem,4.5vw,3.8rem);font-weight:800;line-height:1.1;letter-spacing:-0.04em;max-width:900px;margin:0 auto}
+.philosophy-text .grad{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.philosophy-sub{font-family:var(--mono);font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.2em;margin-top:40px}
+
+/* ═══ TEAM ═══ */
+.team-section{border-top:1px solid var(--border)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.team-card{padding:36px;background:var(--surface);border:1px solid var(--border);border-radius:12px;transition:all 0.4s var(--ease)}
+.team-card:hover{border-color:var(--border-h);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.team-avatar{width:52px;height:52px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1rem;font-weight:700;color:var(--cyan);margin-bottom:20px}
+.team-card h3{font-family:var(--display);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.team-card .role{font-family:var(--mono);font-size:0.6rem;color:var(--violet);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:14px}
+.team-card p{font-size:0.82rem;color:var(--text2);line-height:1.7;font-weight:300}
+
+/* ═══ CTA ═══ */
+.cta-section{border-top:1px solid var(--border);padding:8rem 64px;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(0,229,255,0.05) 0%,rgba(168,85,247,0.03) 40%,transparent 70%);filter:blur(60px);pointer-events:none}
+.cta-label{font-family:var(--mono);font-size:0.6rem;font-weight:400;text-transform:uppercase;letter-spacing:0.28em;color:var(--cyan);margin-bottom:24px}
+.cta-title{font-family:var(--display);font-size:clamp(3rem,6.5vw,5.5rem);font-weight:800;line-height:0.98;letter-spacing:-0.05em;margin-bottom:40px}
+.cta-title .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ═══ FOOTER ═══ */
+.footer{padding:56px 64px 28px;border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand{font-family:var(--display);font-size:1.2rem;font-weight:800;margin-bottom:14px}
+.footer-brand em{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.footer-desc{color:var(--text3);font-size:0.82rem;line-height:1.8;font-weight:300;max-width:280px}
+.footer h5{font-family:var(--mono);font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--text);margin-bottom:16px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{color:var(--text3);text-decoration:none;font-size:0.8rem;transition:color 0.3s}
+.footer-links a:hover{color:var(--text)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border);font-family:var(--mono);font-size:0.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.12em}
+.footer-bottom a{color:var(--text2);text-decoration:none;transition:color 0.3s}
+.footer-bottom a:hover{color:var(--cyan)}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-scale{opacity:0;transform:scale(0.92);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+.stagger>*:nth-child(1){transition-delay:0.04s}
+.stagger>*:nth-child(2){transition-delay:0.08s}
+.stagger>*:nth-child(3){transition-delay:0.12s}
+.stagger>*:nth-child(4){transition-delay:0.16s}
+.stagger>*:nth-child(5){transition-delay:0.2s}
+.stagger>*:nth-child(6){transition-delay:0.24s}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+  .nav{padding:18px 36px}.nav.scrolled{padding:10px 36px}
+  .hero{grid-template-columns:1fr;min-height:auto;padding-top:100px}
+  .hero-left{padding:0 36px 32px}.hero-right{height:400px}
+  .hero-visual{width:300px;height:300px}
+  .geo-ring:nth-child(2){inset:25px}.geo-ring:nth-child(3){inset:50px}.geo-ring:nth-child(4){inset:75px}
+  .geo-center{inset:90px;font-size:1.8rem}
+  .section{padding:5rem 36px}.stats-section{padding:4rem 36px}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:36px}
+  .work-grid{grid-template-columns:1fr 1fr}.work-card.large{grid-column:span 2}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .philosophy-section{padding:6rem 36px}
+  .cta-section{padding:5rem 36px}
+  .footer{padding:40px 36px 20px}.footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav{padding:14px 20px}.nav-links{display:none}
+  .nav-cta{padding:8px 16px;font-size:0.55rem}
+  .hero-left{padding:0 20px 24px}.hero-right{height:320px}
+  .hero-visual{width:240px;height:240px}
+  .geo-ring:nth-child(2){inset:20px}.geo-ring:nth-child(3){inset:40px}.geo-ring:nth-child(4){inset:60px}
+  .geo-center{inset:70px;font-size:1.4rem}
+  .section{padding:4rem 20px}.stats-section{padding:3rem 20px}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .stat-value{font-size:2.4rem}
+  .work-grid{grid-template-columns:1fr}.work-card.large{grid-column:span 1;aspect-ratio:4/3}
+  .service-row{grid-template-columns:50px 1fr;gap:20px;padding:32px 0}
+  .service-arrow{display:none}
+  .team-grid{grid-template-columns:1fr}
+  .philosophy-section{padding:4rem 20px}
+  .philosophy-text{font-size:clamp(1.4rem,3vw,2.2rem)}
+  .cta-section{padding:4rem 20px}
+  .footer{padding:32px 20px 16px}.footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;gap:6px;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
+}
+
+/* ═══════════════════════════════════════════
+   ZOO DIAGNOSTIC CHATBOT WIDGET
+   Dark mode, cyan/violet accents, mobile-first
+   ═══════════════════════════════════════════ */
+
+/* Chatbot Trigger Button */
+.zoo-chat-trigger {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0, 229, 255, 0.3), 0 0 60px rgba(168, 85, 247, 0.15);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: triggerPulse 3s ease-in-out infinite;
+}
+.zoo-chat-trigger:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 229, 255, 0.4), 0 0 80px rgba(168, 85, 247, 0.2);
+}
+.zoo-chat-trigger svg {
+  width: 26px;
+  height: 26px;
+  fill: #030305;
+  transition: transform 0.3s;
+}
+.zoo-chat-trigger:hover svg {
+  transform: scale(1.1);
+}
+.zoo-chat-trigger.has-notification::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
+  background: #f472b6;
+  border-radius: 50%;
+  border: 2px solid #030305;
+  animation: notifPulse 1.5s ease-in-out infinite;
+}
+@keyframes triggerPulse {
+  0%, 100% { box-shadow: 0 4px 24px rgba(0, 229, 255, 0.3), 0 0 60px rgba(168, 85, 247, 0.15); }
+  50% { box-shadow: 0 4px 32px rgba(0, 229, 255, 0.45), 0 0 80px rgba(168, 85, 247, 0.25); }
+}
+@keyframes notifPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+/* Chat Window */
+.zoo-chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  z-index: 9999;
+  width: 400px;
+  max-width: calc(100vw - 40px);
+  height: 580px;
+  max-height: calc(100vh - 140px);
+  background: rgba(8, 8, 12, 0.96);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 120px rgba(0, 229, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.zoo-chat-window.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* Chat Header */
+.zoo-chat-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.zoo-chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.zoo-chat-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.zoo-chat-header-text h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e8e8f0;
+  margin-bottom: 2px;
+}
+.zoo-chat-header-text p {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: #00e5ff;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.zoo-chat-header-text p::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00e5ff;
+  animation: onlinePulse 2s ease-in-out infinite;
+}
+@keyframes onlinePulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(0, 229, 255, 0.4); }
+  50% { opacity: 0.5; box-shadow: 0 0 4px rgba(0, 229, 255, 0.2); }
+}
+.zoo-chat-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  color: #5a5a70;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+.zoo-chat-close:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #e8e8f0;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Progress Bar */
+.zoo-chat-progress {
+  padding: 12px 24px 0;
+  flex-shrink: 0;
+}
+.zoo-chat-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.zoo-chat-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00e5ff, #a855f7);
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.zoo-chat-progress-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: #5a5a70;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 6px;
+  text-align: right;
+}
+
+/* Chat Messages */
+.zoo-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-behavior: smooth;
+}
+.zoo-chat-messages::-webkit-scrollbar {
+  width: 3px;
+}
+.zoo-chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.zoo-chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+
+/* Message Bubbles */
+.zoo-msg {
+  max-width: 85%;
+  animation: msgIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+@keyframes msgIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+.zoo-msg-bot {
+  align-self: flex-start;
+}
+.zoo-msg-user {
+  align-self: flex-end;
+}
+.zoo-msg-bubble {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+.zoo-msg-bot .zoo-msg-bubble {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #e8e8f0;
+  border-bottom-left-radius: 4px;
+}
+.zoo-msg-user .zoo-msg-bubble {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(168, 85, 247, 0.12));
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  color: #e8e8f0;
+  border-bottom-right-radius: 4px;
+}
+
+/* Typing Indicator */
+.zoo-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  border-bottom-left-radius: 4px;
+  width: fit-content;
+}
+.zoo-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00e5ff;
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+.zoo-typing-dot:nth-child(2) { animation-delay: 0.2s; background: #a855f7; }
+.zoo-typing-dot:nth-child(3) { animation-delay: 0.4s; background: #f472b6; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Options / Quick Replies */
+.zoo-chat-options {
+  padding: 4px 24px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.zoo-option-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  color: #9090a8;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.zoo-option-btn:hover {
+  border-color: rgba(0, 229, 255, 0.3);
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.06);
+  transform: translateY(-1px);
+}
+.zoo-option-btn:active {
+  transform: translateY(0);
+}
+
+/* Email Input */
+.zoo-chat-input-area {
+  padding: 0 24px 20px;
+  flex-shrink: 0;
+}
+.zoo-chat-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.zoo-chat-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #e8e8f0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  transition: all 0.3s;
+}
+.zoo-chat-input::placeholder {
+  color: #5a5a70;
+}
+.zoo-chat-input:focus {
+  border-color: rgba(0, 229, 255, 0.3);
+  background: rgba(0, 229, 255, 0.03);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.05);
+}
+.zoo-chat-send {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.zoo-chat-send:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+}
+.zoo-chat-send svg {
+  width: 18px;
+  height: 18px;
+  fill: #030305;
+}
+
+/* Result Card */
+.zoo-result-card {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.06), rgba(168, 85, 247, 0.06));
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 4px 0;
+}
+.zoo-result-card h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e8e8f0;
+  margin-bottom: 12px;
+}
+.zoo-result-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.zoo-result-stat:last-child {
+  border-bottom: none;
+}
+.zoo-result-stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: #5a5a70;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.zoo-result-stat-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.zoo-result-cta {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00e5ff, #a855f7);
+  color: #030305;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+.zoo-result-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 229, 255, 0.25);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .zoo-chat-trigger {
+    bottom: 20px;
+    right: 20px;
+    width: 54px;
+    height: 54px;
+  }
+  .zoo-chat-window {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .zoo-chat-messages {
+    padding: 16px 16px;
+  }
+  .zoo-chat-options {
+    padding: 4px 16px 16px;
+  }
+  .zoo-chat-input-area {
+    padding: 0 16px 16px;
+  }
+  .zoo-chat-header {
+    padding: 16px 16px 12px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .zoo-chat-trigger,
+  .zoo-chat-window,
+  .zoo-msg,
+  .zoo-typing-dot,
+  .zoo-chat-header-text p::before {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="noise"></div>
+<div class="particles">
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">ZOO<em>///</em></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Hire Us</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Autonomous Intelligence</div>
+    <h1 class="hero-title">
+      <span class="line">We engineer</span>
+      <span class="line"><span class="grad-text">minds</span> that run</span>
+      <span class="line">the world.</span>
+    </h1>
+    <p class="hero-desc">ZOO builds AI agents, trading systems, and autonomous software. Not websites. Not apps. Intelligence infrastructure that operates at machine speed — 24/7, no breaks, no limits.</p>
+    <div class="hero-cta-row">
+      <a href="#services" class="btn btn-primary">Explore Services</a>
+      <a href="#work" class="btn btn-ghost">View Work →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-bg"></div>
+    <div class="hero-visual">
+      <div class="geo-ring"></div>
+      <div class="geo-ring"></div>
+      <div class="geo-ring"></div>
+      <div class="geo-ring"></div>
+      <div class="geo-dot"></div>
+      <div class="geo-dot"></div>
+      <div class="geo-dot"></div>
+      <div class="geo-center"><span>Z</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">AI Agents</span><span class="ticker-item">Trading Systems</span><span class="ticker-item">Machine Learning</span><span class="ticker-item">Cloud Infrastructure</span><span class="ticker-item">API Architecture</span><span class="ticker-item">Full-Stack Engineering</span><span class="ticker-item">Data Pipelines</span><span class="ticker-item">Automation</span>
+    <span class="ticker-item">AI Agents</span><span class="ticker-item">Trading Systems</span><span class="ticker-item">Machine Learning</span><span class="ticker-item">Cloud Infrastructure</span><span class="ticker-item">API Architecture</span><span class="ticker-item">Full-Stack Engineering</span><span class="ticker-item">Data Pipelines</span><span class="ticker-item">Automation</span>
+  </div>
+</div>
+
+<!-- SERVICES — Stacked rows -->
+<section class="section services-section" id="services">
+  <div class="section-tag">01 — Services</div>
+  <h2 class="section-title">What we <span class="grad">build.</span></h2>
+  <p class="section-desc">Every system we create is designed to operate autonomously. No hand-holding. No babysitting. Just infrastructure that works.</p>
+  <div class="services-list stagger">
+    <div class="service-row reveal">
+      <div class="service-num">01</div>
+      <div class="service-content">
+        <h3>AI Agent Systems</h3>
+        <p>Multi-agent orchestration with LLM reasoning, tool execution, and autonomous decision-making. Agents that learn, adapt, and act.</p>
+      </div>
+      <div class="service-icon">🧠</div>
+      <div class="service-arrow">→</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-num">02</div>
+      <div class="service-content">
+        <h3>Algorithmic Trading</h3>
+        <p>Signal generation, backtesting engines, and live execution pipelines. Market analysis powered by machine learning — not gut feeling.</p>
+      </div>
+      <div class="service-icon">📈</div>
+      <div class="service-arrow">→</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-num">03</div>
+      <div class="service-content">
+        <h3>Full-Stack Platforms</h3>
+        <p>React, Next.js, Python, edge deployment. Real-time data pipelines, WebSocket infrastructure, and sub-100ms API responses.</p>
+      </div>
+      <div class="service-icon">⚡</div>
+      <div class="service-arrow">→</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-num">04</div>
+      <div class="service-content">
+        <h3>Cloud & DevOps</h3>
+        <p>Kubernetes, Docker, CI/CD, auto-scaling, zero-downtime deployments. Infrastructure as code that never sleeps.</p>
+      </div>
+      <div class="service-icon">☁️</div>
+      <div class="service-arrow">→</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-num">05</div>
+      <div class="service-content">
+        <h3>API & Integration</h3>
+        <p>REST, GraphQL, webhooks, third-party integrations. The connective tissue that makes your product talk to the world.</p>
+      </div>
+      <div class="service-icon">🔗</div>
+      <div class="service-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK — Masonry grid -->
+<section class="section work-section" id="work">
+  <div class="section-tag">02 — Work</div>
+  <h2 class="section-title">Systems in <span class="grad">production.</span></h2>
+  <p class="section-desc">Real products. Real users. Real revenue. Not case studies — live systems running right now.</p>
+  <div class="work-grid stagger">
+    <div class="work-card large reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/hero.png" alt="Trading Strategy AI">
+      <div class="work-overlay">
+        <span class="work-tag">Live</span>
+        <h3>Trading Strategy AI</h3>
+        <p>LLM-Powered Trading Platform</p>
+      </div>
+    </div>
+    <div class="work-card reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/ai-section.png" alt="OMNIA">
+      <div class="work-overlay">
+        <span class="work-tag">Research</span>
+        <h3>OMNIA</h3>
+        <p>Consciousness Engineering</p>
+      </div>
+    </div>
+    <div class="work-card reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/split.png" alt="ZOO Agent OS">
+      <div class="work-overlay">
+        <span class="work-tag">Core</span>
+        <h3>ZOO Agent OS</h3>
+        <p>Agent Operating System</p>
+      </div>
+    </div>
+    <div class="work-card reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/process.png" alt="TradeSim">
+      <div class="work-overlay">
+        <span class="work-tag">Live</span>
+        <h3>TradeSim</h3>
+        <p>Trading Simulation Platform</p>
+      </div>
+    </div>
+    <div class="work-card large reveal-scale">
+      <img src="https://raw.githubusercontent.com/crazycompanyinc/zootechnologies-web/main/assets/bleed.png" alt="Nexus">
+      <div class="work-overlay">
+        <span class="work-tag">Gaming</span>
+        <h3>Nexus Gaming</h3>
+        <p>3D WebGL Experiences</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-grid stagger">
+    <div class="stat reveal"><div class="stat-value"><span class="grad">29</span>+</div><div class="stat-label">Active AI Agents</div></div>
+    <div class="stat reveal"><div class="stat-value"><span class="grad">24</span>/7</div><div class="stat-label">System Uptime</div></div>
+    <div class="stat reveal"><div class="stat-value"><span class="grad">$7.2</span>K</div><div class="stat-label">Revenue Pipeline</div></div>
+    <div class="stat reveal"><div class="stat-value"><span class="grad">22</span></div><div class="stat-label">GitHub Repos</div></div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy-section">
+  <div class="philosophy-text reveal">
+    "The future belongs to those who build <span class="grad">autonomous systems</span> — not those who operate them."
+  </div>
+  <div class="philosophy-sub reveal">— ZOO Engineering Philosophy</div>
+</section>
+
+<!-- ABOUT / TEAM -->
+<section class="section team-section" id="about">
+  <div class="section-tag">03 — Team</div>
+  <h2 class="section-title">Built by <span class="grad">engineers.</span></h2>
+  <p class="section-desc">No project managers. No account handlers. Just engineers who ship code and agents that never stop.</p>
+  <div class="team-grid stagger">
+    <div class="team-card reveal">
+      <div class="team-avatar">FA</div>
+      <h3>Francisco Alonso</h3>
+      <div class="role">Founder & CEO</div>
+      <p>First-principles engineer. Builds AI systems from mathematical foundations. Obsessed with autonomous intelligence.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">Z1</div>
+      <h3>ZOO Agent Swarm</h3>
+      <div class="role">29+ Autonomous Agents</div>
+      <p>Research, coding, testing, deploying — our agent swarm works in parallel around the clock. No coffee breaks.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">⚡</div>
+      <h3>You?</h3>
+      <div class="role">Open Positions</div>
+      <p>We're always looking for engineers who think in systems, not tickets. If you build for the future — talk to us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-label">Ready to Build?</div>
+  <h2 class="cta-title">Let's engineer<br><span class="grad">something autonomous.</span></h2>
+  <a href="mailto:hello@zootechnologies.com" class="btn btn-primary">Start a Project →</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">ZOO<em>///</em></div>
+      <p class="footer-desc">Autonomous intelligence infrastructure. AI agents, trading systems, and software that works 24/7.</p>
+    </div>
+    <div><h5>Services</h5><ul class="footer-links"><li><a href="#services">AI Agents</a></li><li><a href="#services">Trading Systems</a></li><li><a href="#services">Full-Stack</a></li><li><a href="#services">Cloud & DevOps</a></li></ul></div>
+    <div><h5>Work</h5><ul class="footer-links"><li><a href="#work">Trading Strategy AI</a></li><li><a href="#work">OMNIA</a></li><li><a href="#work">ZOO Agent OS</a></li><li><a href="#work">TradeSim</a></li></ul></div>
+    <div><h5>Connect</h5><ul class="footer-links"><li><a href="mailto:hello@zootechnologies.com">hello@zootechnologies.com</a></li><li><a href="https://github.com/crazycompanyinc" target="_blank">GitHub</a></li><li><a href="https://discord.gg/zoo" target="_blank">Discord</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 ZOO — Autonomous Intelligence</span>
+    <span>Built by humans + agents. <a href="https://github.com/crazycompanyinc">Open Source</a>.</span>
+  </div>
+</footer>
+
+
+<!-- CHATBOT WIDGET -->
+<!-- Trigger Button -->
+<button class="zoo-chat-trigger" id="zooChatTrigger" aria-label="Open diagnostic chat">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h10v2H7zm0-3h10v2H7zm0 6h7v2H7z"/></svg>
+</button>
+
+<!-- Chat Window -->
+<div class="zoo-chat-window" id="zooChatWindow">
+  <!-- Header -->
+  <div class="zoo-chat-header">
+    <div class="zoo-chat-header-left">
+      <div class="zoo-chat-avatar">Z</div>
+      <div class="zoo-chat-header-text">
+        <h3>ZOO Diagnostic</h3>
+        <p>Online now</p>
+      </div>
+    </div>
+    <button class="zoo-chat-close" id="zooChatClose" aria-label="Close chat">✕</button>
+  </div>
+
+  <!-- Progress -->
+  <div class="zoo-chat-progress">
+    <div class="zoo-chat-progress-bar">
+      <div class="zoo-chat-progress-fill" id="zooProgressFill" style="width: 0%"></div>
+    </div>
+    <div class="zoo-chat-progress-label" id="zooProgressLabel">Step 1 of 5</div>
+  </div>
+
+  <!-- Messages -->
+  <div class="zoo-chat-messages" id="zooChatMessages"></div>
+
+  <!-- Options -->
+  <div class="zoo-chat-options" id="zooChatOptions"></div>
+
+  <!-- Input (for email) -->
+  <div class="zoo-chat-input-area" id="zooChatInput" style="display:none">
+    <div class="zoo-chat-input-row">
+      <input type="email" class="zoo-chat-input" id="zooEmailInput" placeholder="tu@email.com" autocomplete="email">
+      <button class="zoo-chat-send" id="zooChatSend" aria-label="Send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  // Cursor glow
+  var cg=document.getElementById('cursorGlow'),gx=0,gy=0,tx=0,ty=0;
+  document.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;});
+  (function loop(){gx+=(tx-gx)*0.08;gy+=(ty-gy)*0.08;cg.style.left=gx+'px';cg.style.top=gy+'px';requestAnimationFrame(loop);})();
+  // Nav scroll
+  var nav=document.getElementById('nav'),nt=false;
+  window.addEventListener('scroll',function(){if(!nt){requestAnimationFrame(function(){nav.classList.toggle('scrolled',window.scrollY>80);nt=false;});nt=true;}},{passive:true});
+  // Reveal
+  var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.06,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal,.reveal-scale').forEach(function(el){ro.observe(el);});
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
+(function() {
+  'use strict';
+
+  // ═══ STATE ═══
+  var state = {
+    step: 0,
+    answers: {},
+    isOpen: false,
+    isTyping: false
+  };
+
+  // ═══ QUESTIONS FLOW ═══
+  var questions = [
+    {
+      id: 'welcome',
+      text: "Hey! I'm ZOO's automation diagnostic bot. I'll ask you 5 quick questions to calculate how much time and money your business is losing to manual tasks. Ready?",
+      options: [
+        { label: "Let's go 🚀", value: 'ready' },
+        { label: "Tell me more first", value: 'more_info' }
+      ]
+    },
+    {
+      id: 'company_type',
+      text: "What type of company do you run?",
+      options: [
+        { label: "SaaS", value: 'saas' },
+        { label: "E-commerce", value: 'ecommerce' },
+        { label: "Services", value: 'services' },
+        { label: "Other", value: 'other' }
+      ]
+    },
+    {
+      id: 'team_size',
+      text: "How many employees does your team have?",
+      options: [
+        { label: "1-10", value: '1-10' },
+        { label: "11-50", value: '11-50' },
+        { label: "50+", value: '50+' }
+      ]
+    },
+    {
+      id: 'pain_point',
+      text: "What manual task steals the most time from your team?",
+      options: [
+        { label: "Invoicing & Billing", value: 'billing' },
+        { label: "Customer Support", value: 'support' },
+        { label: "Operations & Logistics", value: 'ops' },
+        { label: "Marketing & Content", value: 'marketing' }
+      ]
+    },
+    {
+      id: 'hours_wasted',
+      text: "How many hours per week does your team spend on repetitive tasks?",
+      options: [
+        { label: "5-10 hrs", value: '5-10' },
+        { label: "11-25 hrs", value: '11-25' },
+        { label: "25-40 hrs", value: '25-40' },
+        { label: "40+ hrs", value: '40+' }
+      ]
+    },
+    {
+      id: 'email',
+      text: "Last one! Drop your email and I'll send you a personalized diagnostic with your estimated savings + a custom automation roadmap.",
+      input: true
+    }
+  ];
+
+  // ═══ DOM REFS ═══
+  var trigger = document.getElementById('zooChatTrigger');
+  var window = document.getElementById('zooChatWindow');
+  var closeBtn = document.getElementById('zooChatClose');
+  var messages = document.getElementById('zooChatMessages');
+  var options = document.getElementById('zooChatOptions');
+  var inputArea = document.getElementById('zooChatInput');
+  var emailInput = document.getElementById('zooEmailInput');
+  var sendBtn = document.getElementById('zooChatSend');
+  var progressFill = document.getElementById('zooProgressFill');
+  var progressLabel = document.getElementById('zooProgressLabel');
+
+  // ═══ HELPERS ═══
+  function updateProgress() {
+    var total = questions.length;
+    var pct = Math.round((state.step / total) * 100);
+    progressFill.style.width = pct + '%';
+    progressLabel.textContent = 'Step ' + (state.step + 1) + ' of ' + total;
+  }
+
+  function scrollToBottom() {
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addTypingIndicator() {
+    var div = document.createElement('div');
+    div.className = 'zoo-msg zoo-msg-bot';
+    div.id = 'zooTyping';
+    div.innerHTML = '<div class="zoo-typing"><div class="zoo-typing-dot"></div><div class="zoo-typing-dot"></div><div class="zoo-typing-dot"></div></div>';
+    messages.appendChild(div);
+    scrollToBottom();
+  }
+
+  function removeTypingIndicator() {
+    var el = document.getElementById('zooTyping');
+    if (el) el.remove();
+  }
+
+  function addBotMessage(text, delay) {
+    delay = delay || 600;
+    state.isTyping = true;
+    options.style.display = 'none';
+    inputArea.style.display = 'none';
+
+    addTypingIndicator();
+
+    setTimeout(function() {
+      removeTypingIndicator();
+      state.isTyping = false;
+
+      var div = document.createElement('div');
+      div.className = 'zoo-msg zoo-msg-bot';
+      div.innerHTML = '<div class="zoo-msg-bubble">' + text + '</div>';
+      messages.appendChild(div);
+      scrollToBottom();
+    }, delay);
+  }
+
+  function addUserMessage(text) {
+    var div = document.createElement('div');
+    div.className = 'zoo-msg zoo-msg-user';
+    div.innerHTML = '<div class="zoo-msg-bubble">' + text + '</div>';
+    messages.appendChild(div);
+    scrollToBottom();
+  }
+
+  function showOptions(opts) {
+    options.innerHTML = '';
+    options.style.display = 'flex';
+    inputArea.style.display = 'none';
+
+    opts.forEach(function(opt) {
+      var btn = document.createElement('button');
+      btn.className = 'zoo-option-btn';
+      btn.textContent = opt.label;
+      btn.addEventListener('click', function() {
+        handleAnswer(opt.label, opt.value);
+      });
+      options.appendChild(btn);
+    });
+  }
+
+  function showEmailInput() {
+    options.innerHTML = '';
+    options.style.display = 'none';
+    inputArea.style.display = 'block';
+    setTimeout(function() { emailInput.focus(); }, 100);
+  }
+
+  // ═══ FLOW LOGIC ═══
+  function handleAnswer(label, value) {
+    if (state.isTyping) return;
+
+    addUserMessage(label);
+    state.answers[questions[state.step].id] = value;
+    state.step++;
+
+    if (state.step < questions.length) {
+      showQuestion(state.step);
+    }
+  }
+
+  function showQuestion(index) {
+    var q = questions[index];
+    updateProgress();
+
+    if (q.id === 'welcome' && state.answers['welcome'] === 'more_info') {
+      // If they asked for more info, show it then re-ask welcome
+      addBotMessage("We help businesses automate repetitive tasks using AI agents. Our clients typically save 20-40 hours per week. This diagnostic takes 60 seconds and gives you a personalized savings estimate. No strings attached.", 800);
+      setTimeout(function() {
+        addBotMessage(q.text, 600);
+        setTimeout(function() { showOptions(q.options); }, 700);
+      }, 1200);
+      return;
+    }
+
+    addBotMessage(q.text, 700);
+
+    setTimeout(function() {
+      if (q.input) {
+        showEmailInput();
+      } else {
+        showOptions(q.options);
+      }
+    }, 800);
+  }
+
+  function calculateSavings() {
+    var hoursMap = { '5-10': 7.5, '11-25': 18, '25-40': 32.5, '40+': 50 };
+    var teamMap = { '1-10': 5, '11-50': 30, '50+': 75 };
+    var hours = hoursMap[state.answers['hours_wasted']] || 15;
+    var teamMult = teamMap[state.answers['team_size']] || 5;
+    var hourlyRate = 35; // avg blended rate
+    var weeklyCost = hours * hourlyRate * (teamMult / 5);
+    var annualCost = weeklyCost * 52;
+    var savingsPct = 0.6; // 60% automatable
+    var annualSavings = Math.round(annualCost * savingsPct);
+    var hoursSaved = Math.round(hours * savingsPct * 52);
+
+    return {
+      annualSavings: annualSavings,
+      hoursSaved: hoursSaved,
+      weeklyHours: hours,
+      teamSize: state.answers['team_size'],
+      painPoint: state.answers['pain_point']
+    };
+  }
+
+  function showResults(email) {
+    var r = calculateSavings();
+    var painLabels = {
+      'billing': 'Invoicing & Billing',
+      'support': 'Customer Support',
+      'ops': 'Operations',
+      'marketing': 'Marketing'
+    };
+
+    // Save lead
+    saveLead(email, r);
+
+    var html = '<div class="zoo-result-card">' +
+      '<h4>📊 Your Diagnostic Results</h4>' +
+      '<div class="zoo-result-stat">' +
+        '<span class="zoo-result-stat-label">Annual Loss</span>' +
+        '<span class="zoo-result-stat-value">$' + r.annualSavings.toLocaleString()+'/yr</span>' +
+      '</div>' +
+      '<div class="zoo-result-stat">' +
+        '<span class="zoo-result-stat-label">Hours Recoverable</span>' +
+        '<span class="zoo-result-stat-value">' + r.hoursSaved.toLocaleString() + ' hrs/yr</span>' +
+      '</div>' +
+      '<div class="zoo-result-stat">' +
+        '<span class="zoo-result-stat-label">Top Pain Point</span>' +
+        '<span class="zoo-result-stat-value" style="font-size:0.85rem">' + (painLabels[r.painPoint] || r.painPoint) + '</span>' +
+      '</div>' +
+      '<a href="mailto:hello@zootechnologies.com?subject=Diagnostic Results — $' + r.annualSavings + '/yr savings&body=Hi ZOO team,%0A%0AMy diagnostic showed $' + r.annualSavings + '/yr in potential savings. I\'d like to discuss automation for my ' + (state.answers['company_type'] || '') + ' business.%0A%0AThanks!" class="zoo-result-cta">📅 Book a Free Call</a>' +
+      '<p style="font-family:Space Mono,monospace;font-size:0.55rem;color:#5a5a70;text-align:center;margin-top:10px;letter-spacing:0.08em">Results sent to ' + email + '</p>' +
+    '</div>';
+
+    var div = document.createElement('div');
+    div.className = 'zoo-msg zoo-msg-bot';
+    div.innerHTML = html;
+    messages.appendChild(div);
+
+    // Follow-up message
+    addBotMessage("I've sent your full diagnostic to " + email + ". Our team typically responds within 2 hours. In the meantime, check out our AI Agent Starter Kit — it automates the exact pain points you mentioned.", 1200);
+
+    options.style.display = 'none';
+    inputArea.style.display = 'none';
+    progressFill.style.width = '100%';
+    progressLabel.textContent = 'Diagnostic complete ✓';
+    scrollToBottom();
+  }
+
+  function saveLead(email, results) {
+    var lead = {
+      email: email,
+      timestamp: new Date().toISOString(),
+      answers: state.answers,
+      savings: {
+        annual: results.annualSavings,
+        hours: results.hoursSaved
+      },
+      source: 'zoo_diagnostic_chatbot'
+    };
+
+    // Try to save via API
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead)
+    }).catch(function() {
+      // Fallback: store in localStorage
+      var leads = JSON.parse(localStorage.getItem('zoo_leads') || '[]');
+      leads.push(lead);
+      localStorage.setItem('zoo_leads', JSON.stringify(leads));
+    });
+
+    // Also try to save to a JSON file endpoint (for static hosting)
+    fetch('https://zootechnologies.com/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead),
+      mode: 'no-cors'
+    }).catch(function() {});
+  }
+
+  // ═══ EMAIL HANDLING ═══
+  function handleEmailSubmit() {
+    var email = emailInput.value.trim();
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      emailInput.style.borderColor = 'rgba(244, 114, 182, 0.5)';
+      setTimeout(function() {
+        emailInput.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+      }, 1500);
+      return;
+    }
+    addUserMessage(email);
+    state.answers['email'] = email;
+    showResults(email);
+  }
+
+  sendBtn.addEventListener('click', handleEmailSubmit);
+  emailInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleEmailSubmit();
+  });
+
+  // ═══ TOGGLE CHAT ═══
+  function openChat() {
+    state.isOpen = true;
+    window.classList.add('open');
+    trigger.style.display = 'none';
+    if (state.step === 0 && !state.answers['welcome']) {
+      showQuestion(0);
+    }
+  }
+
+  function closeChat() {
+    state.isOpen = false;
+    window.classList.remove('open');
+    trigger.style.display = 'flex';
+  }
+
+  trigger.addEventListener('click', function() {
+    if (state.isOpen) closeChat();
+    else openChat();
+  });
+  closeBtn.addEventListener('click', closeChat);
+
+  // ═══ EXIT INTENT ═══
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY < 10 && !state.isOpen && state.step === 0) {
+      trigger.classList.add('has-notification');
+    }
+  });
+
+  // ═══ INIT ═══
+  updateProgress();
+
+})();
+})();
+</script>
+</body>
+</html>

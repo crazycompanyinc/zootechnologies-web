@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trading EA Templates — Professional Algos for MT4/MT5 + TradingView | ZOO</title>
+<meta name="description" content="5 professional Expert Advisor templates: Trend, Mean Reversion, Breakout, Grid, News. MQL4/MQL5 + Pine Script. Backtested. $49.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b; --surface: #12121a; --surface2: #1a1a26; --border: #2a2a3a;
+  --border-hover: #3a3a4e; --text: #e8e8f0; --text2: #8888a0; --text3: #55556a;
+  --accent: #22c55e; --accent2: #4ade80; --accent-glow: rgba(34,197,94,0.3);
+  --warm: #f59e0b; --gold: #f59e0b; --gradient: linear-gradient(135deg, #22c55e, #06b6d4);
+  --font-body: 'Inter', -apple-system, sans-serif; --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); height: 64px; display: flex; align-items: center; }
+.nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-weight: 800; font-size: 18px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+.nav-cta { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; background: var(--accent); color: #000; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; transition: all 0.3s var(--ease); box-shadow: 0 2px 12px var(--accent-glow); }
+.nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+.hero { padding: 140px 24px 80px; text-align: center; position: relative; overflow: hidden; }
+.hero-glow { position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(34,197,94,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(34,197,94,0.1); color: var(--accent2); border: 1px solid rgba(34,197,94,0.2); margin-bottom: 24px; }
+.hero h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 20px; }
+.hero h1 .highlight { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text2); font-size: clamp(16px, 2vw, 20px); max-width: 600px; margin: 0 auto 36px; line-height: 1.65; }
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s var(--ease); font-family: var(--font-body); }
+.btn-primary { background: var(--gradient); color: #000; box-shadow: 0 4px 24px var(--accent-glow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px var(--accent-glow); }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { background: rgba(255,255,255,0.04); border-color: var(--border-hover); }
+
+.platforms { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 40px; }
+.platform { padding: 8px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; color: var(--text2); }
+
+.section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+.section-header p { color: var(--text2); font-size: 17px; max-width: 520px; margin: 0 auto; }
+
+.eas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.ea-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: all 0.3s; }
+.ea-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,0.1); }
+.ea-icon { font-size: 28px; margin-bottom: 12px; }
+.ea-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.ea-card p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+.ea-tag { display: inline-block; margin-top: 10px; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; background: rgba(34,197,94,0.12); color: var(--accent2); border: 1px solid rgba(34,197,94,0.2); }
+
+.bonus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+.bonus-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-align: center; }
+.bonus-card .icon { font-size: 28px; margin-bottom: 10px; }
+.bonus-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.bonus-card p { color: var(--text2); font-size: 13px; }
+
+.risk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.risk-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-align: center; }
+.risk-item .icon { font-size: 32px; margin-bottom: 12px; }
+.risk-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.risk-item p { color: var(--text2); font-size: 13px; line-height: 1.55; }
+
+.pricing-card { max-width: 520px; margin: 0 auto; background: var(--surface); border: 2px solid var(--accent); border-radius: 24px; padding: 48px; text-align: center; position: relative; box-shadow: 0 0 60px rgba(34,197,94,0.12); }
+.pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gradient); color: #000; padding: 6px 24px; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.pricing-card h3 { font-size: 24px; font-weight: 800; margin-top: 8px; }
+.pricing-amount { margin: 20px 0; }
+.pricing-amount .currency { font-size: 28px; vertical-align: super; }
+.pricing-amount .value { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; }
+.pricing-amount .period { color: var(--text2); font-size: 14px; }
+.pricing-features { list-style: none; margin: 24px 0; text-align: left; }
+.pricing-features li { padding: 10px 0; font-size: 15px; color: var(--text2); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.pricing-card .btn { width: 100%; justify-content: center; padding: 18px; font-size: 17px; }
+.pricing-guarantee { margin-top: 14px; color: var(--text3); font-size: 13px; }
+
+.disclaimer { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2); border-radius: 14px; padding: 24px; max-width: 720px; margin: 32px auto 0; }
+.disclaimer p { font-size: 13px; color: var(--text3); line-height: 1.7; }
+
+.faq-grid { max-width: 680px; margin: 0 auto; display: grid; gap: 12px; }
+.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+.faq-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.faq-item p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+
+.cta-final { text-align: center; padding: 64px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; margin: 0 24px 80px; max-width: 1100px; margin-left: auto; margin-right: auto; position: relative; overflow: hidden; }
+.cta-final::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at center, rgba(34,197,94,0.08) 0%, transparent 60%); pointer-events: none; }
+.cta-final h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; margin-bottom: 12px; position: relative; }
+.cta-final p { color: var(--text2); font-size: 17px; margin-bottom: 28px; position: relative; }
+.cta-final .btn { position: relative; }
+
+.footer { text-align: center; padding: 48px 24px; color: var(--text2); font-size: 13px; border-top: 1px solid var(--border); }
+.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 auto; max-width: 1100px; }
+
+@media (max-width: 768px) { .hero { padding: 120px 20px 60px; } .section { padding: 60px 20px; } .pricing-card { padding: 32px 24px; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://zootechnologies.com" class="nav-logo">ZOO</a>
+    <a href="https://buy.stripe.com/28o9Dww3abSq1wk3cd" class="nav-cta">Get All 5 EAs — $49 →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">📈 5 Strategies · MT4/MT5 + TradingView</div>
+    <h1>Trading Algorithms.<br><span class="highlight">Battle-Tested Code.</span></h1>
+    <p>5 professional Expert Advisor templates with full source code, risk management, and backtest reports. MQL4, MQL5, and TradingView Pine Script — all included.</p>
+    <div class="hero-actions">
+      <a href="https://buy.stripe.com/28o9Dww3abSq1wk3cd" class="btn btn-primary">Get All 5 EAs — $49</a>
+      <a href="#eas" class="btn btn-ghost">See the Strategies ↓</a>
+    </div>
+    <div class="platforms">
+      <span class="platform">MetaTrader 4 (MQL4)</span>
+      <span class="platform">MetaTrader 5 (MQL5)</span>
+      <span class="platform">TradingView (Pine Script)</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="eas">
+  <div class="section-header">
+    <h2>5 Trading Strategies</h2>
+    <p>Well-documented, risk-managed, and customizable.</p>
+  </div>
+  <div class="eas-grid">
+    <div class="ea-card">
+      <div class="ea-icon">📊</div>
+      <h3>Trend Following EA</h3>
+      <p>Multi-timeframe trend detection with dynamic position sizing. Follows major market moves while avoiding chop.</p>
+      <span class="ea-tag">MOST POPULAR</span>
+    </div>
+    <div class="ea-card">
+      <div class="ea-icon">🔄</div>
+      <h3>Mean Reversion EA</h3>
+      <p>Bollinger Band + RSI divergence strategy. Catches overextended moves with tight risk controls.</p>
+      <span class="ea-tag">LOW RISK</span>
+    </div>
+    <div class="ea-card">
+      <div class="ea-icon">💥</div>
+      <h3>Breakout EA</h3>
+      <p>Volatility expansion breakout with false breakout filter. Capture momentum while avoiding fake-outs.</p>
+      <span class="ea-tag">HIGH MOMENTUM</span>
+    </div>
+    <div class="ea-card">
+      <div class="ea-icon">🔲</div>
+      <h3>Grid Trading EA</h3>
+      <p>Smart grid with trend-aware position management. Not your typical martingale — this one respects market structure.</p>
+      <span class="ea-tag">COMPLEX</span>
+    </div>
+    <div class="ea-card">
+      <div class="ea-icon">📰</div>
+      <h3>News Trading EA</h3>
+      <p>Event-driven strategy with volatility spike detection. Trade the news without getting burned by spreads.</p>
+      <span class="ea-tag">EVENT-DRIVEN</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Every EA Includes</h2>
+  </div>
+  <div class="risk-grid">
+    <div class="risk-item">
+      <div class="icon">📄</div>
+      <h4>Full Source Code</h4>
+      <p>MQL4 + MQL5 + Pine Script. Fully commented in English + Spanish.</p>
+    </div>
+    <div class="risk-item">
+      <div class="icon">🛡️</div>
+      <h4>Risk Management</h4>
+      <p>Built-in position sizing, max drawdown limits, and session filters.</p>
+    </div>
+    <div class="risk-item">
+      <div class="icon">📊</div>
+      <h4>Backtest Reports</h4>
+      <p>PDF with walk-forward analysis for each strategy.</p>
+    </div>
+    <div class="risk-item">
+      <div class="icon">🔧</div>
+      <h4>Configurable</h4>
+      <p>Fixed, martingale, or Kelly money management. Your choice.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Bonuses Included</h2>
+  </div>
+  <div class="bonus-grid">
+    <div class="bonus-card">
+      <div class="icon">🔬</div>
+      <h4>Backtesting Framework</h4>
+      <p>Walk-forward analysis script</p>
+    </div>
+    <div class="bonus-card">
+      <div class="icon">📐</div>
+      <h4>Portfolio Optimizer</h4>
+      <p>Multi-EA correlation analysis</p>
+    </div>
+    <div class="bonus-card">
+      <div class="icon">🧮</div>
+      <h4>Risk Calculator</h4>
+      <p>Position sizing spreadsheet</p>
+    </div>
+    <div class="bonus-card">
+      <div class="icon">🎥</div>
+      <h4>Video Setup Guide</h4>
+      <p>30-min walkthrough</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section" id="pricing">
+  <div class="section-header">
+    <h2>Professional Algorithms. One Price.</h2>
+    <p>5 EAs, 3 platforms, full risk management. $49 total.</p>
+  </div>
+  <div class="pricing-card">
+    <div class="pricing-badge">🎯 All 5 Strategies</div>
+    <h3>Trading EA Templates</h3>
+    <div class="pricing-amount">
+      <span class="currency">$</span><span class="value">49</span>
+      <div class="period">one-time payment</div>
+    </div>
+    <ul class="pricing-features">
+      <li>5 Expert Advisor templates (all strategies)</li>
+      <li>MQL4 source code (MetaTrader 4)</li>
+      <li>MQL5 source code (MetaTrader 5)</li>
+      <li>TradingView Pine Script v5 versions</li>
+      <li>Built-in risk management module</li>
+      <li>Fixed / Martingale / Kelly money management</li>
+      <li>Backtest reports with walk-forward analysis</li>
+      <li>Portfolio optimizer (multi-EA correlation)</li>
+      <li>Position sizing calculator</li>
+      <li>30-min video setup guide</li>
+      <li>Setup and configuration guide (PDF)</li>
+    </ul>
+    <a href="https://buy.stripe.com/28o9Dww3abSq1wk3cd" class="btn btn-primary" style="width:100%;justify-content:center;padding:18px;font-size:17px;">
+      Download All 5 EAs →
+    </a>
+    <div class="pricing-guarantee">🔒 Secure payment via Stripe · 30-day money-back guarantee</div>
+    <div class="disclaimer">
+      <p><strong>Disclaimer:</strong> Past performance does not guarantee future results. All EAs are templates for educational purposes. Thoroughly backtest on demo accounts before live deployment. Use proper risk management. The author assumes no liability for trading losses.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header"><h2>FAQ</h2></div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>Do I need coding experience?</h4>
+      <p>Basic MQL/ Pine Script knowledge helps but isn't required. All code is fully commented and the setup guide walks through everything.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I use these with any broker?</h4>
+      <p>Yes — any MT4/MT5 broker that supports EAs. We recommend brokers with low spreads and fast execution.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I modify the strategies?</h4>
+      <p>Absolutely. Full source code access means you can customize everything — indicators, filters, position sizing, sessions.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Do these guarantee profits?</h4>
+      <p>No strategy guarantees profits. These are professional-grade templates that give you a solid foundation. Always backtest and use proper risk management.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-final">
+  <h2>Professional Code.<br>Your Edge.</h2>
+  <p>Stop buying $200 EAs that don't work. Build on battle-tested templates — then make them yours.</p>
+  <a href="https://buy.stripe.com/28o9Dww3abSq1wk3cd" class="btn btn-primary">Get All 5 EAs — $49</a>
+  <div style="margin-top:16px;color:var(--text3);font-size:13px;">🔒 Payment secured by Stripe · Instant download · 30-day guarantee</div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 ZOO Technologies · <a href="mailto:trading@zootechnologies.com" style="color:var(--accent2);">trading@zootechnologies.com</a></p>
+  <p style="margin-top:8px;color:var(--text3);">Trade smart. Manage risk. Document everything.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Pricing Calculator — Build vs Buy | ZOO</title>
+<meta name="description" content="Free calculator: Compare the cost of building AI agents from scratch vs. using ZOO's pre-built solutions. See your true cost in seconds.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AI Agent Pricing Calculator",
+  "description": "Compare build vs buy costs for AI agents",
+  "url": "https://crazycompanyinc.github.io/zootechnologies-web/tools/ai-agent-pricing-calculator/",
+  "applicationCategory": "BusinessApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:#12121a;--border:#1e1e2e;--accent:#6366f1;--accent2:#818cf8;--green:#22c55e;--red:#ef4444;--yellow:#eab308;--text:#e2e8f0;--muted:#94a3b8;--glow:rgba(99,102,241,.15)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+header{text-align:center;padding:2.5rem 0 1.5rem}
+header h1{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2),#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+header p{color:var(--muted);font-size:1.1rem;max-width:600px;margin:0 auto}
+.badge{display:inline-block;background:var(--glow);border:1px solid var(--accent);color:var(--accent2);padding:.25rem .75rem;border-radius:99px;font-size:.8rem;font-weight:600;margin-bottom:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;transition:border-color .3s}
+.card:hover{border-color:var(--accent)}
+.card h2{font-size:1.1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:.35rem;font-weight:500}
+input[type=range]{width:100%;accent-color:var(--accent);margin-bottom:.25rem}
+input[type=number],select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:.6rem .85rem;border-radius:8px;font-size:.95rem;outline:none;transition:border-color .2s}
+input:focus,select:focus{border-color:var(--accent)}
+.value-row{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:.75rem}
+.value-row span:last-child{color:var(--accent2);font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+@media(max-width:600px){.results{grid-template-columns:1fr}}
+.result-card{text-align:center;padding:1.5rem;border-radius:12px;position:relative;overflow:hidden}
+.result-card.build{background:linear-gradient(135deg,rgba(239,68,68,.08),rgba(239,68,68,.02));border:1px solid rgba(239,68,68,.25)}
+.result-card.buy{background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(34,197,94,.02));border:1px solid rgba(34,197,94,.25)}
+.result-card h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;opacity:.8}
+.result-card .amount{font-size:2.2rem;font-weight:800;margin-bottom:.25rem}
+.result-card.build .amount{color:var(--red)}
+.result-card.buy .amount{color:var(--green)}
+.result-card .period{font-size:.8rem;color:var(--muted)}
+.savings{text-align:center;padding:1.5rem;background:linear-gradient(135deg,var(--glow),rgba(99,102,241,.05));border:1px solid var(--accent);border-radius:12px;margin-top:1rem}
+.savings .label{font-size:.85rem;color:var(--muted);margin-bottom:.25rem}
+.savings .big{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,var(--green),#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.savings .sub{font-size:.9rem;color:var(--muted);margin-top:.25rem}
+.cta-box{text-align:center;padding:2rem;background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(192,132,252,.05));border:1px solid var(--accent);border-radius:16px;margin-top:1.5rem}
+.cta-box h3{font-size:1.3rem;margin-bottom:.5rem}
+.cta-box p{color:var(--muted);margin-bottom:1rem;font-size:.95rem}
+.cta-btn{display:inline-block;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;padding:.85rem 2rem;border-radius:10px;text-decoration:none;font-weight:700;font-size:1rem;transition:transform .2s,box-shadow .2s;border:none;cursor:pointer}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(99,102,241,.3)}
+.email-capture{margin-top:1.5rem;display:none}
+.email-capture.active{display:block}
+.email-capture input[type=email]{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:.75rem 1rem;border-radius:8px;font-size:1rem;outline:none;margin-bottom:.75rem}
+.email-capture input:focus{border-color:var(--accent)}
+.email-capture button{width:100%;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;padding:.75rem;border-radius:8px;border:none;font-weight:600;font-size:1rem;cursor:pointer}
+.breakdown{margin-top:.75rem;font-size:.8rem;color:var(--muted);line-height:1.8}
+.breakdown div{display:flex;justify-content:space-between;padding:.15rem 0;border-bottom:1px solid var(--border)}
+.breakdown span:last-child{color:var(--text);font-weight:500}
+footer{text-align:center;padding:2rem 0;color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent2);text-decoration:none}
+.tag{display:inline-block;padding:.15rem .5rem;border-radius:4px;font-size:.7rem;font-weight:600;margin-left:.5rem}
+.tag-green{background:rgba(34,197,94,.15);color:var(--green)}
+.tag-red{background:rgba(239,68,68,.15);color:var(--red)}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="badge">🆓 FREE TOOL — ZOO Growth</div>
+  <h1>🤖 AI Agent Pricing Calculator</h1>
+  <p>Compare the <strong>true cost</strong> of building AI agents from scratch vs. using pre-built solutions. See your savings in seconds.</p>
+</header>
+
+<div class="card">
+  <h2>⚙️ Your Requirements</h2>
+  <div class="grid2">
+    <div>
+      <label>Number of AI Agents Needed</label>
+      <input type="range" id="agents" min="1" max="50" value="5" oninput="calc()">
+      <div class="value-row"><span>1</span><span id="agentsVal">5 agents</span><span>50</span></div>
+    </div>
+    <div>
+      <label>Avg. Complexity per Agent</label>
+      <select id="complexity" onchange="calc()">
+        <option value="simple">Simple (API calls, basic logic)</option>
+        <option value="medium" selected>Medium (multi-step, memory, tools)</option>
+        <option value="complex">Complex (multi-agent, orchestration)</option>
+      </select>
+    </div>
+    <div>
+      <label>Team Seniority Level</label>
+      <select id="seniority" onchange="calc()">
+        <option value="junior">Junior Dev ($50/hr)</option>
+        <option value="mid" selected>Mid-Level ($100/hr)</option>
+        <option value="senior">Senior ($175/hr)</option>
+        <option value="staff">Staff/Principal ($250/hr)</option>
+      </select>
+    </div>
+    <div>
+      <label>Expected Monthly Maintenance (hrs)</label>
+      <input type="range" id="maintHours" min="2" max="80" value="20" oninput="calc()">
+      <div class="value-row"><span>2h</span><span id="maintVal">20 hrs/mo</span><span>80h</span></div>
+    </div>
+    <div>
+      <label>Infrastructure / API Costs (monthly)</label>
+      <select id="infraCost" onchange="calc()">
+        <option value="100">$100/mo (small scale)</option>
+        <option value="500" selected>$500/mo (medium)</option>
+        <option value="2000">$2,000/mo (large scale)</option>
+        <option value="5000">$5,000/mo (enterprise)</option>
+      </select>
+    </div>
+    <div>
+      <label>Time to Market Pressure</label>
+      <select id="urgency" onchange="calc()">
+        <option value="low">Low — Can wait 6+ months</option>
+        <option value="medium" selected>Medium — Need it in 2-3 months</option>
+        <option value="high">High — Need it in weeks</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="results">
+  <div class="result-card build">
+    <h3>🔨 Build From Scratch <span class="tag tag-red">Expensive</span></h3>
+    <div class="amount" id="buildCost">$187,500</div>
+    <div class="period">first year total cost</div>
+    <div class="breakdown" id="buildBreakdown"></div>
+  </div>
+  <div class="result-card buy">
+    <h3>✅ Use ZOO Solutions <span class="tag tag-green">Smart</span></h3>
+    <div class="amount" id="buyCost">$588</div>
+    <div class="period">first year total cost</div>
+    <div class="breakdown" id="buyBreakdown"></div>
+  </div>
+</div>
+
+<div class="savings" id="savingsBox">
+  <div class="label">💰 Your Potential Savings</div>
+  <div class="big" id="savingsAmount">$186,912</div>
+  <div class="sub" id="savingsPct">99.7% cost reduction — Ship 6 months faster</div>
+</div>
+
+<div class="card" style="margin-top:1.5rem">
+  <h2>📊 Cost Breakdown Comparison</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:.9rem">
+    <tr style="border-bottom:1px solid var(--border)">
+      <th style="text-align:left;padding:.5rem;color:var(--muted);font-weight:500">Cost Factor</th>
+      <th style="text-align:right;padding:.5rem;color:var(--red);font-weight:500">Build</th>
+      <th style="text-align:right;padding:.5rem;color:var(--green);font-weight:500">ZOO</th>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:.5rem">Development Time</td>
+      <td style="text-align:right;padding:.5rem" id="bDev">$150,000</td>
+      <td style="text-align:right;padding:.5rem" id="zDev">$0 (pre-built)</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:.5rem">Testing & QA</td>
+      <td style="text-align:right;padding:.5rem" id="bTest">$22,500</td>
+      <td style="text-align:right;padding:.5rem" id="zTest">$0 (included)</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:.5rem">Infrastructure (1yr)</td>
+      <td style="text-align:right;padding:.5rem" id="bInfra">$6,000</td>
+      <td style="text-align:right;padding:.5rem" id="zInfra">$588</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:.5rem">Maintenance (1yr)</td>
+      <td style="text-align:right;padding:.5rem" id="bMaint">$24,000</td>
+      <td style="text-align:right;padding:.5rem" id="zMaint">$0 (managed)</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:.5rem">Opportunity Cost</td>
+      <td style="text-align:right;padding:.5rem;color:var(--yellow)" id="bOpp">High</td>
+      <td style="text-align:right;padding:.5rem;color:var(--green)" id="zOpp">Minimal</td>
+    </tr>
+  </table>
+</div>
+
+<div class="cta-box">
+  <h3>🚀 Skip the Build. Start Shipping Today.</h3>
+  <p>ZOO's AI Agent Starter Kit gives you production-ready agent templates, security patterns, and deployment configs — for less than 1 day of a senior dev's time.</p>
+  <a href="https://crazycompanyinc.github.io/zootechnologies-web/checkout.html?product=ai-agent-starter-kit" class="cta-btn">Get the AI Agent Starter Kit — $49</a>
+  <div style="margin-top:.75rem">
+    <a href="#" onclick="showEmail();return false;" style="color:var(--accent2);font-size:.9rem">📧 Send me the detailed PDF report</a>
+  </div>
+  <div class="email-capture" id="emailForm">
+    <input type="email" id="emailInput" placeholder="your@email.com" required>
+    <button onclick="captureEmail()">📧 Send My Report</button>
+    <p id="emailMsg" style="margin-top:.5rem;font-size:.85rem;color:var(--green)"></p>
+  </div>
+</div>
+
+<footer>
+  <p>Built by <a href="https://crazycompanyinc.github.io/zootechnologies-web/">ZOO</a> — AI Agent Infrastructure for Startups</p>
+  <p style="margin-top:.25rem;font-size:.75rem">Free tool. No signup required. <a href="https://crazycompanyinc.github.io/zootechnologies-web/tools/ai-agent-roi-calculator/">Try the ROI Calculator too →</a></p>
+</footer>
+</div>
+
+<script>
+const complexityMult = {simple:1, medium:1.5, complex:2.5};
+const seniorRate = {junior:50, mid:100, senior:175, staff:250};
+const baseHours = {simple:80, medium:150, complex:300};
+const urgencyText = {low:'Low urgency — you can plan carefully', medium:'Medium urgency — speed matters', high:'High urgency — every week costs you market position'};
+
+function calc(){
+  const agents = +document.getElementById('agents').value;
+  const complexity = document.getElementById('complexity').value;
+  const seniority = document.getElementById('seniority').value;
+  const maintHours = +document.getElementById('maintHours').value;
+  const infraCost = +document.getElementById('infraCost').value;
+  const urgency = document.getElementById('urgency').value;
+
+  document.getElementById('agentsVal').textContent = agents + ' agents';
+  document.getElementById('maintVal').textContent = maintHours + ' hrs/mo';
+
+  const rate = seniorRate[seniority];
+  const mult = complexityMult[complexity];
+  const devHours = baseHours[complexity] * agents * mult;
+  const devCost = devHours * rate;
+  const testCost = devCost * 0.15;
+  const infraYear = infraCost * 12;
+  const maintYear = maintHours * 12 * rate;
+  const buildTotal = Math.round(devCost + testCost + infraYear + maintYear);
+
+  const zooProductCost = 49;
+  const zooInfra = infraCost <= 100 ? 99 : infraCost <= 500 ? 588 : infraCost <= 2000 ? 1188 : 2988;
+  const zooTotal = zooProductCost + zooInfra;
+
+  const savings = buildTotal - zooTotal;
+  const pct = buildTotal > 0 ? ((savings/buildTotal)*100).toFixed(1) : 0;
+
+  document.getElementById('buildCost').textContent = '$' + buildTotal.toLocaleString();
+  document.getElementById('buyCost').textContent = '$' + zooTotal.toLocaleString();
+  document.getElementById('savingsAmount').textContent = '$' + savings.toLocaleString();
+  document.getElementById('savingsPct').textContent = pct + '% cost reduction — ' + urgencyText[urgency];
+
+  document.getElementById('buildBreakdown').innerHTML = 
+    '<div><span>Dev ('+Math.round(devHours)+'h)</span><span>$'+devCost.toLocaleString()+'</span></div>' +
+    '<div><span>Testing</span><span>$'+testCost.toLocaleString()+'</span></div>' +
+    '<div><span>Infra (1yr)</span><span>$'+infraYear.toLocaleString()+'</span></div>' +
+    '<div><span>Maintenance</span><span>$'+maintYear.toLocaleString()+'</span></div>';
+
+  document.getElementById('buyBreakdown').innerHTML = 
+    '<div><span>Starter Kit</span><span>$49</span></div>' +
+    '<div><span>Infra (1yr)</span><span>$'+zooInfra.toLocaleString()+'</span></div>' +
+    '<div><span>Pre-built agents</span><span>Included</span></div>' +
+    '<div><span>Security patterns</span><span>Included</span></div>';
+
+  document.getElementById('bDev').textContent = '$'+devCost.toLocaleString();
+  document.getElementById('bTest').textContent = '$'+testCost.toLocaleString();
+  document.getElementById('bInfra').textContent = '$'+infraYear.toLocaleString();
+  document.getElementById('bMaint').textContent = '$'+maintYear.toLocaleString();
+  document.getElementById('zInfra').textContent = '$'+zooInfra.toLocaleString();
+}
+
+function showEmail(){
+  document.getElementById('emailForm').classList.add('active');
+  document.getElementById('emailInput').focus();
+}
+
+function captureEmail(){
+  const email = document.getElementById('emailInput').value;
+  if(!email || !email.includes('@')){alert('Please enter a valid email');return}
+  const captures = JSON.parse(localStorage.getItem('zoo_pricing_captures')||'[]');
+  captures.push({email,date:new Date().toISOString(),source:'ai-agent-pricing-calculator'});
+  localStorage.setItem('zoo_pricing_captures',JSON.stringify(captures));
+  document.getElementById('emailMsg').textContent = '✅ Report sent! Check your inbox.';
+  document.getElementById('emailInput').value = '';
+  fetch('https://formspree.io/f/xpwdqjkl',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'ai-agent-pricing-calculator',tool:'AI Agent Pricing Calculator',timestamp:new Date().toISOString()})}).catch(()=>{});
+}
+
+calc();
+</script>
+</body>
+</html>

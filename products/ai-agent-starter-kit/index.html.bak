@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Starter Kit — Build Production AI Agents in Minutes | ZOO</title>
+<meta name="description" content="Production-ready AI Agent boilerplate with memory, tool calling, multi-agent orchestration, and governance. Python + TypeScript. $49.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b;
+  --surface: #12121a;
+  --surface2: #1a1a26;
+  --border: #2a2a3a;
+  --border-hover: #3a3a4e;
+  --text: #e8e8f0;
+  --text2: #8888a0;
+  --text3: #55556a;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --accent-glow: rgba(99,102,241,0.3);
+  --warm: #ff6b35;
+  --warm-glow: rgba(255,107,53,0.3);
+  --green: #22c55e;
+  --cyan: #06b6d4;
+  --gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  height: 64px;
+  display: flex; align-items: center;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-weight: 800; font-size: 18px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 20px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s var(--ease);
+  box-shadow: 0 2px 12px var(--accent-glow);
+}
+.nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  padding: 140px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 500px;
+  background: radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  background: rgba(99,102,241,0.1); color: var(--accent2);
+  border: 1px solid rgba(99,102,241,0.2);
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+.hero h1 .highlight {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero p {
+  color: var(--text2);
+  font-size: clamp(16px, 2vw, 20px);
+  max-width: 580px;
+  margin: 0 auto 36px;
+  line-height: 1.65;
+}
+.hero-actions {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+}
+.code-showcase {
+  max-width: 600px;
+  margin: 48px auto 0;
+  text-align: left;
+}
+.code-showcase pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+.code-showcase .keyword { color: var(--accent2); }
+.code-showcase .string { color: var(--green); }
+.code-showcase .func { color: var(--cyan); }
+.code-showcase .comment { color: var(--text3); }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 32px; border-radius: 12px;
+  font-weight: 700; font-size: 16px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease);
+  font-family: var(--font-body);
+}
+.btn-primary {
+  background: var(--gradient);
+  color: #fff;
+  box-shadow: 0 4px 24px var(--accent-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px var(--accent-glow);
+}
+.btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.04); border-color: var(--border-hover); }
+
+/* SECTIONS */
+.section {
+  padding: 80px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-header h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.section-header p {
+  color: var(--text2);
+  font-size: 17px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* MODULES GRID */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+.module-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.module-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(99,102,241,0.12);
+}
+.module-number {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent2);
+  background: rgba(99,102,241,0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.module-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.module-card p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+.module-card .stack {
+  margin-top: 12px;
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.module-card .stack span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  color: var(--text3);
+  border: 1px solid var(--border);
+}
+
+/* TECH STACK */
+.stack-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.stack-item {
+  padding: 10px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text2);
+}
+
+/* PRICING */
+.pricing-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  border-radius: 24px;
+  padding: 48px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 60px rgba(99,102,241,0.15);
+}
+.pricing-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--gradient);
+  color: #fff;
+  padding: 6px 24px;
+  border-radius: 999px;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.pricing-card h3 { font-size: 24px; font-weight: 800; margin-top: 8px; }
+.pricing-amount { margin: 20px 0; }
+.pricing-amount .currency { font-size: 28px; vertical-align: super; }
+.pricing-amount .value { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; }
+.pricing-amount .period { color: var(--text2); font-size: 14px; }
+.pricing-features { list-style: none; margin: 24px 0; text-align: left; }
+.pricing-features li {
+  padding: 10px 0;
+  font-size: 15px;
+  color: var(--text2);
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.pricing-features li::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.pricing-card .btn { width: 100%; justify-content: center; padding: 18px; font-size: 17px; }
+.pricing-guarantee {
+  margin-top: 14px;
+  color: var(--text3);
+  font-size: 13px;
+}
+
+/* WHATYOUBUILD */
+.build-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+.build-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+.build-card .icon { font-size: 32px; margin-bottom: 10px; }
+.build-card h4 { font-size: 15px; font-weight: 600; }
+.build-card p { color: var(--text2); font-size: 13px; margin-top: 4px; }
+.build-card .soon {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px; font-weight: 600;
+  background: rgba(99,102,241,0.1);
+  color: var(--accent2);
+  border: 1px solid rgba(99,102,241,0.2);
+}
+
+/* FAQ */
+.faq-grid {
+  max-width: 680px;
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+}
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+.faq-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.faq-item p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+
+/* CTA */
+.cta-final {
+  text-align: center;
+  padding: 64px 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  margin: 0 24px 80px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+}
+.cta-final::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at center, rgba(99,102,241,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-final h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  margin-bottom: 12px;
+  position: relative;
+}
+.cta-final p {
+  color: var(--text2);
+  font-size: 17px;
+  margin-bottom: 28px;
+  position: relative;
+}
+.cta-final .btn { position: relative; }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text2);
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 120px 20px 60px; }
+  .section { padding: 60px 20px; }
+  .pricing-card { padding: 32px 24px; }
+  .modules-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://zootechnologies.com" class="nav-logo">ZOO</a>
+    <a href="https://buy.stripe.com/fZeaHA4js0jMb8QcMM" class="nav-cta">Get the Kit — $49 →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🤖 Production-Ready · Python + TypeScript</div>
+    <h1>Build AI Agents That<br><span class="highlight">Actually Work.</span></h1>
+    <p>Stop reading tutorials. Start shipping. A complete AI Agent starter kit with memory, tool calling, multi-agent orchestration, and monitoring. Production-ready in 30 minutes.</p>
+    <div class="hero-actions">
+      <a href="https://buy.stripe.com/fZeaHA4js0jMb8QcMM" class="btn btn-primary">Get the Kit — $49</a>
+      <a href="#modules" class="btn btn-ghost">See What's Inside ↓</a>
+    </div>
+    <div class="code-showcase">
+      <pre><span class="comment"># Your first agent in 5 lines</span>
+<span class="keyword">from</span> zoo_agents <span class="keyword">import</span> Agent, Memory, Tools
+
+agent = Agent(
+    memory=Memory.longterm(<span class="string">"postgres"</span>),
+    tools=[Tools.web_search, Tools.code_interpreter]
+)
+
+response = agent.run(<span class="string">"Research competitors and write a battle card"</span>)</pre>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>The AI Agent Gap</h2>
+    <p>Tutorials teach you chains. Products need agents. Here's what's missing.</p>
+  </div>
+  <div class="modules-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+    <div class="module-card">
+      <p color: var(--text2); font-size: 14px;">🔗 LangChain tutorials stop at "Hello World" — real agents need memory, error handling, and monitoring</p>
+    </div>
+    <div class="module-card">
+      <p style="color: var(--text2); font-size: 14px;">🧠 Memory is everyone's problem — nobody shows you how to do it right at scale</p>
+    </div>
+    <div class="module-card">
+      <p style="color: var(--text2); font-size: 14px;">🏗️ From notebook to production is a 3-month journey most never finish</p>
+    </div>
+    <div class="module-card">
+      <p style="color: var(--text2); font-size: 14px;">👀 No visibility into what your agents are doing until something breaks</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<div class="divider"></div>
+<section class="section" id="modules">
+  <div class="section-header">
+    <h2>What's Inside</h2>
+    <p>6 core modules. 4 bonuses. Everything you need to ship production AI agents.</p>
+  </div>
+  <div class="modules-grid">
+    <div class="module-card">
+      <span class="module-number">01</span>
+      <h3>Agent Boilerplate</h3>
+      <p>Production-ready scaffold with structured error handling, retry logic, input validation, and observable execution traces.</p>
+      <div class="stack"><span>Python</span><span>TypeScript</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">02</span>
+      <h3>Multi-Agent Orchestrator</h3>
+      <p>Coordinate multiple agents with task decomposition, workload balancing, conflict resolution, and result aggregation.</p>
+      <div class="stack"><span>LangGraph</span><span>asyncio</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">03</span>
+      <h3>Memory Module</h3>
+      <p>Trust-scored fact store with short-term, long-term, and shared agent memory. Vector + SQL hybrid approach.</p>
+      <div class="stack"><span>PostgreSQL</span><span>SQLite</span><span>pgvector</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">04</span>
+      <h3>Tool Adapter Layer</h3>
+      <p>Universal adapter for REST APIs, GraphQL, WebSocket, and MCP tools. Auto-discovery and schema validation included.</p>
+      <div class="stack"><span>REST</span><span>GraphQL</span><span>MCP</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">05</span>
+      <h3>Governance Engine</h3>
+      <p>Policy-based access control, rate limiting, audit logging, and content filtering. SOC2-ready audit trail.</p>
+      <div class="stack"><span>RBAC</span><span>Audit Logs</span></div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">06</span>
+      <h3>Monitoring Dashboard</h3>
+      <p>Real-time agent activity viewer with token usage, latency percentiles, cost tracking, and anomaly detection.</p>
+      <div class="stack"><span>React</span><span>Prometheus</span></div>
+    </div>
+    <div class="module-card" style="border-color: rgba(99,102,241,0.3);">
+      <span class="module-number">BONUS</span>
+      <h3>Deployment + Videos + Community</h3>
+      <p>Deploy to AWS/GCP/Vercel in &lt;30 min. 45-min video walkthrough. Architecture decision records. Private Discord access.</p>
+      <div class="stack"><span>Docker</span><span>GitHub</span><span>Discord</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Tech Stack</h2>
+    <p>Works with what you already use.</p>
+  </div>
+  <div class="stack-grid">
+    <span class="stack-item">Python 3.11+</span>
+    <span class="stack-item">TypeScript</span>
+    <span class="stack-item">LangChain</span>
+    <span class="stack-item">LangGraph</span>
+    <span class="stack-item">OpenAI</span>
+    <span class="stack-item">Anthropic</span>
+    <span class="stack-item">Local LLMs</span>
+    <span class="stack-item">PostgreSQL</span>
+    <span class="stack-item">Redis</span>
+    <span class="stack-item">Docker</span>
+    <span class="stack-item">Vercel</span>
+  </div>
+</section>
+
+<!-- BUILD -->
+<div class="divider"></div>
+<section class="section" id="build">
+  <div class="section-header">
+    <h2>What You'll Build</h2>
+    <p>Real agent applications, week one.</p>
+  </div>
+  <div class="build-grid">
+    <div class="build-card">
+      <div class="icon">🔬</div>
+      <h4>Research Agent</h4>
+      <p>Autonomous web research with source verification</p>
+    </div>
+    <div class="build-card">
+      <div class="icon">🎧</div>
+      <h4>Support Bot</h4>
+      <h4></h4>
+      <p>Context-aware customer support with escalation</p>
+    </div>
+    <div class="build-card">
+      <div class="icon">💻</div>
+      <h4>Code Reviewer</h4>
+      <p>Automated PR reviews with security scanning</p>
+    </div>
+    <div class="build-card">
+      <div class="icon">📊</div>
+      <h4>Trading Signals</h4>
+      <p>Multi-source signal aggregation with risk filters</p>
+    </div>
+    <div class="build-card">
+      <div class="icon">🤖</div>
+      <h4>Multi-Agent Team</h4>
+      <p>Researcher + Writer + Reviewer collaboration</p>
+      <span class="soon">BONUS TEMPLATE</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="divider"></div>
+<section class="section" id="pricing">
+  <div class="section-header">
+    <h2>One Price. Everything Included.</h2>
+    <p>No tiers. No "pro" upsell. Get the entire kit.</p>
+  </div>
+  <div class="pricing-card">
+    <div class="pricing-badge">⚡ Lifetime Access</div>
+    <h3>AI Agent Starter Kit</h3>
+    <div class="pricing-amount">
+      <span class="currency">$</span><span class="value">49</span>
+      <div class="period">one-time payment</div>
+    </div>
+    <ul class="pricing-features">
+      <li>6 core modules (Python + TypeScript)</li>
+      <li>Multi-agent orchestrator with LangGraph</li>
+      <li>Memory module with vector + SQL hybrid</li>
+      <li>Tool adapter layer (REST, GraphQL, MCP)</li>
+      <li>Governance engine with audit logging</li>
+      <li>Real-time monitoring dashboard</li>
+      <li>Deployment guide (AWS, GCP, Vercel)</li>
+      <li>45-minute video walkthrough</li>
+      <li>Architecture decision records</li>
+      <li>Private Discord community</li>
+      <li>Future updates included</li>
+    </ul>
+    <a href="https://buy.stripe.com/fZeaHA4js0jMb8QcMM" class="btn btn-primary" style="width:100%;justify-content:center;padding:18px;font-size:17px;">
+      Get Instant Access →
+    </a>
+    <div class="pricing-guarantee">🔒 Secure payment via Stripe · 30-day money-back guarantee</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>FAQ</h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>Do I need to know Python or TypeScript?</h4>
+      <p>Basic familiarity with either language is required. The code is heavily commented and the guide walks you through everything.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Does it work with local LLMs?</h4>
+      <p>Yes — Ollama, LM Studio, and vLLM are all supported alongside OpenAI and Anthropic.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I use this commercially?</h4>
+      <p>Absolutely. You get full commercial license. Build your product, ship it, monetize it.</p>
+    </div>
+    <div class="faq-item">
+      <h4>What if I need help?</h4>
+      <p>GitHub Issues for bugs, Discord community for questions, and email support for anything else.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-final">
+  <h2>Stop Prototyping.<br>Start Shipping.</h2>
+  <p>Join builders who went from "tutorial hell" to production AI agents in a weekend.</p>
+  <a href="https://buy.stripe.com/fZeaHA4js0jMb8QcMM" class="btn btn-primary">Get the Kit — $49</a>
+  <div style="margin-top:16px;color:var(--text3);font-size:13px;">🔒 Payment secured by Stripe · Instant access · 30-day guarantee</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 ZOO Technologies · <a href="mailto:agents@zootechnologies.com" style="color:var(--accent2);">agents@zootechnologies.com</a></p>
+  <p style="margin-top:8px;color:var(--text3);">Built by developers who ship.</p>
+</footer>
+</body>
+</html>

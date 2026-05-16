@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Tools — ZOO Technologies | AI Calculators, Checklists & Generators</title>
+<meta name="description" content="Free AI-powered tools for founders and developers. AI cost calculator, startup launch checklist, ROI calculator, and more. No signup required.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0b;--surface:rgba(255,255,255,0.02);--surface2:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.06);--border-h:rgba(255,255,255,0.12);--text:#e4e4e7;--text2:#8888a0;--text3:#55556a;--accent:#06b6d4;--accent2:#22d3ee;--accent-glow:rgba(6,182,212,0.15);--accent-glow2:rgba(6,182,212,0.25);--green:#22c55e;--pink:#ec4899;--amber:#f59e0b;--violet:#a855f7;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Inter',-apple-system,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--accent);color:#000}
+.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:512px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,11,0.85);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);transition:all 0.6s var(--ease)}
+.nav.scrolled{padding:14px 48px;background:rgba(10,10,11,0.95)}
+.nav-logo{font-family:var(--font-serif);font-size:1.3rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo em{background:linear-gradient(135deg,#ff6b35,#ff8a5c,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;transition:color 0.3s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:10px 24px;background:linear-gradient(135deg,#ff6b35,#ff8a5c);color:#fff;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;text-decoration:none;border-radius:8px;transition:all 0.4s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,53,0.3)}
+.hero{position:relative;padding:180px 48px 100px;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(6,182,212,0.05) 0%,rgba(168,85,247,0.03) 35%,transparent 70%);border-radius:50%}
+.hero-content{position:relative;z-index:2}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.15);border-radius:100px;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:28px}
+.hero-title{font-family:var(--font-serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-0.04em;margin-bottom:24px}
+.hero-title .gradient{background:linear-gradient(135deg,var(--accent),var(--violet),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{color:var(--text2);font-size:1.15rem;max-width:580px;margin:0 auto;line-height:1.7}
+.tools-section{padding:0 48px 120px;max-width:1200px;margin:0 auto}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 36px;position:relative;overflow:hidden;transition:all 0.5s var(--ease);display:flex;flex-direction:column}
+.tool-card:hover{border-color:rgba(6,182,212,0.25);transform:translateY(-6px);box-shadow:0 24px 80px rgba(0,0,0,0.4),0 0 0 1px rgba(6,182,212,0.1)}
+.tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--violet));opacity:0;transition:opacity 0.3s}
+.tool-card:hover::before{opacity:1}
+.tool-icon{font-size:2.8rem;margin-bottom:20px;display:block}
+.tool-category{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:12px}
+.tool-name{font-size:1.3rem;font-weight:700;margin-bottom:12px;line-height:1.3;letter-spacing:-0.01em}
+.tool-desc{color:var(--text2);font-size:0.88rem;line-height:1.7;margin-bottom:24px;flex:1}
+.tool-features{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:24px}
+.tool-features li{font-size:0.8rem;color:var(--text2);display:flex;align-items:flex-start;gap:8px}
+.tool-features li::before{content:'→';color:var(--accent);font-weight:700;flex-shrink:0;font-size:0.75rem;margin-top:1px}
+.tool-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border-radius:10px;font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.4s var(--ease);justify-content:center}
+.tool-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow2)}
+.tool-btns{display:flex;gap:10px}
+.tool-btns .tool-btn:first-child{flex:2}
+.cta-section{padding:120px 48px;text-align:center;border-top:1px solid var(--border);position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(6,182,212,0.05) 0%,rgba(168,85,247,0.03) 35%,transparent 70%);border-radius:50%}
+.cta-content{position:relative;z-index:2}
+.cta-title{font-family:var(--font-serif);font-size:clamp(2rem,4vw,3rem);font-weight:900;margin-bottom:16px;letter-spacing:-0.03em}
+.cta-subtitle{color:var(--text2);font-size:1.1rem;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto}
+.footer{padding:48px;border-top:1px solid var(--border);text-align:center}
+.footer p{color:var(--text3);font-size:0.78rem}
+.footer a{color:var(--accent);text-decoration:none}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.footer-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;transition:color 0.3s}
+.footer-links a:hover{color:var(--text)}
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){.nav{padding:16px 20px}.nav-links{display:none}.hero{padding:140px 20px 70px}.tools-section{padding:0 20px 80px}.tools-grid{grid-template-columns:1fr}.cta-section{padding:70px 20px}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ZOO<em>.</em></a>
+  <ul class="nav-links"><li><a href="/">Home</a></li><li><a href="/products">Products</a></li><li><a href="/pricing.html">Pricing</a></li><li><a href="/blog.html">Blog</a></li></ul>
+  <a href="/pricing.html" class="nav-cta">View Products →</a>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Free Tools</div>
+    <h1 class="hero-title">Powerful tools.<br><span class="gradient">Zero cost.</span></h1>
+    <p class="hero-subtitle">Free AI-powered tools for founders and developers. Calculate costs, plan your launch, measure ROI. No signup required.</p>
+  </div>
+</section>
+<section class="tools-section">
+  <div class="tools-grid">
+    <div class="tool-card fade-up"><span class="tool-icon">🧠</span><div class="tool-category">AI Planning</div><div class="tool-name">AI Startup Launch Checklist</div><div class="tool-desc">47 items across 6 phases to validate, build, and launch your AI startup. Real-time readiness score. Save progress locally.</div><ul class="tool-features"><li>47 items across 6 phases</li><li>Real-time launch readiness score</li><li>Progress saved in your browser</li><li>SEO optimized with Schema.org</li></ul><div class="tool-btns"><a href="https://crazycompanyinc.github.io/zootechnologies-web/tools/startup-launch-checklist/" class="tool-btn" target="_blank">Open Tool →</a></div></div>
+    <div class="tool-card fade-up"><span class="tool-icon">💰</span><div class="tool-category">AI Cost Calculator</div><div class="tool-name">AI Agent Cost Calculator</div><div class="tool-desc">Estimate your monthly AI agent costs. Compare models, token usage, and find the optimal setup for your budget.</div><ul class="tool-features"><li>Compare GPT-4, Claude, Gemini costs</li><li>Token-based estimation</li><li>Monthly cost projection</li><li>Optimization recommendations</li></ul><div class="tool-btns"><a href="https://crazycompanyinc.github.io/zootechnologies-web/tools/ai-cost-calculator/" class="tool-btn" target="_blank">Open Tool →</a></div></div>
+    <div class="tool-card fade-up"><span class="tool-icon">📊</span><div class="tool-category">ROI Calculator</div><div class="tool-name">AI ROI Calculator</div><div class="tool-desc">Calculate the return on investment for AI automation. Compare costs vs savings across different scenarios.</div><ul class="tool-features"><li>Cost vs savings analysis</li><li>Multiple scenario comparison</li><li>Break-even timeline</li><li>Export results as PDF</li></ul><div class="tool-btns"><a href="https://crazycompanyinc.github.io/zootechnologies-web/tools/ai-roi-calculator/" class="tool-btn" target="_blank">Open Tool →</a></div></div>
+    <div class="tool-card fade-up"><span class="tool-icon">🤖</span><div class="tool-category">AI Agent Kit</div><div class="tool-name">AI Agent Starter Kit</div><div class="tool-desc">Production-ready AI Agent boilerplate. LangChain, memory, tools, multi-agent orchestration. Python + TypeScript. $49.</div><ul class="tool-features"><li>Full AI Agent boilerplate</li><li>LangChain + LangGraph</li><li>Memory management</li><li>Docker + CI/CD</li></ul><div class="tool-btns"><a href="/checkout.html?product=ai-agent-kit&price=49" class="tool-btn">Get the Kit →</a></div></div>
+    <div class="tool-card fade-up"><span class="tool-icon">🛡️</span><div class="tool-category">AI Observability</div><div class="tool-name">AI Agent Observability Kit</div><div class="tool-desc">Detect hallucinations, trace decisions, monitor memory drift, audit tool calls. 6 modules. Framework-agnostic. $39.</div><ul class="tool-features"><li>Hallucination Detector</li><li>Decision Tracer with replay</li><li>Memory Drift Monitor</li><li>Cost Tracker + alerts</li></ul><div class="tool-btns"><a href="/checkout.html?product=observability-kit&price=39" class="tool-btn">Get the Kit →</a></div></div>
+    <div class="tool-card fade-up"><span class="tool-icon">🧠</span><div class="tool-category">AI Memory</div><div class="tool-name">AI Agent Memory Toolkit</div><div class="tool-desc">Production-ready memory architecture. Vector store, hierarchical memory, multi-agent sharing. Python + ChromaDB. $39.</div><ul class="tool-features"><li>Vector Memory Store</li><li>Hierarchical Memory (3 layers)</li><li>Memory Consolidation</li><li>Multi-Agent Sharing</li></ul><div class="tool-btns"><a href="/checkout.html?product=memory-toolkit&price=39" class="tool-btn">Get the Toolkit →</a></div></div>
+  </div>
+</section>
+<section class="cta-section">
+  <div class="cta-content">
+    <h2 class="cta-title">Ready to <span style="background:linear-gradient(135deg,var(--accent),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent">build something amazing</span>?</h2>
+    <p class="cta-subtitle">Explore our premium products and ship faster with battle-tested code.</p>
+    <a href="/pricing.html" class="tool-btn" style="font-size:1rem;padding:18px 40px">View All Products →</a>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer-links"><a href="/">Home</a><a href="/products">Products</a><a href="/pricing.html">Pricing</a><a href="/blog.html">Blog</a></div>
+  <p>© 2026 <a href="/">ZOO Technologies</a> · AI-Powered Technology Studio · All payments secured by Stripe</p>
+</footer>
+<script>
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

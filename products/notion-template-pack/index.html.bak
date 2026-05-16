@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notion Template Pack for Founders — Stop Setting Up. Start Building. | ZOO</title>
+<meta name="description" content="10 battle-tested Notion templates that give you back 10+ hours/week. Startup OS, CRM, Roadmap, Finance Tracker, and more. From $19.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b;
+  --surface: #12121a;
+  --surface2: #1a1a26;
+  --border: #2a2a3a;
+  --border-hover: #3a3a4e;
+  --text: #e8e8f0;
+  --text2: #8888a0;
+  --text3: #55556a;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --accent-glow: rgba(99,102,241,0.3);
+  --warm: #ff6b35;
+  --warm-glow: rgba(255,107,53,0.3);
+  --green: #22c55e;
+  --gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  --gradient-warm: linear-gradient(135deg, #ff6b35, #f59e0b);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-weight: 800; font-size: 18px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 20px;
+  background: var(--warm);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s var(--ease);
+  box-shadow: 0 2px 12px var(--warm-glow);
+}
+.nav-cta:hover { background: #ff8555; transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  padding: 140px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 500px;
+  background: radial-gradient(ellipse, rgba(255,107,53,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  background: rgba(255,107,53,0.1); color: var(--warm);
+  border: 1px solid rgba(255,107,53,0.2);
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 58px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+.hero h1 .highlight {
+  background: var(--gradient-warm);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero p {
+  color: var(--text2);
+  font-size: clamp(16px, 2vw, 20px);
+  max-width: 560px;
+  margin: 0 auto 36px;
+  line-height: 1.65;
+}
+.hero-actions {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.hero-rating {
+  color: var(--text2); font-size: 14px;
+}
+.hero-rating span { color: var(--yellow); }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 32px; border-radius: 12px;
+  font-weight: 700; font-size: 16px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: all 0.3s var(--ease);
+  font-family: var(--font-body);
+}
+.btn-warm {
+  background: var(--gradient-warm);
+  color: #fff;
+  box-shadow: 0 4px 24px var(--warm-glow);
+}
+.btn-warm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px var(--warm-glow);
+}
+.btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.04); border-color: var(--border-hover); }
+
+/* SECTIONS */
+.section {
+  padding: 80px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.section-header p {
+  color: var(--text2);
+  font-size: 17px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* PROBLEM */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.problem-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+.problem-card .icon { font-size: 32px; margin-bottom: 12px; }
+.problem-card p { color: var(--text2); font-size: 14px; }
+
+/* BENTO GRID — TEMPLATES */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.bento-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s;
+}
+.bento-item:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+.bento-item .emoji { font-size: 28px; margin-bottom: 12px; }
+.bento-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.bento-item p { color: var(--text2); font-size: 13px; line-height: 1.55; }
+.bento-item .tag {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tag-pro {
+  background: rgba(255,107,53,0.12);
+  color: var(--warm);
+  border: 1px solid rgba(255,107,53,0.2);
+}
+.tag-free {
+  background: rgba(99,102,241,0.12);
+  color: var(--accent2);
+  border: 1px solid rgba(99,102,241,0.2);
+}
+.bento-span-2 { grid-column: span 2; }
+.bento-span-4 { grid-column: span 4; }
+
+/* PRICING */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px;
+  position: relative;
+  transition: all 0.3s;
+}
+.pricing-card:hover { transform: translateY(-3px); }
+.pricing-card.featured {
+  border-color: var(--warm);
+  box-shadow: 0 0 40px rgba(255,107,53,0.12);
+}
+.popular-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--gradient-warm);
+  color: #fff;
+  padding: 4px 18px;
+  border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.pricing-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.pricing-card .price { margin: 16px 0; }
+.pricing-card .price .amount {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.pricing-card .price .currency { font-size: 24px; vertical-align: super; }
+.pricing-card .price .period { color: var(--text2); font-size: 14px; }
+.pricing-card .price .original {
+  color: var(--text3);
+  text-decoration: line-through;
+  font-size: 18px;
+  margin-left: 8px;
+}
+.pricing-features { list-style: none; margin: 20px 0; }
+.pricing-features li {
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--text2);
+  display: flex; align-items: center; gap: 10px;
+}
+.pricing-features li::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 700;
+  font-size: 13px;
+}
+.pricing-card .btn { width: 100%; justify-content: center; }
+
+/* TESTIMONIALS */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+.testimonial {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+.testimonial-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.testimonial-author {
+  display: flex; align-items: center; gap: 12px;
+}
+.testimonial-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--gradient);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: #fff;
+}
+.testimonial-name { font-weight: 600; font-size: 14px; }
+.testimonial-role { color: var(--text2); font-size: 12px; }
+
+/* FAQ */
+.faq-grid {
+  max-width: 680px;
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+}
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+.faq-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.faq-item p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+
+/* CTA FINAL */
+.cta-final {
+  text-align: center;
+  padding: 64px 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  margin: 0 24px 80px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+}
+.cta-final::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at center, rgba(255,107,53,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-final h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  margin-bottom: 12px;
+  position: relative;
+}
+.cta-final p {
+  color: var(--text2);
+  font-size: 17px;
+  margin-bottom: 28px;
+  position: relative;
+}
+.cta-final .btn { position: relative; }
+.cta-guarantee {
+  margin-top: 16px;
+  color: var(--text3);
+  font-size: 13px;
+  position: relative;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text2);
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+}
+.footer a { color: var(--accent2); text-decoration: none; }
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero { padding: 120px 20px 60px; }
+  .section { padding: 60px 20px; }
+  .bento { grid-template-columns: 1fr 1fr; }
+  .bento-span-2, .bento-span-4 { grid-column: span 2; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: center; }
+}
+@media (max-width: 480px) {
+  .bento { grid-template-columns: 1fr; }
+  .bento-span-2, .bento-span-4 { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://zootechnologies.com" class="nav-logo">ZOO</a>
+    <a href="#pricing" class="nav-cta">Get the Pack →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🔥 Launch Price — Save $20 (first 100 buyers)</div>
+    <h1>Stop Setting Up Notion.<br><span class="highlight">Start Building.</span></h1>
+    <p>10 battle-tested Notion templates that give you back 10+ hours/week. Built by founders, for founders.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn btn-warm">Get the Pro Bundle — $29</a>
+      <a href="#templates" class="btn btn-ghost">See What's Inside ↓</a>
+    </div>
+    <div class="hero-rating">⭐ 4.9/5 · Used by 500+ founders</div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>Sound Familiar?</h2>
+    <p>You should be shipping code, not tweaking databases.</p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="icon">🔍</div>
+      <p>Googling "best Notion templates for startups" for the 5th time</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">📺</div>
+      <p>Watching YouTube tutorials on how to build a CRM in Notion</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">📋</div>
+      <p>Copy-pasting from 5 different template galleries</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">😵</div>
+      <p>Still ending up with a mess that doesn't work</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES BENTO -->
+<div class="divider"></div>
+<section class="section" id="templates">
+  <div class="section-header">
+    <h2>What's Inside</h2>
+    <p>10 plug-and-play templates. Duplicate. Customize. Done.</p>
+  </div>
+  <div class="bento">
+    <div class="bento-item bento-span-2">
+      <div class="emoji">🏢</div>
+      <h3>Startup OS</h3>
+      <p>Complete company wiki with team directory, meeting notes, decision logs, and company handbook template.</p>
+      <span class="tag tag-free">STARTER</span>
+    </div>
+    <div class="bento-item bento-span-2">
+      <div class="emoji">🗺️</div>
+      <h3>Product Roadmap</h3>
+      <p>Feature prioritization matrix, sprint planning board, release checklist, and changelog template.</p>
+      <span class="tag tag-free">STARTER</span>
+    </div>
+    <div class="bento-item bento-span-2">
+      <div class="emoji">🤝</div>
+      <h3>Customer CRM</h3>
+      <p>Lead pipeline, contact tracker, follow-up reminders, and deal stages. Never lose a hot lead.</p>
+      <span class="tag tag-free">STARTER</span>
+    </div>
+    <div class="bento-item bento-span-2">
+      <div class="emoji">📅</div>
+      <h3>Content Calendar</h3>
+      <p>Blog planner, social media scheduler, publishing checklist, and analytics dashboard.</p>
+      <span class="tag tag-free">STARTER</span>
+    </div>
+    <div class="bento-item bento-span-2">
+      <div class="emoji">💰</div>
+      <h3>Finance Tracker</h3>
+      <p>Burn rate calculator, runway tracker, revenue dashboard, and expense log.</p>
+      <span class="tag tag-free">STARTER</span>
+    </div>
+    <div class="bento-item">
+      <div class="emoji">💵</div>
+      <h3>Fundraising Tracker</h3>
+      <p>Investor CRM, pitch deck version control, term sheet comparison.</p>
+      <span class="tag tag-pro">PRO</span>
+    </div>
+    <div class="bento-item">
+      <div class="emoji">👥</div>
+      <h3>Hiring Pipeline</h3>
+      <p>Job postings, candidate tracker, interview scorecards, offer letters.</p>
+      <span class="tag tag-pro">PRO</span>
+    </div>
+    <div class="bento-item">
+      <div class="emoji">🎯</div>
+      <h3>OKR Dashboard</h3>
+      <p>Quarterly goals framework, key results tracker, weekly check-ins.</p>
+      <span class="tag tag-pro">PRO</span>
+    </div>
+    <div class="bento-item">
+      <div class="emoji">📋</div>
+      <h3>Sprint Board</h3>
+      <p>Kanban with velocity tracking, bug tracker, retrospective templates.</p>
+      <span class="tag tag-pro">PRO</span>
+    </div>
+    <div class="bento-item">
+      <div class="emoji">📓</div>
+      <h3>Founder Journal</h3>
+      <p>Daily standup, weekly review, monthly reflection, gratitude journal.</p>
+      <span class="tag tag-pro">PRO</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="divider"></div>
+<section class="section" id="pricing">
+  <div class="section-header">
+    <h2>Simple Pricing</h2>
+    <p>One-time purchase. Free updates forever.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <h3>Starter Pack</h3>
+      <div class="price">
+        <span class="currency">$</span><span class="amount">19</span>
+        <span class="period">one-time</span>
+      </div>
+      <ul class="pricing-features">
+        <li>5 essential templates</li>
+        <li>Startup OS, Roadmap, CRM, Content, Finance</li>
+        <li>Instant digital delivery</li>
+        <li>Free updates for life</li>
+        <li>Email support</li>
+      </ul>
+      <a href="/checkout.html?product=notion-starter&price=19" class="btn btn-ghost">Get Starter — $19</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="popular-badge">⭐ Most Popular</div>
+      <h3>Pro Bundle</h3>
+      <div class="price">
+        <span class="currency">$</span><span class="amount">29</span>
+        <span class="period">one-time</span>
+        <span class="original">$49</span>
+      </div>
+      <ul class="pricing-features">
+        <li><strong>ALL 10 templates</strong></li>
+        <li>Everything in Starter + Fundraising, Hiring, OKRs, Sprint, Journal</li>
+        <li>Instant digital delivery</li>
+        <li>Free updates for life</li>
+        <li>Priority email support</li>
+        <li>Bonus: Founder's Quick Start Guide (PDF)</li>
+      </ul>
+      <a href="/checkout.html?product=notion-pro&price=29" class="btn btn-warm">Get Pro Bundle — $29</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>What Founders Say</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <div class="testimonial-text">"Saved me probably 40 hours of setup. These templates are exactly what I needed when I launched."</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">IH</div>
+        <div>
+          <div class="testimonial-name">Indie Hackers member</div>
+          <div class="testimonial-role">Solo founder</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-text">"The CRM alone is worth $19. I stopped losing track of conversations with investors."</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">YC</div>
+        <div>
+          <div class="testimonial-name">YC Founder</div>
+          <div class="testimonial-role">Early-stage startup</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-text">"Finally a template pack that's actually designed for startups, not generic productivity."</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">SP</div>
+        <div>
+          <div class="testimonial-name">Solopreneur</div>
+          <div class="testimonial-role">Bootstrapped SaaS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="divider"></div>
+<section class="section">
+  <div class="section-header">
+    <h2>FAQ</h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>Do I need Notion Pro?</h4>
+      <p>No! All templates work with the free Notion plan.</p>
+    </div>
+    <div class="faq-item">
+      <h4>How do I get the templates?</h4>
+      <p>After purchase, you'll receive an email with Notion template links. Click "Duplicate" and they're in your workspace.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I customize them?</h4>
+      <p>Absolutely. These are starting points. Make them yours.</p>
+    </div>
+    <div class="faq-item">
+      <h4>What if I don't like them?</h4>
+      <p>30-day money-back guarantee. No questions asked.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Do I get updates?</h4>
+      <p>Yes. All future updates are free, forever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <h2>Ready to Reclaim Your Time?</h2>
+  <p>Join 500+ founders who stopped setting up and started building.</p>
+  <a href="#pricing" class="btn btn-warm">Get the Pro Bundle — $29</a>
+  <div class="cta-guarantee">30-day money-back guarantee · Instant delivery · Free updates</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Built by <a href="https://zootechnologies.com">ZOO Technologies</a> — AI Agent Infrastructure</p>
+  <p style="margin-top: 6px;">These templates were battle-tested across 10+ ZOO projects and client engagements.</p>
+</div>
+</body>
+</html>

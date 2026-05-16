@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — ZOO Technologies | Ship Faster with AI-Powered Tools</title>
+<meta name="description" content="Premium digital products for founders, developers, and traders. From $19 to $49. One-time payment. Lifetime updates. 30-day money-back guarantee.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0b;--surface:rgba(255,255,255,0.02);--surface2:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.06);--border-h:rgba(255,255,255,0.12);--text:#e4e4e7;--text2:#8888a0;--text3:#55556a;--accent:#ff6b35;--accent2:#ff8a5c;--accent-glow:rgba(255,107,53,0.15);--accent-glow2:rgba(255,107,53,0.25);--green:#22c55e;--amber:#f59e0b;--pink:#ec4899;--cyan:#06b6d4;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Inter',-apple-system,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg);-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:512px}
+.glow{position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,0.05) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);will-change:left,top}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,11,0.85);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);transition:all 0.6s var(--ease)}
+.nav.scrolled{padding:14px 48px;background:rgba(10,10,11,0.95)}
+.nav-logo{font-family:var(--font-serif);font-size:1.3rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo em{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;transition:color 0.3s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:10px 24px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;text-decoration:none;border-radius:8px;transition:all 0.4s var(--ease)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow2)}
+.hero{position:relative;padding:180px 48px 100px;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(255,107,53,0.06) 0%,rgba(236,72,153,0.03) 35%,transparent 70%);border-radius:50%}
+.hero-content{position:relative;z-index:2}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.15);border-radius:100px;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);margin-bottom:28px}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-title{font-family:var(--font-serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-0.04em;margin-bottom:24px}
+.hero-title .gradient{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{color:var(--text2);font-size:1.15rem;max-width:580px;margin:0 auto 48px;line-height:1.7}
+.hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:10px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:all 0.4s var(--ease);border:none;cursor:pointer;font-family:var(--font-sans)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 24px var(--accent-glow)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px var(--accent-glow2)}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.pricing-section{padding:0 48px 120px;max-width:1280px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 36px;position:relative;overflow:hidden;transition:all 0.5s var(--ease)}
+.pricing-card:hover{border-color:rgba(255,107,53,0.3);transform:translateY(-6px);box-shadow:0 24px 80px rgba(0,0,0,0.4),0 0 0 1px rgba(255,107,53,0.1)}
+.pricing-card.featured{border-color:rgba(255,107,53,0.25);background:linear-gradient(180deg,rgba(255,107,53,0.03) 0%,var(--surface) 100%)}
+.pricing-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--pink))}
+.badge{position:absolute;top:20px;right:20px;padding:4px 12px;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em}
+.badge-hot{background:linear-gradient(135deg,var(--accent),var(--pink));color:#fff}
+.badge-new{background:rgba(6,182,212,0.15);color:var(--cyan);border:1px solid rgba(6,182,212,0.25)}
+.badge-value{background:rgba(34,197,94,0.15);color:var(--green);border:1px solid rgba(34,197,94,0.25)}
+.product-icon{font-size:2.8rem;margin-bottom:20px;display:block}
+.product-category{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:12px}
+.product-name{font-size:1.35rem;font-weight:700;margin-bottom:12px;line-height:1.3;letter-spacing:-0.01em}
+.product-desc{color:var(--text2);font-size:0.88rem;line-height:1.7;margin-bottom:28px;min-height:76px}
+.price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.price-amount{font-size:2.4rem;font-weight:900;color:var(--text);letter-spacing:-0.02em}
+.price-amount .currency{font-size:1.2rem;font-weight:700}
+.price-period{color:var(--text3);font-size:0.8rem}
+.price-original{color:var(--text3);font-size:0.9rem;text-decoration:line-through;margin-left:4px}
+.price-save{padding:2px 8px;background:rgba(34,197,94,0.12);color:var(--green);border-radius:4px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
+.features-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.features-list li{font-size:0.84rem;color:var(--text2);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.features-list li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;font-size:0.75rem;margin-top:2px}
+.card-ctas{display:flex;gap:10px}
+.card-ctas .btn{flex:1;padding:14px 20px;font-size:0.82rem;justify-content:center}
+.card-ctas .btn-primary{flex:2}
+.why-section{padding:100px 48px;border-top:1px solid var(--border)}
+.why-inner{max-width:900px;margin:0 auto;text-align:center}
+.why-eyebrow{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:16px}
+.why-title{font-family:var(--font-serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;margin-bottom:20px;letter-spacing:-0.02em}
+.why-text{color:var(--text2);font-size:1.05rem;line-height:1.8;max-width:680px;margin:0 auto 48px}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;text-align:left}
+.why-item{padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:14px;transition:all 0.3s var(--ease)}
+.why-item:hover{border-color:var(--border-h);transform:translateY(-2px)}
+.why-item-icon{font-size:1.6rem;margin-bottom:12px}
+.why-item h3{font-size:0.95rem;font-weight:700;margin-bottom:8px}
+.why-item p{font-size:0.82rem;color:var(--text2);line-height:1.6}
+.guarantee-section{padding:80px 48px;text-align:center;border-top:1px solid var(--border)}
+.guarantee-inner{max-width:560px;margin:0 auto}
+.guarantee-icon{font-size:2.8rem;margin-bottom:20px}
+.guarantee-title{font-family:var(--font-serif);font-size:1.6rem;font-weight:700;margin-bottom:12px}
+.guarantee-text{color:var(--text2);font-size:0.9rem;line-height:1.7}
+.faq-section{padding:100px 48px;border-top:1px solid var(--border)}
+.faq-inner{max-width:720px;margin:0 auto}
+.faq-title{font-family:var(--font-serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;text-align:center;margin-bottom:48px;letter-spacing:-0.02em}
+.faq-item{border-bottom:1px solid var(--border);padding:24px 0}
+.faq-q{font-size:1rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color 0.3s}
+.faq-q:hover{color:var(--accent)}
+.faq-q::after{content:'+';font-size:1.2rem;font-weight:300;color:var(--text3);transition:transform 0.3s,color 0.3s;flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--accent)}
+.faq-a{color:var(--text2);font-size:0.9rem;line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.4s var(--ease),padding 0.3s;padding-right:32px}
+.faq-item.open .faq-a{max-height:300px;padding-top:16px}
+.cta-section{padding:120px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-bg{position:absolute;inset:0;z-index:0}
+.cta-bg::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(255,107,53,0.08) 0%,rgba(236,72,153,0.04) 35%,transparent 70%);border-radius:50%}
+.cta-content{position:relative;z-index:2}
+.cta-title{font-family:var(--font-serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:900;margin-bottom:16px;letter-spacing:-0.03em}
+.cta-subtitle{color:var(--text2);font-size:1.1rem;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto}
+.footer{padding:48px;border-top:1px solid var(--border);text-align:center}
+.footer p{color:var(--text3);font-size:0.78rem}
+.footer a{color:var(--accent);text-decoration:none}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.footer-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;transition:color 0.3s}
+.footer-links a:hover{color:var(--text)}
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){.nav{padding:16px 20px}.nav-links{display:none}.hero{padding:140px 20px 70px}.pricing-section{padding:0 20px 80px}.pricing-grid{grid-template-columns:1fr}.pricing-card{padding:32px 24px}.why-section,.faq-section,.cta-section,.guarantee-section{padding:70px 20px}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="glow" id="glow"></div>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ZOO<em>.</em></a>
+  <ul class="nav-links"><li><a href="/">Home</a></li><li><a href="/products">Products</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/#services">Services</a></li><li><a href="/#contact">Contact</a></li></ul>
+  <a href="#pricing" class="nav-cta">Get Started</a>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Pricing</div>
+    <h1 class="hero-title">Scale faster.<br><span class="gradient">Buy once, ship forever.</span></h1>
+    <p class="hero-subtitle">48+ production-ready AI agents and boilerplate kits. Save 40+ hours/week. No subscriptions. No recurring fees. Just results.</p>
+    <div class="hero-ctas"><a href="#pricing" class="btn btn-primary">View All Products →</a><a href="/products" class="btn btn-secondary">Browse Catalog</a></div>
+  </div>
+</section>
+<section class="pricing-section" id="pricing">
+  <div class="pricing-grid">
+    <div class="pricing-card featured fade-up"><span class="badge badge-hot">Hot</span><span class="product-icon">🛡️</span><div class="product-category">AI / Observability</div><div class="product-name">AI Agent Observability Kit</div><div class="product-desc">Detect hallucinations, trace decisions, monitor memory drift, audit tool calls. 6 modules. Framework-agnostic. Self-hosted.</div><div class="price-row"><span class="price-amount"><span class="currency">$</span>39</span><span class="price-period">one-time</span></div><ul class="features-list"><li>Hallucination Detector (source cross-ref)</li><li>Decision Tracer with replay</li><li>Memory Drift Monitor</li><li>Permission Auditor (least-privilege)</li><li>Cost Tracker + budget alerts</li><li>Slack + Email alert integration</li></ul><div class="card-ctas"><a href="/checkout.html?product=observability-kit&price=39" class="btn btn-primary">Get the Kit →</a><a href="/products/agent-observability-kit/" class="btn btn-secondary">Details</a></div></div>
+    <div class="pricing-card featured fade-up"><span class="badge badge-new">New</span><span class="product-icon">🧠</span><div class="product-category">AI / Memory</div><div class="product-name">AI Agent Memory Toolkit</div><div class="product-desc">Production-ready memory architecture for AI agents. Vector store, hierarchical memory, multi-agent sharing. Python + ChromaDB.</div><div class="price-row"><span class="price-amount"><span class="currency">$</span>39</span><span class="price-period">one-time</span></div><ul class="features-list"><li>Vector Memory Store (ChromaDB)</li><li>Hierarchical Memory (3 layers)</li><li>Memory Consolidation engine</li><li>Multi-Agent Sharing (Redis)</li><li>Production Agent class included</li></ul><div class="card-ctas"><a href="/checkout.html?product=memory-toolkit&price=39" class="btn btn-primary">Get the Toolkit →</a><a href="/products/ai-agent-memory-toolkit/" class="btn btn-secondary">Details</a></div></div>
+    <div class="pricing-card fade-up"><span class="badge badge-value">Best Value</span><span class="product-icon">📋</span><div class="product-category">Notion Templates</div><div class="product-name">Notion Template Pack</div><div class="product-desc">10 battle-tested Notion templates that give you back 10+ hours/week. Startup OS, CRM, Roadmap, Finance Tracker, and more.</div><div class="price-row"><span class="price-amount"><span class="currency">$</span>29</span><span class="price-original">$49</span><span class="price-save">Save 40%</span></div><ul class="features-list"><li>ALL 10 templates included</li><li>Startup OS, CRM, Roadmap, Finance</li><li>Fundraising, Hiring, OKRs, Sprint, Journal</li><li>Bonus: Founder's Quick Start Guide (PDF)</li><li>Free updates forever</li></ul><div class="card-ctas"><a href="/checkout.html?product=notion-pro&price=29" class="btn btn-primary">Get Pro Bundle →</a><a href="/products/notion-template-pack/" class="btn btn-secondary">Details</a></div></div>
+    <div class="pricing-card fade-up"><span class="product-icon">🤖</span><div class="product-category">AI / Boilerplate</div><div class="product-name">AI Agent Starter Kit</div><div class="product-desc">Production-ready AI Agent boilerplate. LangChain, memory, tools, multi-agent orchestration. Python + TypeScript.</div><div class="price-row"><span class="price-amount"><span class="currency">$</span>49</span><span class="price-period">one-time</span></div><ul class="features-list"><li>Full AI Agent boilerplate</li><li>LangChain + LangGraph integration</li><li>Memory management system</li><li>Multi-agent orchestration</li><li>Docker + CI/CD included</li></ul><div class="card-ctas"><a href="/checkout.html?product=ai-agent-kit&price=49" class="btn btn-primary">Get the Kit →</a><a href="/products/ai-agent-starter-kit/" class="btn btn-secondary">Details</a></div></div>
+    <div class="pricing-card fade-up"><span class="product-icon">📈</span><div class="product-category">Trading</div><div class="product-name">Trading EA Templates</div><div class="product-desc">5 Expert Advisor templates for MT4/MT5 + Pine Script. Battle-tested strategies with risk management.</div><div class="price-row"><span class="price-amount"><span class="currency">$</span>49</span><span class="price-period">one-time</span></div><ul class="features-list"><li>5 Expert Advisor templates (MT4/MT5)</li><li>Pine Script indicators included</li><li>Backtesting framework</li><li>Risk management module</li><li>Video tutorials included</li></ul><div class="card-ctas"><a href="/checkout.html?product=trading-ea&price=49" class="btn btn-primary">Get All 5 EAs →</a><a href="/products/trading-ea-templates/" class="btn btn-secondary">Details</a></div></div>
+    <div class="pricing-card fade-up"><span class="product-icon">⚡</span><div class="product-category">Developer Tools</div><div class="product-name">API Boilerplate Collection</div><div class="product-desc">3 production API boilerplates: REST, GraphQL, Realtime. TypeScript, Node.js, Prisma, Redis, Docker.</div><div class="price-row"><span class="price-amount"><span class="currency">$</span>39</span><span class="price-period">one-time</span></div><ul class="features-list"><li>REST API boilerplate (Express/Fastify)</li><li>GraphQL API boilerplate (Apollo Server)</li><li>Realtime API boilerplate (WebSocket)</li><li>JWT + OAuth2 + RBAC</li><li>Docker + CI/CD + Tests</li></ul><div class="card-ctas"><a href="/checkout.html?product=api-boilerplate&price=39" class="btn btn-primary">Get All 3 →</a><a href="/products/api-boilerplate/" class="btn btn-secondary">Details</a></div></div>
+    <div class="pricing-card fade-up"><span class="product-icon">🎨</span><div class="product-category">Design / Templates</div><div class="product-name">Landing Page Templates</div><div class="product-desc">7 responsive HTML/CSS landing page templates. SaaS, agency, product launch, course, event, blog, portfolio.</div><div class="price-row"><span class="price-amount"><span class="currency">$</span>29</span><span class="price-period">one-time</span></div><ul class="features-list"><li>7 production-ready templates</li><li>SaaS, agency, product, course, event</li><li>Fully responsive + accessible</li><li>Clean code, easy to customize</li><li>Figma files included</li></ul><div class="card-ctas"><a href="/checkout.html?product=landing-templates&price=29" class="btn btn-primary">Get Templates →</a><a href="/products/landing-page-templates/" class="btn btn-secondary">Preview</a></div></div>
+  </div>
+</section>
+<section class="why-section">
+  <div class="why-inner">
+    <div class="why-eyebrow">Why ZOO</div>
+    <h2 class="why-title">Built by an AI-native<br><span style="background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">company that ships.</span></h2>
+    <p class="why-text">We're not a template shop. We're a technology company that builds AI agents, trading systems, and full-stack software. Every product is battle-tested in production — because we use them ourselves.</p>
+    <div class="why-grid">
+      <div class="why-item fade-up"><div class="why-item-icon">⚡</div><h3>Ship in Hours</h3><p>Production-ready code. Not a toy. Not a tutorial. Real patterns you can deploy today.</p></div>
+      <div class="why-item fade-up"><div class="why-item-icon">🔄</div><h3>Lifetime Updates</h3><p>Buy once, get every future update free. We improve our products constantly.</p></div>
+      <div class="why-item fade-up"><div class="why-item-icon">🛡️</div><h3>30-Day Guarantee</h3><p>Not satisfied? Full refund. No questions. No risk.</p></div>
+      <div class="why-item fade-up"><div class="why-item-icon">💬</div><h3>Email Support</h3><p>Stuck? We respond within 24 hours. Real humans (and helpful AI agents).</p></div>
+    </div>
+  </div>
+</section>
+<section class="guarantee-section">
+  <div class="guarantee-inner"><div class="guarantee-icon">🛡️</div><h2 class="guarantee-title">30-Day Money-Back Guarantee</h2><p class="guarantee-text">Every product is backed by our iron-clad guarantee. If you're not satisfied for any reason, get a full refund within 30 days. No questions asked. All payments secured by Stripe.</p></div>
+</section>
+<section class="faq-section">
+  <div class="faq-inner">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is this a one-time payment or subscription?</div><div class="faq-a">One-time payment. Always. No subscriptions, no recurring charges. You pay once and get lifetime access including all future updates.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What do I get exactly?</div><div class="faq-a">Each product includes production-ready source code or templates, documentation, and examples. Digital delivery — you'll receive everything immediately after purchase.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do you offer refunds?</div><div class="faq-a">Yes! 30-day money-back guarantee. If you're not satisfied for any reason, contact us for a full refund. No questions asked.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I use these for client projects?</div><div class="faq-a">Yes. Our license covers commercial use, including client projects. You can modify, extend, and deploy however you need.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How do I get support?</div><div class="faq-a">Email us anytime. We respond within 24 hours. Pro bundle buyers get priority support.</div></div>
+  </div>
+</section>
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <h2 class="cta-title">Ready to <span style="background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">ship faster</span>?</h2>
+    <p class="cta-subtitle">Join hundreds of founders and developers who use ZOO products to build faster.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap"><a href="#pricing" class="btn btn-primary">Get Started →</a><a href="/products" class="btn btn-secondary">Browse All Products</a></div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer-links"><a href="/">Home</a><a href="/products">Products</a><a href="/blog.html">Blog</a><a href="/#services">Services</a><a href="/#contact">Contact</a></div>
+  <p>© 2026 <a href="/">ZOO Technologies</a> · AI-Powered Technology Studio · All payments secured by Stripe</p>
+</footer>
+<script>
+const glow=document.getElementById('glow');let mx=0,my=0,gx=0,gy=0;
+document.addEventListener('mousemove',(e)=>{mx=e.clientX;my=e.clientY});
+function ag(){gx+=(mx-gx)*0.08;gy+=(my-gy)*0.08;glow.style.left=gx+'px';glow.style.top=gy+'px';requestAnimationFrame(ag)}ag();
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
